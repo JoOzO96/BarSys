@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Lista de Fornecedores</title>
+</h:head>
+<h:body onload="#{fornecedorCrud.inicializarLista()}">
+
+	<h:form id="formLista">
+		<p:dataTable var="forne" value="#{fornecedorCrud.lista}"
+			paginator="true" rows="10" rowsPerPageTemplate="5,10,15"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
+{LastPageLink} {RowsPerPageDropdown}"
+			currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}."
+			emptyMessage="Nenhum resultado encontrado">
+			<f:facet name="header">
+				<p:spacer height="30"></p:spacer>
+				<div align="left" style="position: absolute; top: 20px; width: 95%;">
+					<p:outputLabel value="Listagem de Fornecedores"></p:outputLabel>
+				</div>
+				<div align="right"
+					style="position: absolute; top: 12px; width: 95%;">
+					<p:commandButton id="botaoIncluir" value="Incluir"
+						action="#{fornecedorCrud.incluir}" ajax="false" />
+				</div>
+			</f:facet>
+			<p:column headerText="Código" sortBy="#{forne.codFornecedor}"
+				filterBy="#{forne.codFornecedor}" filterMatchMode="exact">
+				<h:outputText value="#{forne.codFornecedor}" />
+			</p:column>
+			<p:column headerText="CNPJ:" sortBy="#{forne.cnpj}"
+				filterBy="#{forne.cnpj}" filterMatchMode="contains">
+				<h:outputText value="#{forne.cnpj}" />
+			</p:column>
+
+			<p:column headerText="" width="90">
+				<p:commandButton action="#{fornecedorCrud.alterar(forne.id)}"
+					value="Alterar" ajax="false" />
+			</p:column>
+			<p:column headerText="" width="90">
+				<p:commandButton action="#{fornecedorCrud.excluir(forne.id)}"
+					value="Excluir" ajax="false"
+					onclick="if (!confirm('Confirma a exclusão?')) return false" />
+			</p:column>
+			<p:column headerText="" width="90">
+				<p:commandButton id="botaoVerEndereco" value="Endereco" ajax="true"
+					actionListener="#{fornecedorCrud.incluirEnderecoFornecedor}"
+					update=":formEnderecoFornecedor"
+					onclick="PF('dialogoEnderecoFornecedor').show();" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+	<p:dialog header="Visualizar Endereco Fornecedor"
+		widgetVar="dialogoEnderecoFornecedor" width="1000" resizable="false"
+		modal="true">
+		<h:form id="formEnderecoFornecedor">
+			<p:growl />
+			<p:outputLabel value="EnderecoFornecedor" />
+			<p:dataTable id="tabelaEnderecoFornecedor" rowIndexVar="rowIndex"
+				var="obj" value="#{fornecedorCrud.objeto.enderecoFornecedor}"
+				emptyMessage="Nenhum resultado encontrado">
+				<f:facet name="header">
+					<div align="left"
+						style="position: relative; height: 10px; top: 5px; width: 95%;">
+						<p:outputLabel value="Listagem de enderecos"></p:outputLabel>
+					</div>
+				</f:facet>
+				<p:outputLabel value="Cidade:" for="cidade" />
+				<p:autoComplete id="cidade" style="width:600px" dropdown="true"
+					multiple="false" forceSelection="true" var="cidadeEndFor"
+					itemLabel="#{cidadeEndFor.nome}" itemValue="cidadeEndFor"
+					value="#{fornecedorCrud.objeto.codFornecedor}"
+					converter="cidadeConverter"
+					completeMethod="#{fornecedorCrud.completeCidade}" />
+
+				<p:outputLabel value="Endereço:" for="endereco" />
+				<p:inputText id="endereco" size="50"
+					value="#{fornecedorCrud.enderecoFornecedor.rua}" />
+
+				<p:outputLabel value="Número:" for="numero" />
+				<p:inputText id="numero" size="50"
+					value="#{fornecedorCrud.enderecoFornecedor.numero}" />
+
+				<p:outputLabel value="Complemento:" for="complemento" />
+				<p:inputText id="complemento" size="50"
+					value="#{fornecedorCrud.enderecoFornecedor.complemento}" />
+
+				<p:outputLabel value="Bairro:" for="bairro" />
+				<p:inputText id="bairro" size="50"
+					value="#{fornecedorCrud.enderecoFornecedor.bairro}" />
+
+				<p:outputLabel value="Ie:" for="iestadual" />
+				<p:inputText id="iestadual" size="50"
+					value="#{fornecedorCrud.enderecoFornecedor.iestadual}" />
+
+				<p:outputLabel value="Referencia:" for="referencia" />
+				<p:inputText id="referencia" size="50"
+					value="#{fornecedorCrud.enderecoFornecedor.referencia}" />
+			</p:dataTable>
+		</h:form>
+	</p:dialog>
+
+</h:body>
+
+</html>

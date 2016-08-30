@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Conpatible" content="IE=edge" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title></title>
+</h:head>
+<h:body>
+	<h:form id="formEditar">
+		<p:growl></p:growl>
+		<p:focus for="nome" />
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+				<p:outputLabel value="Edição de Materia Prima" />
+			</f:facet>
+			<p:outputLabel value="Código:" for="codMateriaPrima" />
+			<p:inputText id="codMateriaPrima" readonly="true"
+				value="#{materiaPrimaCrud.objeto.codMateriaPrima}" />
+
+			<p:outputLabel value="Nome:" for="nome" />
+			<p:inputText id="nome" size="50" value="#{materiaPrimaCrud.objeto.nome}" />
+
+
+			<p:outputLabel value="Quantidade:" for="quantidade" />
+			<p:inputText id="quantidade" size="50"
+				value="#{materiaPrimaCrud.objeto.quantidade}" />
+
+			<p:outputLabel value="Unidade:" for="unidade" />
+			<p:inputText id="unidade" size="50"
+				value="#{materiaPrimaCrud.objeto.unidade}" />
+
+			<p:outputLabel value="Data de Cadastro" for="datacadastro" />
+			<p:calendar id="datacadastro"
+				value="#{materiaPrimaCrud.objeto.dataCadastro}" pattern="dd/MM/yyyy"
+				mask="true" showOn="button" />
+
+			<f:facet name="footer">
+				<p:commandButton value="Gravar" action="#{materiaPrimaCrud.gravar}"
+					ajax="false" />
+				<p:commandButton value="Cancelar" action="#{materiaPrimaCrud.cancelar}"
+					ajax="false" immediate="true" />
+			</f:facet>
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

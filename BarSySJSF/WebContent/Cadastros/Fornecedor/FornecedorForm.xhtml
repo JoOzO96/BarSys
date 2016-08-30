@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+</h:head>
+<h:body>
+	<h:form id="formEditar">
+		<p:growl></p:growl>
+		<p:focus for="nome" />
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+				<p:outputLabel value="Edição de Fornecedor" />
+			</f:facet>
+
+			<p:outputLabel value="Código:" for="id" />
+			<p:inputText id="id" readonly="true" size="5"
+				value="#{fornecedorCrud.objeto.codFornecedor}" />
+
+			<p:outputLabel value="Nome:" for="nome" />
+			<p:inputText id="nome" size="50"
+				value="#{fornecedorCrud.objeto.nome}" />
+
+			<p:outputLabel value="CNPJ:" for="cnpj" />
+			<p:inputMask id="cnpj" size="50"
+				value="#{fornecedorCrud.objeto.cnpj}" mask="99.999.999/9999-99" />
+
+
+			<p:outputLabel value="EnderecoFornecedor" />
+			<p:dataTable id="tabelaEnderecoFornecedor" rowIndexVar="rowIndex"
+				var="obj" value="#{fornecedorCrud.objeto.enderecoFornecedor}"
+				emptyMessage="Nenhum resultado encontrado">
+				<f:facet name="header">
+					<div align="left"
+						style="position: relative; height: 10px; top: 5px; width: 95%;">
+						<p:outputLabel value="Listagem de Endereços"></p:outputLabel>
+					</div>
+					<div align="right"
+						style="position: relative; height: 10px; top: -12px; width: 95%;">
+						<p:commandButton id="botaoIncluir" value="Incluir" ajax="true"
+							actionListener="#{fornecedorCrud.incluirEnderecoFornecedor}"
+							update=":formEnderecoFornecedor"
+							onclick="PF('dialogoEnderecoFornecedor').show();" />
+					</div>
+				</f:facet>
+				<p:outputLabel value="Cidade:" for="cidade" />
+				<p:autoComplete id="cidade" style="width:600px" dropdown="true"
+					multiple="false" forceSelection="true" var="cidadeEndFor"
+					itemLabel="#{cidadeEndFor.nome}" itemValue="cidadeEndFor"
+					value="#{fornecedorCrud.objeto.codFornecedor}"
+					converter="cidadeConverter"
+					completeMethod="#{fornecedorCrud.completeCidade}" />
+
+				<p:outputLabel value="Endereço:" for="endereco" />
+				<p:inputText id="endereco" size="50"
+					value="#{fornecedorCrud.enderecoFornecedor.rua}" />
+
+				<p:outputLabel value="Número:" for="numero" />
+				<p:inputText id="numero" size="50"
+					value="#{fornecedorCrud.enderecoFornecedor.numero}" />
+
+				<p:outputLabel value="Complemento:" for="complemento" />
+				<p:inputText id="complemento" size="50"
+					value="#{fornecedorCrud.enderecoFornecedor.complemento}" />
+
+				<p:outputLabel value="Bairro:" for="bairro" />
+				<p:inputText id="bairro" size="50"
+					value="#{fornecedorCrud.enderecoFornecedor.bairro}" />
+
+				<p:outputLabel value="Ie:" for="iestadual" />
+				<p:inputText id="iestadual" size="50"
+					value="#{fornecedorCrud.enderecoFornecedor.iestadual}" />
+
+				<p:outputLabel value="Referencia:" for="referencia" />
+				<p:inputText id="referencia" size="50"
+					value="#{fornecedorCrud.enderecoFornecedor.referencia}" />
+
+				<p:column headerText="" width="60">
+					<p:commandButton
+						actionListener="#{fornecedorCrud.alterarEnderecoFornecedor(rowIndex)}"
+						value="Alterar" ajax="true" update=":formEnderecoFornecedor"
+						onclick="PF('dialogoEnderecoFornecedor').show();" />
+				</p:column>
+				<p:column headerText="" width="60">
+					<p:commandButton
+						actionListener="#{recebimentoCrud.excluirEnderecoFornecedor(rowIndex)}"
+						value="Excluir" ajax="true"
+						onclick="if (!confirm('Confirma a exclusão?')) return false">
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+			<f:facet name="footer">
+				<p:commandButton value="Gravar" action="#{fornecedorCrud.gravar}"
+					ajax="false" />
+				<p:commandButton value="Cancelar"
+					action="#{fornecedorCrud.cancelar}" ajax="false" immediate="true" />
+			</f:facet>
+		</p:panelGrid>
+	</h:form>
+
+	<p:dialog header="Editar Endereco Fornecedor"
+		widgetVar="dialogoEnderecoFornecedor" width="1000" resizable="false"
+		modal="true">
+		<h:form id="formEnderecoFornecedor">
+			<p:growl />
+			<h:panelGrid columns="2" style="margin-bottom:10px">
+				<p:commandLink value="Cidade"
+					onclick="parent.abrePopUp('/BarSysJSF/faces/Cadastros/Cidade/CidadeList.xhtml', 'Cadastro de Fornecedores', 600, 800, true)" />
+				<p:autoComplete id="cidade" size="60" dropdown="true"
+					multiple="false" forceSelection="true" var="obj"
+					itemLabel="#{obj.nome}" itemValue="#{obj}"
+					value="#{fornecedorCrud.enderecoFornecedor.cidade}"
+					converter="cidadeConverter"
+					completeMethod="#{fornecedorCrud.completeCidade}" />
+
+				<p:outputLabel value="Endereco:" for="endereco" />
+				<p:inputText id="endereco" size="60"
+					style="text-align: left;"
+					value="#{fornecedorCrud.enderecoFornecedor.rua}">
+				</p:inputText>
+				
+				<p:outputLabel value="Numero:" for="numero" />
+				<p:inputText id="numero" maxlength="255" size="60"
+					style="text-align: left;"
+					value="#{fornecedorCrud.enderecoFornecedor.numero}">
+				</p:inputText>
+				
+				<p:outputLabel value="Complemento:" for="complemento" />
+				<p:inputText id="complemento" size="60" maxlength="255"
+					style="text-align: left;"
+					value="#{fornecedorCrud.enderecoFornecedor.complemento}">
+				</p:inputText>
+				
+				<p:outputLabel value="Bairro:" for="bairro" />
+				<p:inputText id="bairro" size="60" maxlength="50"
+					style="text-align: left;"
+					value="#{fornecedorCrud.enderecoFornecedor.bairro}">
+				</p:inputText>
+				
+				<p:outputLabel value="Inscricao Estadual:" for="inscricaoestadual" />
+				<p:inputText id="inscricaoestadual" maxlength="255" size="60"
+					style="text-align: left;"
+					value="#{fornecedorCrud.enderecoFornecedor.iestadual}">
+				</p:inputText>
+				
+				<p:outputLabel value="Referencia:" for="referencia" />
+				<p:inputText id="referencia" maxlength="255" size="60"
+					style="text-align: left;"
+					value="#{fornecedorCrud.enderecoFornecedor.referencia}">
+				</p:inputText>
+				
+			</h:panelGrid>
+			
+			
+			<p:commandButton
+				actionListener="#{fornecedorCrud.gravarEnderecoFornecedor}"
+				validateClient="true" value="Gravar"
+				update=":formEnderecoFornecedor :formEditar:tabelaEnderecoFornecedor"
+				oncomplete="if (!args.validationFailed){ PF('dialogoEnderecoFornecedor').hide();}"
+				ajax="true">
+			</p:commandButton>
+			<p:commandButton
+				actionListener="#{fornecedorCrud.cancelarEnderecoFornecedor}"
+				value="Cancelar" update=":formEditar:tabelaEnderecoFornecedor"
+				immediate="true"
+				oncomplete="PF('dialogoEnderecoFornecedor').hide();" ajax="true" />
+				
+		</h:form>
+	</p:dialog>
+
+</h:body>
+</html>

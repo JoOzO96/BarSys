@@ -3,27 +3,26 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="BarSysJPA">
-		<class>br.sistema.dao.Situacao</class>
-		<class>br.sistema.dao.Cliente</class>
-		<class>br.sistema.dao.ClienteEndereco</class>
-		<class>br.sistema.dao.Cidade</class>
-		<class>br.sistema.dao.ContasPagar</class>
-		<class>br.sistema.dao.ContasPagarParcelas</class>
-		<class>br.sistema.dao.Entrada</class>
-		<class>br.sistema.dao.EntradaItem</class>
-		<class>br.sistema.dao.Fornecedor</class>
-		<class>br.sistema.dao.FornecedorEndereco</class>
-		<class>br.sistema.dao.MateriaPrima</class>
-		<class>br.sistema.dao.Pedido</class>
-		<class>br.sistema.dao.PedidoProduto</class>
-		<class>br.sistema.dao.Produto</class>
-		<class>br.sistema.dao.ProdutoComposicao</class>
+		<class>br.sistema.beans.Situacao</class>
+		<class>br.sistema.beans.Cliente</class>
+		<class>br.sistema.beans.ClienteEndereco</class>
+		<class>br.sistema.beans.Cidade</class>
+		<class>br.sistema.beans.ContasPagar</class>
+		<class>br.sistema.beans.ContasPagarParcelas</class>
+		<class>br.sistema.beans.Entrada</class>
+		<class>br.sistema.beans.EntradaItem</class>
+		<class>br.sistema.beans.Fornecedor</class>
+		<class>br.sistema.beans.FornecedorEndereco</class>
+		<class>br.sistema.beans.MateriaPrima</class>
+		<class>br.sistema.beans.Pedido</class>
+		<class>br.sistema.beans.PedidoProduto</class>
+		<class>br.sistema.beans.Produto</class>
+		<class>br.sistema.beans.ProdutoComposicao</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/barsys" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
 			<property name="javax.persistence.jdbc.password" value="masterkey" />
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 			<!-- <property name="javax.persistence.schema-generation.database.action" 
 				value="update"/> -->
 		</properties>
