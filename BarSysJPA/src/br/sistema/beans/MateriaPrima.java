@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -36,6 +38,8 @@ public class MateriaPrima implements Serializable {
 	@Length(min=1, max=10, message="A unidade da materia prima deve ter entre {min} e {max} caracteres!")
 	@Column(length = 10)
 	private String unidade;
+	@NotNull(message="A quantidade nao pode ser nula.")
+	@Min(message="O valor deve ser maior que zero", value=0)
 	private Float quantidade;
 	private Float valorCustoMedio;
 	private Float valorUltimaCompra;
@@ -45,7 +49,7 @@ public class MateriaPrima implements Serializable {
 		super();
 		quantidade = 0F;
 		unidade = "UN";
-		dataCadastro = new Date();
+		dataCadastro = new Date(System.currentTimeMillis());
 		valorUltimaCompra = 0F;
 		valorCustoMedio = 0F;
 	}   
