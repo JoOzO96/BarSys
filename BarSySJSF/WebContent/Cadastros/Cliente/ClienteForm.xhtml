@@ -14,25 +14,28 @@
 		<p:focus for="nome" />
 		<p:panelGrid columns="2">
 			<f:facet name="header">
-				<p:outputLabel value="Edição de Fornecedor" />
+				<p:outputLabel value="Edição de Cliente" />
 			</f:facet>
 
 			<p:outputLabel value="Código:" for="id" />
 			<p:inputText id="id" readonly="true" size="5"
-				value="#{fornecedorCrud.objeto.codFornecedor}" />
+				value="#{clienteCrud.objeto.codCliente}" />
 
 			<p:outputLabel value="Nome:" for="nome" />
-			<p:inputText id="nome" size="50"
-				value="#{fornecedorCrud.objeto.nome}" />
+			<p:inputText id="nome" size="50" value="#{clienteCrud.objeto.nome}" />
 
-			<p:outputLabel value="CNPJ:" for="cnpj" />
-			<p:inputMask id="cnpj" size="50"
-				value="#{fornecedorCrud.objeto.cnpj}" mask="99.999.999/9999-99" />
+			<p:outputLabel value="CPF:" for="cpf" />
+			<p:inputMask id="cpf" value="#{clienteCrud.objeto.cpf}"
+				mask="999.999.999-99" />
+
+			<p:outputLabel value="RG:" for="rg" />
+			<p:inputMask id="rg" value="#{clienteCrud.objeto.rg}"
+				/>
 
 
-			<p:outputLabel value="EnderecoFornecedor" />
-			<p:dataTable id="tabelaEnderecoFornecedor" rowIndexVar="rowIndex"
-				var="obj" value="#{fornecedorCrud.objeto.enderecoFornecedor}"
+			<p:outputLabel value="EnderecoCliente" />
+			<p:dataTable id="tabelaEnderecoCliente" rowIndexVar="rowIndex"
+				var="obj" value="#{clienteCrud.objeto.enderecoCliente}"
 				emptyMessage="Nenhum resultado encontrado">
 				<f:facet name="header">
 					<div align="left"
@@ -42,49 +45,49 @@
 					<div align="right"
 						style="position: relative; height: 10px; top: -12px; width: 95%;">
 						<p:commandButton id="botaoIncluir" value="Incluir" ajax="true"
-							actionListener="#{fornecedorCrud.incluirEnderecoFornecedor}"
-							update=":formEnderecoFornecedor"
-							onclick="PF('dialogoEnderecoFornecedor').show();" />
+							actionListener="#{clienteCrud.incluirEnderecoCliente}"
+							update=":formEnderecoCliente"
+							onclick="PF('dialogoEnderecoCliente').show();" />
 					</div>
 				</f:facet>
 
 				<p:column headerText="Cidade:">
-					<h:outputText value="#{obj.cidade}" converter="cidadeConverterNome"  />
+					<h:outputText value="#{obj.cidade}" converter="cidadeConverterNome" />
 				</p:column>
-				
+
 				<p:column headerText="Rua:">
 					<h:outputText value="#{obj.rua}" />
 				</p:column>
-				
+
 				<p:column headerText="Numero:">
 					<h:outputText value="#{obj.numero}" />
 				</p:column>
-				
+
 				<p:column headerText="Complemento:">
 					<h:outputText value="#{obj.complemento}" />
 				</p:column>
-				
+
 				<p:column headerText="Bairro:">
 					<h:outputText value="#{obj.bairro}" />
 				</p:column>
-				
+
 				<p:column headerText="IE:">
 					<h:outputText value="#{obj.iestadual}" />
 				</p:column>
-				
+
 				<p:column headerText="Referencia:">
 					<h:outputText value="#{obj.referencia}" />
 				</p:column>
 
 				<p:column headerText="" width="60">
 					<p:commandButton
-						actionListener="#{fornecedorCrud.alterarEnderecoFornecedor(rowIndex)}"
-						value="Alterar" ajax="true" update=":formEnderecoFornecedor"
-						onclick="PF('dialogoEnderecoFornecedor').show();" />
+						actionListener="#{clienteCrud.alterarEnderecoCliente(rowIndex)}"
+						value="Alterar" ajax="true" update=":formEnderecoCliente"
+						onclick="PF('dialogoEnderecoCliente').show();" />
 				</p:column>
 				<p:column headerText="" width="60">
 					<p:commandButton
-						actionListener="#{recebimentoCrud.excluirEnderecoFornecedor(rowIndex)}"
+						actionListener="#{recebimentoCrud.excluirEnderecoCliente(rowIndex)}"
 						value="Excluir" ajax="true"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
 					</p:commandButton>
@@ -93,81 +96,80 @@
 			</p:dataTable>
 
 			<f:facet name="footer">
-				<p:commandButton value="Gravar" action="#{fornecedorCrud.gravar}"
+				<p:commandButton value="Gravar" action="#{clienteCrud.gravar}"
 					ajax="false" />
-				<p:commandButton value="Cancelar"
-					action="#{fornecedorCrud.cancelar}" ajax="false" immediate="true" />
+				<p:commandButton value="Cancelar" action="#{clienteCrud.cancelar}"
+					ajax="false" immediate="true" />
 			</f:facet>
 		</p:panelGrid>
 	</h:form>
 
-	<p:dialog header="Editar Endereco Fornecedor"
-		widgetVar="dialogoEnderecoFornecedor" width="1000" resizable="false"
+	<p:dialog header="Editar Endereco Cliente"
+		widgetVar="dialogoEnderecoCliente" width="1000" resizable="false"
 		modal="true">
-		<h:form id="formEnderecoFornecedor">
+		<h:form id="formEnderecoCliente">
 			<p:growl />
 			<h:panelGrid columns="2" style="margin-bottom:10px">
 				<p:commandLink value="Cidade"
-					onclick="parent.abrePopUp('/BarSysJSF/faces/Cadastros/Cidade/CidadeList.xhtml', 'Cadastro de Fornecedores', 600, 800, true)" />
+					onclick="parent.abrePopUp('/BarSysJSF/faces/Cadastros/Cidade/CidadeList.xhtml', 'Cadastro de Clientees', 600, 800, true)" />
 				<p:autoComplete id="cidade" size="60" dropdown="true"
 					multiple="false" forceSelection="true" var="obj"
 					itemLabel="#{obj.nome}" itemValue="#{obj}"
-					value="#{fornecedorCrud.enderecoFornecedor.cidade}"
+					value="#{clienteCrud.enderecoCliente.cidade}"
 					converter="cidadeConverter"
-					completeMethod="#{fornecedorCrud.completeCidade}" />
+					completeMethod="#{clienteCrud.completeCidade}" />
 
 				<p:outputLabel value="Endereco:" for="endereco" />
-				<p:inputText id="endereco" size="60"
-					style="text-align: left;"
-					value="#{fornecedorCrud.enderecoFornecedor.rua}">
+				<p:inputText id="endereco" size="60" style="text-align: left;"
+					value="#{clienteCrud.enderecoCliente.rua}">
 				</p:inputText>
-				
+
 				<p:outputLabel value="Numero:" for="numero" />
 				<p:inputText id="numero" maxlength="255" size="60"
 					style="text-align: left;"
-					value="#{fornecedorCrud.enderecoFornecedor.numero}">
+					value="#{clienteCrud.enderecoCliente.numero}">
 				</p:inputText>
-				
+
 				<p:outputLabel value="Complemento:" for="complemento" />
 				<p:inputText id="complemento" size="60" maxlength="255"
 					style="text-align: left;"
-					value="#{fornecedorCrud.enderecoFornecedor.complemento}">
+					value="#{clienteCrud.enderecoCliente.complemento}">
 				</p:inputText>
-				
+
 				<p:outputLabel value="Bairro:" for="bairro" />
 				<p:inputText id="bairro" size="60" maxlength="50"
 					style="text-align: left;"
-					value="#{fornecedorCrud.enderecoFornecedor.bairro}">
+					value="#{clienteCrud.enderecoCliente.bairro}">
 				</p:inputText>
-				
+
 				<p:outputLabel value="Inscricao Estadual:" for="inscricaoestadual" />
 				<p:inputText id="inscricaoestadual" maxlength="255" size="60"
 					style="text-align: left;"
-					value="#{fornecedorCrud.enderecoFornecedor.iestadual}">
+					value="#{clienteCrud.enderecoCliente.iestadual}">
 				</p:inputText>
-				
+
 				<p:outputLabel value="Referencia:" for="referencia" />
 				<p:inputText id="referencia" maxlength="255" size="60"
 					style="text-align: left;"
-					value="#{fornecedorCrud.enderecoFornecedor.referencia}">
+					value="#{clienteCrud.enderecoCliente.referencia}">
 				</p:inputText>
-				
+
 			</h:panelGrid>
-			
-			
+
+
 			<p:commandButton
-				actionListener="#{fornecedorCrud.gravarEnderecoFornecedor}"
+				actionListener="#{clienteCrud.gravarEnderecoCliente}"
 				validateClient="true" value="Gravar"
-				update=":formEnderecoFornecedor :formEditar:tabelaEnderecoFornecedor"
-				oncomplete="if (!args.validationFailed){ PF('dialogoEnderecoFornecedor').hide();}"
+				update=":formEnderecoCliente :formEditar:tabelaEnderecoCliente"
+				oncomplete="if (!args.validationFailed){ PF('dialogoEnderecoCliente').hide();}"
 				ajax="true">
 			</p:commandButton>
 			<p:commandButton
-				actionListener="#{fornecedorCrud.cancelarEnderecoFornecedor}"
-				value="Cancelar" update=":formEditar:tabelaEnderecoFornecedor"
-				immediate="true"
-				oncomplete="PF('dialogoEnderecoFornecedor').hide();" ajax="true" />
-				
+				actionListener="#{clienteCrud.cancelarEnderecoCliente}"
+				value="Cancelar" update=":formEditar:tabelaEnderecoCliente"
+				immediate="true" oncomplete="PF('dialogoEnderecoCliente').hide();"
+				ajax="true" />
+
 		</h:form>
 	</p:dialog>
 

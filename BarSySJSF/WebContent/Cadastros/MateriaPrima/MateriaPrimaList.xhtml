@@ -49,7 +49,15 @@
 				filterMatchMode="startsWith">
 				<h:outputText value="#{obj.unidade}" />
 			</p:column>
-
+			<p:column headerText="" width="90">
+				<p:commandButton action="#{materiaPrimaCrud.alterar(obj.codMateriaPrima)}"
+					value="Alterar" ajax="false" />
+			</p:column>
+			<p:column headerText="" width="90">
+				<p:commandButton action="#{materiaPrimaCrud.excluir(obj.codMateriaPrima)}"
+					value="Excluir" ajax="false"
+					onclick="if (!confirm('Confirma a exclusão?')) return false" />
+			</p:column>
 		</p:dataTable>
 	</h:form>
 </h:body>

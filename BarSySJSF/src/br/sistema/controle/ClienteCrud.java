@@ -7,26 +7,26 @@ import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 
 import br.sistema.beans.Cidade;
-import br.sistema.beans.Fornecedor;
-import br.sistema.beans.FornecedorEndereco;
+import br.sistema.beans.Cliente;
+import br.sistema.beans.ClienteEndereco;
 import br.sistema.uteis.FabricaConexao;
 
 @ManagedBean
 @SessionScoped
-public class FornecedorCrud {
+public class ClienteCrud {
 
-	private List<Fornecedor> lista;
-	private Fornecedor objeto;
+	private List<Cliente> lista;
+	private Cliente objeto;
 
 	public void inicializarLista() {
 		EntityManager em = FabricaConexao.getEntityManager();
-		lista = em.createQuery("from Fornecedor").getResultList();
+		lista = em.createQuery("from Cliente").getResultList();
 		em.close();
 	}
 
-	public void enderecoFornecedor() {
+	public void enderecoCliente() {
 		EntityManager em = FabricaConexao.getEntityManager();
-		lista = em.createQuery("from Fornecedor").getResultList();
+		lista = em.createQuery("from Cliente").getResultList();
 		em.close();
 	}
 	
@@ -41,8 +41,8 @@ public class FornecedorCrud {
 		}
 	
 	public String incluir() {
-		objeto = new Fornecedor();
-		return "FornecedorForm?faces-redirect=true";
+		objeto = new Cliente();
+		return "ClienteForm?faces-redirect=true";
 	}
 
 	public String gravar() {
@@ -51,47 +51,47 @@ public class FornecedorCrud {
 		em.merge(objeto);
 		em.getTransaction().commit();
 		em.close();
-		return "FornecedorList?faces-redirect=true";
+		return "ClienteList?faces-redirect=true";
 	}
 
 	public String cancelar() {
-		return "FornecedorList";
+		return "ClienteList";
 	}
 
 	public String alterar(Long id) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		objeto = em.find(Fornecedor.class, id);
+		objeto = em.find(Cliente.class, id);
 		em.close();
-		return "FornecedorForm?faces-redirect=true";
+		return "ClienteForm?faces-redirect=true";
 	}
 
 	public String excluir(Long id) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		objeto = em.find(Fornecedor.class, id);
+		objeto = em.find(Cliente.class, id);
 		em.getTransaction().begin();
 		em.remove(objeto);
 		em.getTransaction().commit();
 		em.close();
-		return "FornecedorList?faces-redirect=true";
+		return "ClienteList?faces-redirect=true";
 	}
 
-	public FornecedorCrud() {
+	public ClienteCrud() {
 		super();
 	}
 
-	public List<Fornecedor> getLista() {
+	public List<Cliente> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<Fornecedor> lista) {
+	public void setLista(List<Cliente> lista) {
 		this.lista = lista;
 	}
 
-	public Fornecedor getObjeto() {
+	public Cliente getObjeto() {
 		return objeto;
 	}
 
-	public void setObjeto(Fornecedor objeto) {
+	public void setObjeto(Cliente objeto) {
 		this.objeto = objeto;
 	}
 
@@ -106,49 +106,49 @@ public class FornecedorCrud {
 	
 	
 	
-	private FornecedorEndereco enderecoFornecedor; // item em edição, vinculado ao formulário
+	private ClienteEndereco enderecoCliente; // item em edição, vinculado ao formulário
 
 	private Integer rowIndex = null; // índice do item selecionado - alterar e
 										// excluir
 
-	public void incluirEnderecoFornecedor() {
+	public void incluirEnderecoCliente() {
 		rowIndex = null;
-		enderecoFornecedor = new FornecedorEndereco();
+		enderecoCliente = new ClienteEndereco();
 	}
 
-	public void alterarEnderecoFornecedor(Integer rowIndex) {
+	public void alterarEnderecoCliente(Integer rowIndex) {
 		this.rowIndex = rowIndex;
-		enderecoFornecedor = objeto.getEnderecoFornecedor().get(rowIndex); // pega item da
+		enderecoCliente = objeto.getEnderecoCliente().get(rowIndex); // pega item da
 															// coleção
 	}
 
-	public void excluirEnderecoFornecedor(Integer rowIndex) {
-		objeto.getEnderecoFornecedor().remove(rowIndex.intValue()); // exclui item
+	public void excluirEnderecoCliente(Integer rowIndex) {
+		objeto.getEnderecoCliente().remove(rowIndex.intValue()); // exclui item
 	}
 
-	public void gravarEnderecoFornecedor() {
+	public void gravarEnderecoCliente() {
 		if (this.rowIndex == null) {
-			enderecoFornecedor.setFornecedor(objeto);
-			objeto.getEnderecoFornecedor().add(enderecoFornecedor); // adiciona item na coleção
+			enderecoCliente.setCliente(objeto);
+			objeto.getEnderecoCliente().add(enderecoCliente); // adiciona item na coleção
 		} else {
-			objeto.getEnderecoFornecedor().set(rowIndex, enderecoFornecedor); // altera na
+			objeto.getEnderecoCliente().set(rowIndex, enderecoCliente); // altera na
 																// coleção
 		}
 		rowIndex = null;
-		enderecoFornecedor = null;
+		enderecoCliente = null;
 	}
 
-	public void cancelarEnderecoFornecedor() {
+	public void cancelarEnderecoCliente() {
 		rowIndex = null;
-		enderecoFornecedor = null;
+		enderecoCliente = null;
 	}
 
-	public FornecedorEndereco getEnderecoFornecedor() {
-		return enderecoFornecedor;
+	public ClienteEndereco getEnderecoCliente() {
+		return enderecoCliente;
 	}
 
-	public void setEnderecoFornecedor(FornecedorEndereco enderecoFornecedor) {
-		this.enderecoFornecedor = enderecoFornecedor;
+	public void setEnderecoCliente(ClienteEndereco enderecoCliente) {
+		this.enderecoCliente = enderecoCliente;
 	}
 
 }

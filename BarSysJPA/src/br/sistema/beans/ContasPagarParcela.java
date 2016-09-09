@@ -3,8 +3,13 @@ package br.sistema.beans;
 import java.io.Serializable;
 import java.lang.Float;
 import java.lang.Long;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -25,9 +30,10 @@ public class ContasPagarParcela implements Serializable {
 	@GeneratedValue(generator = "seq_codcontaspagarparcelas", strategy = SEQUENCE)
 	@SequenceGenerator(name = "seq_codcontaspagarparcelas", allocationSize = 1, initialValue = 1)
 	private Long codContasPagarParcela;
-	@NotEmpty(message="Deve informar o valor da parcela!")
+	@NotNull(message="Deve informar o valor da parcela!")
 	private Float valor;
-	@NotEmpty(message="Deve informar a data do pagamento!")
+	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull(message="Deve informar a data do pagamento!")
 	private Date dataPagamento;
 	@ManyToOne
 	private ContasPagar contasPagar;
@@ -35,6 +41,7 @@ public class ContasPagarParcela implements Serializable {
 
 	public ContasPagarParcela() {
 		super();
+		dataPagamento = new Date(System.currentTimeMillis());
 		valor = 0F;
 	}   
 	public Long getCodContasPagarParcela() {
@@ -54,7 +61,6 @@ public class ContasPagarParcela implements Serializable {
 	public Date getDataPagamento() {
 		return this.dataPagamento;
 	}
-
 	public void setDataPagamento(Date dataPagamento) {
 		this.dataPagamento = dataPagamento;
 	}

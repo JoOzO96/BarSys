@@ -4,11 +4,16 @@ import java.io.Serializable;
 import java.lang.Float;
 import java.lang.Long;
 import java.lang.String;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -29,13 +34,15 @@ public class ContasPagar implements Serializable {
 	@GeneratedValue(generator = "seq_contaspagar", strategy = SEQUENCE)
 	@SequenceGenerator(name = "seq_contaspagar", allocationSize = 1, initialValue = 1)
 	private Long codContasPagar;
-	@NotEmpty(message="Deve informar o vencimento da conta!")
+	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull(message="Deve informar o vencimento da conta!")
 	private Date vencimento;
-	@NotEmpty(message="Deve informar o valor total da conta a receber!")
+	@NotNull(message="Deve informar o valor total da conta a receber!")
+	@Min(message="O valor total deve ser maior que zero.", value=0)
 	private Float valorTotal;
 	@NotEmpty(message="Deve informar a descricao da conta!")
 	private String descricao;
-	@NotEmpty(message="Deve informar o valor pago da conta!")
+	@NotNull(message="Deve informar o valor pago da conta!")
 	private Float valorPago;
 	@OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "contasPagar", fetch=FetchType.EAGER)
 	private List<ContasPagarParcela> itensContasPagarParcela;
@@ -45,6 +52,7 @@ public class ContasPagar implements Serializable {
 		super();
 		itensContasPagarParcela = new ArrayList();
 		valorPago = 0F;
+		valorTotal = 0F;
 	}   
 	public Long getCodContasPagar() {
 		return this.codContasPagar;
@@ -58,6 +66,7 @@ public class ContasPagar implements Serializable {
 	}
 
 	public void setVencimento(Date vencimento) {
+		
 		this.vencimento = vencimento;
 	}   
 	public Float getValorTotal() {

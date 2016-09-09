@@ -29,7 +29,9 @@
 
 			<p:outputLabel value="Quantidade:" for="quantidade" />
 			<p:inputText id="quantidade" size="50"
-				value="#{materiaPrimaCrud.objeto.quantidade}" />
+				value="#{materiaPrimaCrud.objeto.quantidade}">
+				<f:convertNumber pattern="#,##0.00"/>
+			</p:inputText>
 
 			<p:outputLabel value="Unidade:" for="unidade" />
 			<p:inputText id="unidade" size="50"

@@ -3,10 +3,14 @@ package br.sistema.beans;
 import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -38,12 +42,16 @@ public class Cliente implements Serializable {
 	@Column(length = 30)
 	private String rg;
 	private Date dataCadastro;
-	@OneToMany(cascade =ALL, orphanRemoval = true, mappedBy = "cliente", fetch=FetchType.EAGER)
+	@NotNull(message="O endereco do cliente devem ser inicializados!")
+	@Size(min=0, message="Deve ter pelo menos um endereco no cliente!")
+	@Valid
+	@OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "cliente", fetch=FetchType.EAGER)
 	private List<ClienteEndereco> enderecoCliente;
 	private static final long serialVersionUID = 1L;
 
 	public Cliente() {
 		super();
+		enderecoCliente = new ArrayList();
 	}   
 	public Long getCodCliente() {
 		return this.codCliente;

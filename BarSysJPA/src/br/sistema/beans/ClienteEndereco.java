@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -38,7 +39,8 @@ public class ClienteEndereco implements Serializable {
 	private String complemento;
 	private String referencia;
 	private Cidade cidade;
-	@ManyToOne
+	@ManyToOne(optional = false)
+	@NotNull(message="O cliente deve ser inicializado!")
 	private Cliente cliente;
 	private static final long serialVersionUID = 1L;
 

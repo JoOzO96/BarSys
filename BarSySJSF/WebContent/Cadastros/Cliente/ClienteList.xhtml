@@ -6,12 +6,12 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Lista de Fornecedores</title>
+	<title>Lista de Cliente</title>
 </h:head>
-<h:body onload="#{fornecedorCrud.inicializarLista()}">
+<h:body onload="#{clienteCrud.inicializarLista()}">
 
 	<h:form id="formLista">
-		<p:dataTable var="forne" value="#{fornecedorCrud.lista}"
+		<p:dataTable var="cli" value="#{clienteCrud.lista}"
 			paginator="true" rows="10" rowsPerPageTemplate="5,10,15"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 {LastPageLink} {RowsPerPageDropdown}"
@@ -20,48 +20,59 @@
 			<f:facet name="header">
 				<p:spacer height="30"></p:spacer>
 				<div align="left" style="position: absolute; top: 20px; width: 95%;">
-					<p:outputLabel value="Listagem de Fornecedores"></p:outputLabel>
+					<p:outputLabel value="Listagem de Cliente"></p:outputLabel>
 				</div>
 				<div align="right"
 					style="position: absolute; top: 12px; width: 95%;">
 					<p:commandButton id="botaoIncluir" value="Incluir"
-						action="#{fornecedorCrud.incluir}" ajax="false" />
+						action="#{clienteCrud.incluir}" ajax="false" />
 				</div>
 			</f:facet>
-			<p:column headerText="Código" sortBy="#{forne.codFornecedor}"
-				filterBy="#{forne.codFornecedor}" filterMatchMode="exact">
-				<h:outputText value="#{forne.codFornecedor}" />
+			<p:column headerText="Código" sortBy="#{cli.codCliente}"
+				filterBy="#{cli.codCliente}" filterMatchMode="exact">
+				<h:outputText value="#{cli.codCliente}" />
 			</p:column>
-			<p:column headerText="CNPJ:" sortBy="#{forne.cnpj}"
-				filterBy="#{forne.cnpj}" filterMatchMode="contains">
-				<h:outputText value="#{forne.cnpj}" />
+			
+			<p:column headerText="Nome:" sortBy="#{cli.nome}"
+				filterBy="#{cli.nome}" filterMatchMode="contains">
+				<h:outputText value="#{cli.nome}" />
+			</p:column>
+			
+			<p:column headerText="CPF:" sortBy="#{cli.cpf}"
+				filterBy="#{cli.cpf}" filterMatchMode="contains">
+				<h:outputText value="#{cli.cpf}" />
+			</p:column>
+			
+			<p:column headerText="RG:" sortBy="#{cli.rg}"
+				filterBy="#{cli.rg}" filterMatchMode="contains">
+				<h:outputText value="#{cli.rg}" />
 			</p:column>
 
 			<p:column headerText="" width="90">
-				<p:commandButton action="#{fornecedorCrud.alterar(forne.codFornecedor)}"
+				<p:commandButton action="#{clienteCrud.alterar(cli.codCliente)}"
 					value="Alterar" ajax="false" />
 			</p:column>
 			<p:column headerText="" width="90">
-				<p:commandButton action="#{fornecedorCrud.excluir(forne.codFornecedor)}"
+				<p:commandButton action="#{clienteCrud.excluir(cli.codCliente)}"
 					value="Excluir" ajax="false"
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>
 			<p:column headerText="" width="90">
 				<p:commandButton id="botaoVerEndereco" value="Endereco" ajax="true"
-					actionListener="#{fornecedorCrud.alterar(forne.codFornecedor)}"
-					update=":formEnderecoFornecedor"
-					onclick="PF('dialogoEnderecoFornecedor').show();" />
+					actionListener="#{clienteCrud.alterar(cli.codCliente)}"
+					update=":formEnderecoCliente"
+					onclick="PF('dialogoEnderecoCliente').show();" />
 			</p:column>
 		</p:dataTable>
 	</h:form>
 
-	<p:dialog header="Visualizar Endereco Fornecedor"
-		widgetVar="dialogoEnderecoFornecedor" width="1000" resizable="false"
+	<p:dialog header="Visualizar Endereco Cliente"
+		widgetVar="dialogoEnderecoCliente" width="1000" resizable="false"
 		modal="true">
-		<h:form id="formEnderecoFornecedor">
+		<h:form id="formEnderecoCliente">
 			<p:growl />
-			<p:dataTable id="tabelaEnderecoFornecedor" rowIndexVar="rowIndex"
-				var="obj" value="#{fornecedorCrud.objeto.enderecoFornecedor}"
+			<p:dataTable id="tabelaEnderecoCliente" rowIndexVar="rowIndex"
+				var="obj" value="#{clienteCrud.objeto.enderecoCliente}"
 				emptyMessage="Nenhum resultado encontrado">
 				<f:facet name="header">
 					<div align="left"

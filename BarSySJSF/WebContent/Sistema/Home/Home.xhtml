@@ -27,22 +27,19 @@
 				<h:form>
 					<p:menu>
 						<p:menuitem value="Home" url="/faces/Sistema/Home/Home.xhtml" />
-						<p:submenu label="Cadastros" icon="ui-icon-document" >
+						<p:submenu label="Manutencoes" icon="ui-icon-document">
 							<p:menuitem value="Cidades"
 								url="/faces/Cadastros/Cidade/CidadeList.xhtml" target="centro" />
 							<p:menuitem value="Pessoa Jurídica"
 								url="/faces/Cadastros/Fornecedor/FornecedorList.xhtml"
 								target="centro" />
+							<p:menuitem value="Pessoa Fisica"
+								url="/faces/Cadastros/Cliente/ClienteList.xhtml" target="centro" />
 							<p:menuitem value="Matéria Prima"
 								url="/faces/Cadastros/MateriaPrima/MateriaPrimaList.xhtml"
 								target="centro" />
 						</p:submenu>
 
-						<p:submenu label="Manutenções" icon="ui-icon-document">
-							<p:menuitem value="Recebimentos"
-								url="/faces/Cadastros/Recebimento/RecebimentoList.xhtml"
-								target="centro" />
-						</p:submenu>
 					</p:menu>
 				</h:form>
 

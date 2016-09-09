@@ -33,6 +33,7 @@ public class MateriaPrima implements Serializable {
 	@Length(min=1, max=50, message="O nome do fornecedor deve ter entre {min} e {max} caracteres!")
 	private String nome;
 	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull(message="A data de cadatro deve ser informada")
 	private Date dataCadastro;
 	@NotEmpty(message="Deve informar a unidade da materia prima!")
 	@Length(min=1, max=10, message="A unidade da materia prima deve ter entre {min} e {max} caracteres!")
