@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Conpatible" content="IE=edge" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title></title>
+</h:head>
+<h:body>
+	<h:form id="formEditar">
+		<p:growl></p:growl>
+		<p:focus for="nome" />
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+				<p:outputLabel value="Edição de Produto" />
+			</f:facet>
+			<p:outputLabel value="Código:" for="codProduto" />
+			<p:inputText id="codProduto" readonly="true"
+				value="#{produtoCrud.objeto.codProduto}" />
+
+			<p:outputLabel value="Nome:" for="nome" />
+			<p:inputText id="nome" value="#{produtoCrud.objeto.nome}" />
+
+			<p:outputLabel value="Unidade:" for="unidade" />
+			<p:inputText id="unidade" value="#{produtoCrud.objeto.unidade}" />
+
+			<p:outputLabel value="Valor Unitario:" for="valorUn" />
+			<p:inputText id="valorUn"
+				value="#{produtoCrud.objeto.valorUn}">
+				<f:convertNumber pattern="#,##0.00" />
+			</p:inputText>
+
+			<f:facet name="footer">
+				<p:commandButton value="Gravar" action="#{produtoCrud.gravar}"
+					ajax="false" />
+				<p:commandButton value="Cancelar" action="#{produtoCrud.cancelar}"
+					ajax="false" immediate="true" />
+			</f:facet>
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

@@ -24,29 +24,40 @@
 				value="#{materiaPrimaCrud.objeto.codMateriaPrima}" />
 
 			<p:outputLabel value="Nome:" for="nome" />
-			<p:inputText id="nome" size="50" value="#{materiaPrimaCrud.objeto.nome}" />
+			<p:inputText id="nome" value="#{materiaPrimaCrud.objeto.nome}" />
 
 
 			<p:outputLabel value="Quantidade:" for="quantidade" />
-			<p:inputText id="quantidade" size="50"
+			<p:inputText id="quantidade"
 				value="#{materiaPrimaCrud.objeto.quantidade}">
-				<f:convertNumber pattern="#,##0.00"/>
+				<f:convertNumber pattern="#,##0.00" />
 			</p:inputText>
 
 			<p:outputLabel value="Unidade:" for="unidade" />
-			<p:inputText id="unidade" size="50"
-				value="#{materiaPrimaCrud.objeto.unidade}" />
+			<p:inputText id="unidade" value="#{materiaPrimaCrud.objeto.unidade}" />
 
 			<p:outputLabel value="Data de Cadastro" for="datacadastro" />
 			<p:calendar id="datacadastro"
 				value="#{materiaPrimaCrud.objeto.dataCadastro}" pattern="dd/MM/yyyy"
 				mask="true" showOn="button" />
 
+			<p:outputLabel value="Valor Ultima Compra:" for="valorUltimaCompra" />
+			<p:inputText id="valorUltimaCompra" readonly="true"
+				value="#{materiaPrimaCrud.objeto.valorUltimaCompra}">
+				<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+			</p:inputText>
+			
+			<p:outputLabel value="Valor Custo Medio:" for="valorCustoMedio" />
+			<p:inputText id="valorCustoMedio" readonly="true"
+				value="#{materiaPrimaCrud.objeto.valorCustoMedio}">
+				<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+			</p:inputText>
+
 			<f:facet name="footer">
 				<p:commandButton value="Gravar" action="#{materiaPrimaCrud.gravar}"
 					ajax="false" />
-				<p:commandButton value="Cancelar" action="#{materiaPrimaCrud.cancelar}"
-					ajax="false" immediate="true" />
+				<p:commandButton value="Cancelar"
+					action="#{materiaPrimaCrud.cancelar}" ajax="false" immediate="true" />
 			</f:facet>
 		</p:panelGrid>
 	</h:form>

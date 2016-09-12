@@ -5,6 +5,7 @@ import java.lang.Double;
 import java.lang.Long;
 import java.lang.String;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -30,7 +31,7 @@ public class Produto implements Serializable {
 	@Length(min=1, max=50, message="A unidade deve ter entre {min} e {max} caracteres!")
 	@Column(length = 50)
 	private String unidade;
-	@NotEmpty(message="Deve informar o valor unitario do produto!")
+	@NotNull(message="Deve informar o valor unitario do produto!")
 	private Float valorUn;
 	private static final long serialVersionUID = 1L;
 

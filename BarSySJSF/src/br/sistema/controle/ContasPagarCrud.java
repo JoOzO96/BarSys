@@ -139,7 +139,6 @@ public class ContasPagarCrud {
 		Float valorPago = 0.0F;
 		for (ContasPagarParcela it : objeto.getItensContasPagarParcela())
 			valorPago += it.getValor();
-		System.out.println(valorPago);
 		objeto.setValorPago(valorPago);
 	}
 
