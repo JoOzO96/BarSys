@@ -11,130 +11,115 @@
 <h:body>
 	<h:form id="formEditar">
 		<p:growl></p:growl>
-		<p:focus for="descricao" />
+		<p:focus for="nrNota" />
 		<p:panelGrid columns="2">
 			<f:facet name="header">
-				<p:outputLabel value="Edição de Contas Pagar" />
+				<p:outputLabel value="Edição de Entradas" />
 			</f:facet>
 
 			<p:outputLabel value="Código:" for="id" />
 			<p:inputText id="id" readonly="true" size="5" disabled="true"
-				value="#{contasPagarCrud.objeto.codContasPagar}" />
+				value="#{entradaCrud.objeto.codEntrada}" />
 
-			<p:outputLabel value="Descricao:" for="descricao" />
-			<p:inputText id="descricao"
-				value="#{contasPagarCrud.objeto.descricao}" />
-
-			<p:outputLabel value="Data de Vencimento:" for="dataVencimento" />
-			<p:calendar id="dataVencimento"
-				value="#{contasPagarCrud.objeto.vencimento}" pattern="dd/MM/yyyy"
-				mask="true" showOn="button" />
+			<p:outputLabel value="Nr Nota:" for="nrNota" />
+			<p:inputText id="nrNota" value="#{entradaCrud.objeto.numeroNota}" />
 
 			<p:outputLabel value="Valor Total:" for="valorTotal" />
-			<p:inputText id="valorTotal"
-				value="#{contasPagarCrud.objeto.valorTotal}">
+			<p:inputText id="valorTotal" value="#{entradaCrud.objeto.valorTotal}">
 				<f:convertNumber pattern="#,##0.00" />
 			</p:inputText>
+			
+			<p:outputLabel value="Fornecedor:" for="fornecedor" />
+			<p:autoComplete id="fornecedor" style="width:600px"
+					 dropdown="true" multiple="false" forceSelection="true"
+					 var="entra" itemLabel="#{entra.nome}" itemValue="#{entra}"
+					 value="#{entradaCrud.objeto.fornecedor}"
+					 converter="fornecedorConverter"
+					 completeMethod="#{endradaCrud.completeFornecedor}" />
 
-			<p:outputLabel value="Valor Pago:" for="valorPago" />
-			<p:inputText id="valorPago" disabled="true"
-				value="#{contasPagarCrud.objeto.valorPago}" readonly="true">
-				<f:convertNumber pattern="#,##0.00" />
-			</p:inputText>
-			<p:outputLabel value="" for="valorPago" />
-			<p:wizard>
+			<p:outputLabel value="Itens" />
+			<p:dataTable id="tabelaItensEntrada" rowIndexVar="rowIndex" var="obj"
+				value="#{entradaCrud.objeto.itensEntrada}"
+				emptyMessage="Nenhum resultado encontrado">
+				<f:facet name="header">
+					<div align="left"
+						style="position: relative; height: 10px; top: 5px; width: 95%;">
+						<p:outputLabel value="Listagem de Itens Entrada"></p:outputLabel>
+					</div>
+					<div align="right"
+						style="position: relative; height: 10px; top: -12px; width: 95%;">
+						<p:commandButton id="botaoIncluir" value="Incluir" ajax="true"
+							actionListener="#{entradaCrud.incluirItensEntrada}"
+							update=":formItensEntrada" onclick="PF('dialogoItens').show();" />
+					</div>
+				</f:facet>
 
-				<p:tab id="parcelas" title="Parcelas">
-					<p:dataTable id="tabelaParcelas" rowIndexVar="rowIndex" var="obj"
-						value="#{contasPagarCrud.objeto.itensContasPagarParcela}"
-						emptyMessage="Nenhum resultado encontrado">
-						<f:facet name="header">
-							<div align="left"
-								style="position: relative; height: 10px; top: 5px; width: 95%;">
-								<p:outputLabel value="Listagem de Parcelas"></p:outputLabel>
-							</div>
-							<div align="right"
-								style="position: relative; height: 10px; top: -12px; width: 95%;">
-								<p:commandButton id="botaoIncluir" value="Incluir" ajax="true"
-									actionListener="#{contasPagarCrud.incluirParcelas}"
-									update=":formParcelas" onclick="PF('dialogoParcelas').show();" />
-							</div>
-						</f:facet>
+				<p:column value="Quantidade:" for="quantidade">
+					<h:outputText value="#{obj.quantidade}"></h:outputText>
+				</p:column>
 
-						<p:column value="Data de Pagamento" for="dataPagamento">
-							<h:outputText value="#{obj.dataPagamento}">
-								<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
-							</h:outputText>
-						</p:column>
+				<p:column headerText="Custo Un.:">
+					<h:outputText value="#{obj.custoUnitario}">
+						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+					</h:outputText>
+				</p:column>
 
-						<p:column headerText="Valor:">
-							<h:outputText value="#{obj.valor}">
-								<f:convertNumber pattern="#,##0.00"></f:convertNumber>
-							</h:outputText>
-						</p:column>
+				<p:column value="Custo Total:" for="custoTotal">
+					<h:outputText value="#{obj.custoTotal}">
+						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+					</h:outputText>
+				</p:column>
 
-						<p:column headerText="" width="60">
-							<p:commandButton
-								actionListener="#{contasPagarCrud.alterarParcelas(rowIndex)}"
-								value="Alterar" ajax="true" update=":formParcelas"
-								onclick="PF('dialogoParcelas').show();" />
-						</p:column>
-						<p:column headerText="" width="60">
-							<p:commandButton
-								actionListener="#{contasPagarCrud.excluirParcelas(rowIndex)}"
-								value="Excluir" ajax="true"
-								update=":formEditar:tabelaParcelas :formEditar:valorPago"
-								onclick="if (!confirm('Confirma a exclusão?')) return false">
-							</p:commandButton>
-						</p:column>
+				<p:column headerText="" width="60">
+					<p:commandButton
+						actionListener="#{entradaCrud.alterarItensEntrada(rowIndex)}"
+						value="Alterar" ajax="true" update=":formItensEntrada"
+						onclick="PF('dialogoItensEntrada').show();" />
+				</p:column>
+				<p:column headerText="" width="60">
+					<p:commandButton
+						actionListener="#{entradaCrud.excluirItensEntrada(rowIndex)}"
+						value="Excluir" ajax="true"
+						update=":formEditar:tabelaItensEntrada :formEditar:valorPago"
+						onclick="if (!confirm('Confirma a exclusão?')) return false">
+					</p:commandButton>
+				</p:column>
 
-					</p:dataTable>
-				</p:tab>
-				<p:tab id="produto" title="Produtos" >
-						<p:dataTable>
-							<p:outputLabel headerText="Teste"></p:outputLabel>
-						</p:dataTable>
-					</p:tab>
-			</p:wizard>
+			</p:dataTable>
+
 			<f:facet name="footer">
-				<p:commandButton value="Gravar" action="#{contasPagarCrud.gravar}"
+				<p:commandButton value="Gravar" action="#{entradaCrud.gravar}"
 					ajax="false" />
-				<p:commandButton value="Cancelar"
-					action="#{contasPagarCrud.cancelar}" ajax="false" immediate="true" />
+				<p:commandButton value="Cancelar" action="#{entradaCrud.cancelar}"
+					ajax="false" immediate="true" />
 			</f:facet>
 		</p:panelGrid>
 	</h:form>
 
-	<p:dialog header="Editar Parcelas" widgetVar="dialogoParcelas"
+	<p:dialog header="Editar ItensEntrada" widgetVar="dialogoItensEntrada"
 		width="1000" resizable="false" modal="true">
-		<h:form id="formParcelas">
+		<h:form id="formItensEntrada">
 			<p:growl />
 			<h:panelGrid columns="2" style="margin-bottom:10px">
 
-				<p:outputLabel value="Data de Pagamento" for="dataPagamento" />
-				<p:calendar id="dataPagamento"
-					value="#{contasPagarCrud.parcelas.dataPagamento}"
-					pattern="dd/MM/yyyy" mask="true" showOn="button" />
-
-
-				<p:outputLabel value="Valor:" for="valor" />
-				<p:inputText id="valor" value="#{contasPagarCrud.parcelas.valor}">
+				<p:outputLabel value="Quantidade:" for="quantidade" />
+				<p:inputText id="quantidade" value="#{entradaCrud.entradaItem.quantidade}">
 					<f:convertNumber pattern="#,##0.00" />
 				</p:inputText>
 
 			</h:panelGrid>
 
 
-			<p:commandButton actionListener="#{contasPagarCrud.gravarParcelas}"
+			<p:commandButton actionListener="#{entradaCrud.gravarItensEntrada}"
 				validateClient="true" value="Gravar"
-				update=":formParcelas :formEditar:tabelaParcelas :formEditar:valorPago"
-				oncomplete="if (!args.validationFailed){ PF('dialogoParcelas').hide();}"
+				update=":formItensEntrada :formEditar:tabelaItensEntrada :formEditar:valorTotal"
+				oncomplete="if (!args.validationFailed){ PF('dialogoItensEntrada').hide();}"
 				ajax="true">
 			</p:commandButton>
-			<p:commandButton actionListener="#{contasPagarCrud.cancelarParcelas}"
+			<p:commandButton actionListener="#{entradaCrud.cancelarItensEntrada}"
 				value="Cancelar"
-				update=":formEditar:tabelaParcelas :formEditar:valorPago"
-				immediate="true" oncomplete="PF('dialogoParcelas').hide();"
+				update=":formEditar:tabelaItensEntrada :formEditar:valorTotal"
+				immediate="true" oncomplete="PF('dialogoItensEntrada').hide();"
 				ajax="true" />
 
 		</h:form>

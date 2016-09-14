@@ -35,8 +35,6 @@ public class Entrada implements Serializable {
 	@NotEmpty(message="Deve informar o fornecedor!")
 	@ManyToOne
 	private Fornecedor fornecedor;
-	@ManyToOne
-	private ContasPagar contasPagar;
 	@OneToMany(cascade =ALL, orphanRemoval = true, mappedBy = "entrada", fetch=FetchType.EAGER)
 	private List<EntradaItem> itensEntrada;
 	private static final long serialVersionUID = 1L;
@@ -70,12 +68,6 @@ public class Entrada implements Serializable {
 	}
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
-	}
-	public ContasPagar getContasPagar() {
-		return contasPagar;
-	}
-	public void setContasPagar(ContasPagar contasPagar) {
-		this.contasPagar = contasPagar;
 	}
 	public List<EntradaItem> getItensEntrada() {
 		return itensEntrada;

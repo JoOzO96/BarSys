@@ -8,10 +8,10 @@
 <h:head>
 	<title>Lista de Contas Pagar</title>
 </h:head>
-<h:body onload="#{contasPagarCrud.inicializarLista()}">
+<h:body onload="#{entradaCrud.inicializarLista()}">
 
 	<h:form id="formLista">
-		<p:dataTable var="coPa" value="#{contasPagarCrud.lista}"
+		<p:dataTable var="ent" value="#{entradaCrud.lista}"
 			paginator="true" rows="10" rowsPerPageTemplate="5,10,15"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 {LastPageLink} {RowsPerPageDropdown}"
@@ -20,19 +20,19 @@
 			<f:facet name="header">
 				<p:spacer height="30"></p:spacer>
 				<div align="left" style="position: absolute; top: 20px; width: 95%;">
-					<p:outputLabel value="Listagem de Fornecedores"></p:outputLabel>
+					<p:outputLabel value="Listagem de Entradas"></p:outputLabel>
 				</div>
 				<div align="right"
 					style="position: absolute; top: 12px; width: 95%;">
 					<p:commandButton id="botaoIncluir" value="Incluir"
-						action="#{contasPagarCrud.incluir}" ajax="false" />
+						action="#{entradaCrud.incluir}" ajax="false" />
 				</div>
 			</f:facet>
-			<p:column headerText="Código" sortBy="#{coPa.codContasPagar}"
-				filterBy="#{coPa.codContasPagar}" filterMatchMode="exact">
-				<h:outputText value="#{coPa.codContasPagar}" />
+			<p:column headerText="Código" sortBy="#{ent.codEntrada}"
+				filterBy="#{ent.codEntrada}" filterMatchMode="exact">
+				<h:outputText value="#{ent.codEntrada}" />
 			</p:column>
-			<p:column headerText="Data Vencimento:" sortBy="#{coPa.vencimento}"
+			<p:column headerText="Data Vencimento:" sortBy="#{ent.vencimento}"
 				filterBy="#{coPa.vencimento}" filterMatchMode="contains">
 				<h:outputText value="#{coPa.vencimento}">
 					<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
@@ -55,18 +55,18 @@
 
 			<p:column headerText="" width="90">
 				<p:commandButton
-					action="#{contasPagarCrud.alterar(coPa.codContasPagar)}"
+					action="#{entradaCrud.alterar(coPa.codContasPagar)}"
 					value="Alterar" ajax="false" />
 			</p:column>
 			<p:column headerText="" width="90">
 				<p:commandButton
-					action="#{contasPagarCrud.excluir(coPa.codContasPagar)}"
+					action="#{entradaCrud.excluir(coPa.codContasPagar)}"
 					value="Excluir" ajax="false"
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>
 			<p:column headerText="" width="90">
 				<p:commandButton id="botaoVerParcelas" value="Parcelas" ajax="true"
-					actionListener="#{contasPagarCrud.alterar(coPa.codContasPagar)}"
+					actionListener="#{entradaCrud.alterar(coPa.codContasPagar)}"
 					update=":formParcelas" onclick="PF('dialogoParcelas').show();" />
 			</p:column>
 		</p:dataTable>
@@ -78,7 +78,7 @@
 		<h:form id="formParcelas">
 			<p:growl />
 			<p:dataTable id="tabelaParcelas" rowIndexVar="rowIndex" var="obj"
-				value="#{contasPagarCrud.objeto.itensContasPagarParcela}"
+				value="#{entradaCrud.objeto.itensEntradaItens}"
 				emptyMessage="Nenhum resultado encontrado">
 				<f:facet name="header">
 					<div align="left"
