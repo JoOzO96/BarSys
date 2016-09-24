@@ -28,14 +28,14 @@
 			<p:inputText id="valorTotal" value="#{entradaCrud.objeto.valorTotal}">
 				<f:convertNumber pattern="#,##0.00" />
 			</p:inputText>
-			
+
 			<p:outputLabel value="Fornecedor:" for="fornecedor" />
-			<p:autoComplete id="fornecedor" style="width:600px"
-					 dropdown="true" multiple="false" forceSelection="true"
-					 var="entra" itemLabel="#{entra.nome}" itemValue="#{entra}"
-					 value="#{entradaCrud.objeto.fornecedor}"
-					 converter="fornecedorConverter"
-					 completeMethod="#{endradaCrud.completeFornecedor}" />
+			<p:autoComplete id="fornecedor" style="width:600px" dropdown="true"
+				multiple="false" forceSelection="true" var="forn"
+				itemLabel="#{forn.nome}" itemValue="#{forn}"
+				value="#{entradaCrud.objeto.fornecedor}"
+				converter="fornecedorConverter"
+				completeMethod="#{entradaCrud.completeFornecedor}" />
 
 			<p:outputLabel value="Itens" />
 			<p:dataTable id="tabelaItensEntrada" rowIndexVar="rowIndex" var="obj"
@@ -50,22 +50,24 @@
 						style="position: relative; height: 10px; top: -12px; width: 95%;">
 						<p:commandButton id="botaoIncluir" value="Incluir" ajax="true"
 							actionListener="#{entradaCrud.incluirItensEntrada}"
-							update=":formItensEntrada" onclick="PF('dialogoItens').show();" />
+							update=":formItensEntrada"
+							onclick="PF('dialogoItensEntrada').show();" />
 					</div>
 				</f:facet>
 
-				<p:column value="Quantidade:" for="quantidade">
-					<h:outputText value="#{obj.quantidade}"></h:outputText>
+				<p:column headerText="Materia Prima:" for="materiaPrima">
+					<h:outputText value="#{obj.materiaPrima}" converter="materiaPrimaConverterNome"></h:outputText>
 				</p:column>
 
-				<p:column headerText="Custo Un.:">
-					<h:outputText value="#{obj.custoUnitario}">
+
+				<p:column headerText="Quantidade:" for="quantidade">
+					<h:outputText value="#{obj.quantidade}">
 						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 					</h:outputText>
 				</p:column>
 
-				<p:column value="Custo Total:" for="custoTotal">
-					<h:outputText value="#{obj.custoTotal}">
+				<p:column headerText="Custo Un.:">
+					<h:outputText value="#{obj.custoUnitario}">
 						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 					</h:outputText>
 				</p:column>
@@ -80,7 +82,7 @@
 					<p:commandButton
 						actionListener="#{entradaCrud.excluirItensEntrada(rowIndex)}"
 						value="Excluir" ajax="true"
-						update=":formEditar:tabelaItensEntrada :formEditar:valorPago"
+						update=":formEditar:tabelaItensEntrada"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
 					</p:commandButton>
 				</p:column>
@@ -102,10 +104,26 @@
 			<p:growl />
 			<h:panelGrid columns="2" style="margin-bottom:10px">
 
-				<p:outputLabel value="Quantidade:" for="quantidade" />
-				<p:inputText id="quantidade" value="#{entradaCrud.entradaItem.quantidade}">
+				<p:outputLabel value="MateriaPrima:" for="materiaPrima" />
+				<p:autoComplete id="materiaPrima" style="width:600px"
+					dropdown="true" multiple="false" forceSelection="true" var="mpri"
+					itemLabel="#{mpri.nome}" itemValue="#{mpri}"
+					value="#{entradaCrud.entradaItem.materiaPrima}"
+					converter="materiaPrimaConverter"
+					completeMethod="#{entradaCrud.completeMateriaPrima}" />
+
+				<p:outputLabel value="Valor Un.:" for="valorUnitario" />
+				<p:inputText id="valorUnitario"
+					value="#{entradaCrud.entradaItem.custoUnitario}">
 					<f:convertNumber pattern="#,##0.00" />
 				</p:inputText>
+
+				<p:outputLabel value="Quantidade:" for="quantidade" />
+				<p:inputText id="quantidade"
+					value="#{entradaCrud.entradaItem.quantidade}">
+					<f:convertNumber pattern="#,##0.00" />
+				</p:inputText>
+
 
 			</h:panelGrid>
 

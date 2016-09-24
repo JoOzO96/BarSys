@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.lang.Float;
 import java.lang.Long;
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -27,20 +31,24 @@ public class Entrada implements Serializable {
 	@GeneratedValue(strategy = SEQUENCE, generator = "seq_Cidade")
 	@SequenceGenerator(name = "seq_Cidade", initialValue = 1, allocationSize = 1)
 	private Long codEntrada;
-	@NotEmpty
+	@NotNull
 	@Length(min=1, max=254, message="O numero deve ter entre {min} e {max} caracteres!")
 	private String numeroNota;
-	@NotEmpty(message="Deve informar o valor total da nota!")
+	@NotNull(message="Deve informar o valor total da nota!")
 	private Float valorTotal;
-	@NotEmpty(message="Deve informar o fornecedor!")
+	@NotNull(message="Deve informar o fornecedor!")
 	@ManyToOne
 	private Fornecedor fornecedor;
+	@NotNull(message="As composicoes de produtos devem ser inicializados!")
+	@Size(min=1,message="A entrada deve conter pelo menos 1 item")
+	@Valid
 	@OneToMany(cascade =ALL, orphanRemoval = true, mappedBy = "entrada", fetch=FetchType.EAGER)
 	private List<EntradaItem> itensEntrada;
 	private static final long serialVersionUID = 1L;
 
 	public Entrada() {
 		super();
+		itensEntrada = new ArrayList();
 	}   
 	public Long getCodEntrada() {
 		return this.codEntrada;

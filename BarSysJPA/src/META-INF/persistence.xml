@@ -8,7 +8,7 @@
 		<class>br.sistema.beans.ClienteEndereco</class>
 		<class>br.sistema.beans.Cidade</class>
 		<class>br.sistema.beans.ContasPagar</class>
-		<class>br.sistema.beans.ContasPagarParcelas</class>
+		<class>br.sistema.beans.ContasPagarParcela</class>
 		<class>br.sistema.beans.Entrada</class>
 		<class>br.sistema.beans.EntradaItem</class>
 		<class>br.sistema.beans.Fornecedor</class>

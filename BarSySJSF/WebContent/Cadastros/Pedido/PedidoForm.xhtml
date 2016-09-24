@@ -23,11 +23,19 @@
 			<p:inputText id="codProduto" readonly="true"
 				value="#{produtoCrud.objeto.codProduto}" />
 
-			<p:outputLabel value="Nome:" for="nome" />
-			<p:inputText id="nome" value="#{produtoCrud.objeto.nome}" />
+				<p:commandLink value="Cidade"
+					onclick="parent.abrePopUp('/BarSysJSF/faces/Cadastros/Cliente/ClienteList.xhtml', 'Cadastro de Clientees', 600, 800, true)" />
+				<p:autoComplete id="cidade" size="60" dropdown="true"
+					multiple="false" forceSelection="true" var="obj"
+					itemLabel="#{obj.nome}" itemValue="#{obj}"
+					value="#{pedidoCrud.objeto.cliente}"
+					converter="pedidoConverter"
+					completeMethod="#{pedidoCrud.completeCliente}" />
 
-			<p:outputLabel value="Unidade:" for="unidade" />
-			<p:inputText id="unidade" value="#{produtoCrud.objeto.unidade}" />
+			<p:outputLabel value="Data:" for="data" />
+			<p:calendar id="data"
+				value="#{pedidoCrud.objeto.vencimento}" pattern="dd/MM/yyyy"
+				mask="true" showOn="button" />
 
 			<p:outputLabel value="Valor Unitario:" for="valorUn" />
 			<p:inputText id="valorUn" value="#{produtoCrud.objeto.valorUn}">

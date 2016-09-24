@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.Float;
 import java.lang.Long;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -22,9 +23,9 @@ public class EntradaItem implements Serializable {
 	@GeneratedValue(strategy = SEQUENCE, generator = "seq_entrada")
 	@SequenceGenerator(name = "seq_entrada", allocationSize = 1, initialValue = 1)
 	private Long codEntradaItem;
-	@NotEmpty(message="Deve informar o custo unitario do produto!")
+	@NotNull(message="Deve informar o custo unitario do produto!")
 	private Float custoUnitario;
-	@NotEmpty(message="Deve informar a quantidade do produto!")
+	@NotNull(message="Deve informar a quantidade do produto!")
 	private Float quantidade;
 	@Transient
 	private Float custoTotal;
@@ -36,6 +37,9 @@ public class EntradaItem implements Serializable {
 
 	public EntradaItem() {
 		super();
+		quantidade = 0F;
+		custoUnitario = 0F;
+		custoTotal = 0F;
 	}   
 	public Long getCodEntradaItem() {
 		return this.codEntradaItem;
@@ -71,11 +75,10 @@ public class EntradaItem implements Serializable {
 		this.materiaPrima = materiaPrima;
 	}
 	public Float getCustoTotal() {
-		return quantidade * custoUnitario;
+		return custoTotal;
 	}
 	public void setCustoTotal(Float custoTotal) {
 		this.custoTotal = custoTotal;
-		this.custoUnitario = custoTotal / quantidade;
 	}   
 	
    

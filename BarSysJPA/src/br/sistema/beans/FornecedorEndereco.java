@@ -21,8 +21,8 @@ public class FornecedorEndereco implements Serializable {
 
 	   
 	@Id
-	@GeneratedValue(generator = "seq_fornecedor")
-	@SequenceGenerator(name = "seq_fornecedor", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(generator = "seq_fornecedorendereco")
+	@SequenceGenerator(name = "seq_fornecedorendereco", allocationSize = 1, initialValue = 1)
 	private Long codFornecedorEndereco;
 	@NotEmpty(message="Deve informar a rua do fornecedor!")
 	@Length(min=2, max=254, message="A rua deve ter entre {min} e {max} caracteres!")

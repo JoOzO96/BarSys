@@ -23,7 +23,7 @@ public class FornecedorConverterNome implements Converter {
 				return ret;
 			} catch (NumberFormatException e) {
 				throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"Erro de Conversão da Cidade", "Cidade inválida."));
+						"Erro de Conversão do Fornecedor", "Fornecedor inválida."));
 			}
 		} else
 			return null;

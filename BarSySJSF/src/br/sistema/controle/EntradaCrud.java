@@ -7,9 +7,11 @@ import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 
 import br.sistema.beans.Cidade;
+import br.sistema.beans.ContasPagarParcela;
 import br.sistema.beans.Entrada;
 import br.sistema.beans.EntradaItem;
 import br.sistema.beans.Fornecedor;
+import br.sistema.beans.MateriaPrima;
 import br.sistema.uteis.FabricaConexao;
 @ManagedBean
 @SessionScoped
@@ -29,6 +31,15 @@ public class EntradaCrud {
 		List<Fornecedor> results = em.createQuery("from Fornecedor where upper(nome) like " + "'"
 				+ query.trim().toUpperCase() + "%' " + "order by nome").getResultList();
 		em.close();
+		return results;
+	}
+	
+	public List<MateriaPrima> completeMateriaPrima(String query) {
+		EntityManager em = FabricaConexao.getEntityManager();
+		List<MateriaPrima> results = em.createQuery("from MateriaPrima where upper(nome) like " + "'"
+				+ query.trim().toUpperCase() + "%' " + "order by nome").getResultList();
+		em.close();
+		System.out.println(results);
 		return results;
 	}
 
@@ -159,6 +170,13 @@ public class EntradaCrud {
 		this.entradaItem = entradaItem;
 	}
 	
+	
+	public void calculaValorPago() {
+		Float custoTotal = 0.0F;
+		for (EntradaItem it : objeto.getItensEntrada())
+			custoTotal += it.getCustoTotal();
+		entradaItem.setCustoTotal(custoTotal);
+	}
 	
 
 }

@@ -27,11 +27,12 @@ public class Pedido implements Serializable {
 
 	   
 	@Id
-	@GeneratedValue(generator = "seq_produto")
-	@SequenceGenerator(name = "seq_produto", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(generator = "seq_pedido")
+	@SequenceGenerator(name = "seq_pedido", allocationSize = 1, initialValue = 1)
 	private Long codPedido;
 	@NotEmpty(message="Deve informar a data do pedido!")
 	private Date data;
+	@ManyToOne
 	@NotEmpty(message="Deve informar a situacao do pedido!")
 	private Situacao situacao;
 	@ManyToOne

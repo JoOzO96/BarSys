@@ -1,16 +1,13 @@
 package br.sistema.beans;
 
-import static javax.persistence.CascadeType.ALL;
-
+import br.sistema.beans.MateriaPrima;
+import br.sistema.beans.Produto;
 import java.io.Serializable;
 import java.lang.Float;
 import java.lang.Long;
-import java.util.List;
-
 import javax.persistence.*;
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 /**
  * Entity implementation class for Entity: ProdutoComposicao
@@ -22,22 +19,22 @@ public class ProdutoComposicao implements Serializable {
 
 	   
 	@Id
-	@GeneratedValue(generator = "seq_produtocomposicao")
-	@SequenceGenerator(name = "seq_produtocomposicao", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(strategy = SEQUENCE, generator = "seq_ProdutoComposicao")
+	@SequenceGenerator(name = "seq_ProdutoComposicao", allocationSize = 1, initialValue = 1)
 	private Long codProdutoComposicao;
-	@NotEmpty(message="Deve quantidade na composicao!")
-	private Float quantidade;
-	@NotEmpty(message="Deve informar o produto na composicao!")
-	private Produto produto;
-	@NotEmpty(message="Deve a materia prima!")
-	/*@OneToMany(cascade =ALL, orphanRemoval = true, mappedBy = "fkProdutoComposicao", fetch=FetchType.EAGER)
-	private List<MateriaPrima> fkMateriaPrima;*/
 	@ManyToOne
+	@NotNull(message="A materia prima nao pode ser nula")
 	private MateriaPrima materiaPrima;
+	@ManyToOne(optional=false)
+	@NotNull(message="O produto não pode ser nulo")
+	private Produto produto;
+	@NotNull(message="A quantidade não pode ser nula.")
+	private Float quantidade;
 	private static final long serialVersionUID = 1L;
 
 	public ProdutoComposicao() {
 		super();
+		quantidade = 0F;
 	}   
 	public Long getCodProdutoComposicao() {
 		return this.codProdutoComposicao;
@@ -46,6 +43,20 @@ public class ProdutoComposicao implements Serializable {
 	public void setCodProdutoComposicao(Long codProdutoComposicao) {
 		this.codProdutoComposicao = codProdutoComposicao;
 	}   
+	public MateriaPrima getMateriaPrima() {
+		return this.materiaPrima;
+	}
+
+	public void setMateriaPrima(MateriaPrima materiaPrima) {
+		this.materiaPrima = materiaPrima;
+	}   
+	public Produto getProduto() {
+		return this.produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}   
 	public Float getQuantidade() {
 		return this.quantidade;
 	}
@@ -53,16 +64,5 @@ public class ProdutoComposicao implements Serializable {
 	public void setQuantidade(Float quantidade) {
 		this.quantidade = quantidade;
 	}
-	public Produto getProduto() {
-		return produto;
-	}
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-	public MateriaPrima getMateriaPrima() {
-		return materiaPrima;
-	}
-	public void setMateriaPrima(MateriaPrima materiaPrima) {
-		this.materiaPrima = materiaPrima;
-	} 
+   
 }

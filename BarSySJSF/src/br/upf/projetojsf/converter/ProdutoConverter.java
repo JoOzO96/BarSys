@@ -7,22 +7,23 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 import javax.persistence.EntityManager;
 
-import br.sistema.beans.Fornecedor;
+import br.sistema.beans.Produto;
 import br.sistema.uteis.FabricaConexao;
 
-@FacesConverter(value = "fornecedorConverter")
-public class FornecedorConverter implements Converter {
+
+@FacesConverter(value = "produtoConverter")
+public class ProdutoConverter implements Converter {
 	@Override
-	public Fornecedor getAsObject(FacesContext fc, UIComponent uic, String value) {
+	public Produto getAsObject(FacesContext fc, UIComponent uic, String value) {
 		if (value != null && value.trim().length() > 0) {
 			try {
 				EntityManager em = FabricaConexao.getEntityManager();
-				Fornecedor ret = em.find(Fornecedor.class, Long.parseLong(value));
+				Produto ret = em.find(Produto.class, Long.parseLong(value));
 				em.close();
 				return ret;
 			} catch (NumberFormatException e) {
 				throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"Erro de Conversão do Foenecedor", "Fornecedor inválido."));
+						"Erro de Conversão do Produto", "Produto inválida."));
 			}
 		} else
 			return null;
@@ -31,7 +32,7 @@ public class FornecedorConverter implements Converter {
 	@Override
 	 public String getAsString(FacesContext fc, UIComponent uic, Object object) {
 		 if(object != null) {
-			return String.valueOf(((Fornecedor) object).getCodFornecedor());
+			return String.valueOf(((Produto) object).getCodProduto());
 		 } else
 		 	return null;
 	}

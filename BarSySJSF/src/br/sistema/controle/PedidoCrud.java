@@ -5,30 +5,32 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 
+import br.sistema.beans.Cliente;
 import br.sistema.beans.MateriaPrima;
+import br.sistema.beans.Pedido;
+import br.sistema.beans.PedidoProduto;
 import br.sistema.beans.Produto;
 import br.sistema.beans.ProdutoComposicao;
 import br.sistema.uteis.FabricaConexao;
 
 @ManagedBean
 @SessionScoped
-public class ProdutoCrud {
+public class PedidoCrud {
 
-	private List<Produto> lista;
-	private Produto objeto;
+	private List<Pedido> lista;
+	private Pedido objeto;
 
-	@SuppressWarnings("unchecked")
 	public void inicializarLista() {
 		EntityManager em = FabricaConexao.getEntityManager();
 		
-		lista = em.createQuery("from Produto").getResultList();
+		lista = em.createQuery("from Pedido").getResultList();
 		em.close();
 	}
 
-	public List<MateriaPrima> completeMateriaPrima(String query) {
+	public List<Cliente> completeCliente(String query) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		 List<MateriaPrima> results = em.createQuery(
-		 "from MateriaPrima where upper(nome) like "+
+		 List<Cliente> results = em.createQuery(
+		 "from Cliente where upper(nome) like "+
 		"'"+query.trim().toUpperCase()+"%' "+
 		 "order by nome").getResultList();
 		 em.close();
@@ -36,7 +38,7 @@ public class ProdutoCrud {
 		}
 	
 	public String incluir() {
-		objeto = new Produto();
+		objeto = new Pedido();
 		return "ProdutoForm?faces-redirect=true";
 	}
 
@@ -55,14 +57,14 @@ public class ProdutoCrud {
 
 	public String alterar(Long id) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		objeto = em.find(Produto.class, id);
+		objeto = em.find(Pedido.class, id);
 		em.close();
 		return "ProdutoForm?faces-redirect=true";
 	}
 
 	public String excluir(Long id) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		objeto = em.find(Produto.class, id);
+		objeto = em.find(Pedido.class, id);
 		 em.getTransaction().begin();
 		 em.remove(objeto);
 		 em.getTransaction().commit();
@@ -70,71 +72,63 @@ public class ProdutoCrud {
 		 return "ProdutoList?faces-redirect=true";
 		}
 	
-	public ProdutoCrud() {
+	public PedidoCrud() {
 		super();
 	}
 
-	public List<Produto> getLista() {
+	public List<Pedido> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<Produto> lista) {
+	public void setLista(List<Pedido> lista) {
 		this.lista = lista;
 	}
 
-	public Produto getObjeto() {
+	public Pedido getObjeto() {
 		return objeto;
 	}
 
-	public void setObjeto(Produto objeto) {
+	public void setObjeto(Pedido objeto) {
 		this.objeto = objeto;
 	}
 	
 	
 	
-	private ProdutoComposicao produtoComposicao; // item em edição, vinculado ao formulário
+	private PedidoProduto itensPedido; // item em edição, vinculado ao formulário
 
 	private Integer rowIndex = null; // índice do item selecionado - alterar e
 										// excluir
 
 	public void incluirProdutoComposicao() {
 		rowIndex = null;
-		produtoComposicao = new ProdutoComposicao();
+		itensPedido = new PedidoProduto();
 	}
 
 	public void alterarProdutoComposicao(Integer rowIndex) {
 		this.rowIndex = rowIndex;
-		produtoComposicao = objeto.getProdutoComposicao().get(rowIndex); // pega item da
+		itensPedido = objeto.getItensPedido().get(rowIndex); // pega item da
 															// coleção
 	}
 
 	public void excluirProdutoComposicao(Integer rowIndex) {
-		objeto.getProdutoComposicao().remove(rowIndex.intValue()); // exclui item
+		objeto.getItensPedido().remove(rowIndex.intValue()); // exclui item
 	}
 
 	public void gravarProdutoComposicao() {
 		if (this.rowIndex == null) {
-			produtoComposicao.setProduto(objeto);
-			objeto.getProdutoComposicao().add(produtoComposicao); // adiciona item na coleção
+			itensPedido.setPedido(objeto);
+			objeto.getItensPedido().add(itensPedido); // adiciona item na coleção
 		} else {
-			objeto.getProdutoComposicao().set(rowIndex, produtoComposicao); // altera na
+			objeto.getItensPedido().set(rowIndex, itensPedido); // altera na
 																// coleção
 		}
 		rowIndex = null;
-		produtoComposicao = null;
+		itensPedido = null;
 	}
 
 	public void cancelarProdutoComposicao() {
 		rowIndex = null;
-		produtoComposicao = null;
-	}
-
-	public ProdutoComposicao getProdutoComposicao() {
-		return produtoComposicao;
-	}
-
-	public void seProdutoComposicao(ProdutoComposicao produtoComposicao) {
-		this.produtoComposicao = produtoComposicao;
+		itensPedido = null;
 	}
 
 }

@@ -39,6 +39,15 @@ public class FornecedorCrud {
 		 em.close();
 		 return results;
 		}
+	public List<Fornecedor> completeFornecedor(String query) {
+		EntityManager em = FabricaConexao.getEntityManager();
+		 List<Fornecedor> results = em.createQuery(
+		 "from Fornecedor where upper(nome) like "+
+		"'"+query.trim().toUpperCase()+"%' "+
+		 "order by nome").getResultList();
+		 em.close();
+		 return results;
+		}
 	
 	public String incluir() {
 		objeto = new Fornecedor();

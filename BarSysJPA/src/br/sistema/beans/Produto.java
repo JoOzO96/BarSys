@@ -1,11 +1,17 @@
 package br.sistema.beans;
 
+import static javax.persistence.CascadeType.ALL;
+
 import java.io.Serializable;
-import java.lang.Double;
 import java.lang.Long;
 import java.lang.String;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -33,17 +39,21 @@ public class Produto implements Serializable {
 	private String unidade;
 	@NotNull(message="Deve informar o valor unitario do produto!")
 	private Float valorUn;
+	@NotNull(message="As composicoes de produtos devem ser inicializados!")
+	@Valid
+	@OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "produto", fetch=FetchType.EAGER)
+	private List<ProdutoComposicao> produtoComposicao;
 	private static final long serialVersionUID = 1L;
 
 	public Produto() {
 		super();
 		unidade = "UN";
 		valorUn = 0F;
+		produtoComposicao = new ArrayList();
 	}   
 	public Long getCodProduto() {
 		return this.codProduto;
 	}
-
 	public void setCodProduto(Long codProduto) {
 		this.codProduto = codProduto;
 	}   
@@ -67,6 +77,12 @@ public class Produto implements Serializable {
 
 	public void setValorUn(Float valorUn) {
 		this.valorUn = valorUn;
+	}
+	public List<ProdutoComposicao> getProdutoComposicao() {
+		return produtoComposicao;
+	}
+	public void setProdutoComposicao(List<ProdutoComposicao> produtoComposicao) {
+		this.produtoComposicao = produtoComposicao;
 	}
    
 }
