@@ -21,7 +21,7 @@ public class ClienteEndereco implements Serializable {
 	   
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "seq_clienteendereco")
-	@SequenceGenerator(name = "seq_clienteendereco", allocationSize = 1, initialValue = 1)
+	@SequenceGenerator(name = "seq_clienteendereco", sequenceName="seq_clienteendereco", allocationSize = 1, initialValue = 1)
 	private Long codClienteEndereco;
 	@NotEmpty(message="Deve informar a rua do cliente!")
 	@Length(min=1, max=150, message="A rua deve ter entre {min} e {max} caracteres!")

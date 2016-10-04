@@ -8,10 +8,10 @@
 <h:head>
 	<title></title>
 </h:head>
-<h:body onload="#{produtoCrud.inicializarLista()}">
+<h:body onload="#{pedidoCrud.inicializarLista()}">
 		<p:growl></p:growl>
 	<h:form id="formLista">
-		<p:dataTable var="obj" value="#{produtoCrud.lista}"
+		<p:dataTable var="obj" value="#{pedidoCrud.lista}"
 			paginator="true" rows="10" rowsPerPageTemplate="10, 20, 30, 40, 50"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 			{LastPageLink} {RowsPerPageDropdown}"
@@ -21,40 +21,37 @@
 			<f:facet name="header">
 				<p:spacer height="30"></p:spacer>
 				<div align="left" style="position: absolute; top: 20px; width: 95%;">
-					<p:outputLabel value="Listagem de Matéria Prima"></p:outputLabel>
+					<p:outputLabel value="Listagem de Pedidos"></p:outputLabel>
 				</div>
 				
 				<div align="right"
 					style="position: absolute; top: 12px; width: 95%;">
 					<p:commandButton id="botaoIncluir" value="Incluir"
-						action="#{produtoCrud.incluir}" ajax="false" />
+						action="#{pedidoCrud.incluir}" ajax="false" />
 				</div>
 			</f:facet>
 			
-			<p:column headerText="Código" sortBy="#{obj.codProduto}" filterBy="#{obj.codProduto}"
+			<p:column headerText="Código" sortBy="#{obj.codPedido}" filterBy="#{obj.codPedido}"
 				filterMatchMode="exact">
-				<h:outputText value="#{obj.codProduto}" />
+				<h:outputText value="#{obj.codPedido}" />
 			</p:column>
 			
-			<p:column headerText="Nome" sortBy="#{obj.nome}"
-				filterBy="#{obj.nome}" filterMatchMode="contains">
-				<h:outputText value="#{obj.nome}" />
+			<p:column headerText="Nome Cliente:" sortBy="#{obj.cliente}"
+				filterBy="#{obj.cliente}" filterMatchMode="contains">
+				<h:outputText value="#{obj.cliente}" converter="clienteConverterNome"/>
 			</p:column>
 			
-			<p:column headerText="Valor Unitario" sortBy="#{obj.valorUn}" filterBy="#{obj.valorUn}"
+			<p:column headerText="Situção:" sortBy="#{obj.situacao}" filterBy="#{obj.situacao}"
 				filterMatchMode="startsWith">
-				<h:outputText value="#{obj.valorUn}" />
+				<h:outputText value="#{obj.situacao}" converter="situacaoConverterNome"/>
 			</p:column>
-			<p:column headerText="Unidade" sortBy="#{obj.unidade}" filterBy="#{obj.unidade}"
-				filterMatchMode="startsWith">
-				<h:outputText value="#{obj.unidade}" />
-			</p:column>
+			
 			<p:column headerText="" width="90">
-				<p:commandButton action="#{produtoCrud.alterar(obj.codProduto)}"
+				<p:commandButton action="#{pedidoCrud.alterar(obj.codPedido)}"
 					value="Alterar" ajax="false" />
 			</p:column>
 			<p:column headerText="" width="90">
-				<p:commandButton action="#{produtoCrud.excluir(obj.codProduto)}"
+				<p:commandButton action="#{pedidoCrud.excluir(obj.codPedido)}"
 					value="Excluir" ajax="false"
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>

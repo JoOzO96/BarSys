@@ -25,6 +25,16 @@ public class ProdutoCrud {
 		em.close();
 	}
 
+	public List<Produto> completeProduto(String query) {
+		EntityManager em = FabricaConexao.getEntityManager();
+		 List<Produto> results = em.createQuery(
+		 "from Produto where upper(nome) like "+
+		"'"+query.trim().toUpperCase()+"%' "+
+		 "order by nome").getResultList();
+		 em.close();
+		 return results;
+		}
+	
 	public List<MateriaPrima> completeMateriaPrima(String query) {
 		EntityManager em = FabricaConexao.getEntityManager();
 		 List<MateriaPrima> results = em.createQuery(

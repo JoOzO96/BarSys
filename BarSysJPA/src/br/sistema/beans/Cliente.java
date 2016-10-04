@@ -29,7 +29,7 @@ public class Cliente implements Serializable {
 	   
 	@Id
 	@GeneratedValue(generator = "seq_cliente", strategy = SEQUENCE)
-	@SequenceGenerator(name = "seq_cliente", allocationSize = 1, initialValue = 1)
+	@SequenceGenerator(name = "seq_cliente",sequenceName="seq_cliente", allocationSize = 1, initialValue = 1)
 	private Long codCliente;
 	@NotEmpty(message="Deve informar o nome do cliente!")
 	@Length(min=2, max=80, message="O nome deve ter entre {min} e {max} caracteres!")

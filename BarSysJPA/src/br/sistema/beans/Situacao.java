@@ -16,25 +16,26 @@ import static javax.persistence.GenerationType.SEQUENCE;
 
 public class Situacao implements Serializable {
 
-	   
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "seq_situacao")
-	@SequenceGenerator(name = "seq_situacao", allocationSize = 1, initialValue = 1)
+	@SequenceGenerator(name = "seq_situacao", sequenceName = "seq_situacao", allocationSize = 1, initialValue = 1)
 	private Long codSituacao;
-	@NotNull(message="Uma descricao deve ser informada")
+	@NotNull(message = "Uma descricao deve ser informada")
 	private String descricao;
 	private static final long serialVersionUID = 1L;
 
 	public Situacao() {
 		super();
-	}   
+	}
+
 	public Long getCodSituacao() {
 		return this.codSituacao;
 	}
 
 	public void setCodSituacao(Long codSituacao) {
 		this.codSituacao = codSituacao;
-	}   
+	}
+
 	public String getDescricao() {
 		return this.descricao;
 	}
@@ -42,5 +43,5 @@ public class Situacao implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-   
+
 }

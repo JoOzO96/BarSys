@@ -18,14 +18,13 @@ import static javax.persistence.GenerationType.SEQUENCE;
 
 public class EntradaItem implements Serializable {
 
-	   
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "seq_entrada")
-	@SequenceGenerator(name = "seq_entrada", allocationSize = 1, initialValue = 1)
+	@SequenceGenerator(name = "seq_entrada", sequenceName = "seq_entrada", allocationSize = 1, initialValue = 1)
 	private Long codEntradaItem;
-	@NotNull(message="Deve informar o custo unitario do produto!")
+	@NotNull(message = "Deve informar o custo unitario do produto!")
 	private Float custoUnitario;
-	@NotNull(message="Deve informar a quantidade do produto!")
+	@NotNull(message = "Deve informar a quantidade do produto!")
 	private Float quantidade;
 	@Transient
 	private Float custoTotal;
@@ -40,21 +39,24 @@ public class EntradaItem implements Serializable {
 		quantidade = 0F;
 		custoUnitario = 0F;
 		custoTotal = 0F;
-	}   
+	}
+
 	public Long getCodEntradaItem() {
 		return this.codEntradaItem;
 	}
 
 	public void setCodEntradaItem(Long codEntradaItem) {
 		this.codEntradaItem = codEntradaItem;
-	}   
+	}
+
 	public Float getCustoUnitario() {
 		return this.custoUnitario;
 	}
 
 	public void setCustoUnitario(Float custoUnitario) {
 		this.custoUnitario = custoUnitario;
-	}   
+	}
+
 	public Float getQuantidade() {
 		return this.quantidade;
 	}
@@ -62,24 +64,29 @@ public class EntradaItem implements Serializable {
 	public void setQuantidade(Float quantidade) {
 		this.quantidade = quantidade;
 	}
+
 	public Entrada getEntrada() {
 		return entrada;
 	}
+
 	public void setEntrada(Entrada entrada) {
 		this.entrada = entrada;
 	}
+
 	public MateriaPrima getMateriaPrima() {
 		return materiaPrima;
 	}
+
 	public void setMateriaPrima(MateriaPrima materiaPrima) {
 		this.materiaPrima = materiaPrima;
 	}
+
 	public Float getCustoTotal() {
 		return custoTotal;
 	}
+
 	public void setCustoTotal(Float custoTotal) {
 		this.custoTotal = custoTotal;
-	}   
-	
-   
+	}
+
 }

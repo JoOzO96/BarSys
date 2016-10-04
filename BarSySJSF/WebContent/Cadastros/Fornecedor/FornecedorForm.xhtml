@@ -49,29 +49,29 @@
 				</f:facet>
 
 				<p:column headerText="Cidade:">
-					<h:outputText value="#{obj.cidade}" converter="cidadeConverterNome"  />
+					<h:outputText value="#{obj.cidade}" converter="cidadeConverterNome" />
 				</p:column>
-				
+
 				<p:column headerText="Rua:">
 					<h:outputText value="#{obj.rua}" />
 				</p:column>
-				
+
 				<p:column headerText="Numero:">
 					<h:outputText value="#{obj.numero}" />
 				</p:column>
-				
+
 				<p:column headerText="Complemento:">
 					<h:outputText value="#{obj.complemento}" />
 				</p:column>
-				
+
 				<p:column headerText="Bairro:">
 					<h:outputText value="#{obj.bairro}" />
 				</p:column>
-				
+
 				<p:column headerText="IE:">
 					<h:outputText value="#{obj.iestadual}" />
 				</p:column>
-				
+
 				<p:column headerText="Referencia:">
 					<h:outputText value="#{obj.referencia}" />
 				</p:column>
@@ -86,6 +86,7 @@
 					<p:commandButton
 						actionListener="#{fornecedorCrud.excluirEnderecoFornecedor(rowIndex)}"
 						value="Excluir" ajax="true"
+						update=":formEditar:tabelaEnderecoFornecedor"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
 					</p:commandButton>
 				</p:column>
@@ -117,44 +118,43 @@
 					completeMethod="#{fornecedorCrud.completeCidade}" />
 
 				<p:outputLabel value="Endereco:" for="endereco" />
-				<p:inputText id="endereco" size="60"
-					style="text-align: left;"
+				<p:inputText id="endereco" size="60" style="text-align: left;"
 					value="#{fornecedorCrud.enderecoFornecedor.rua}">
 				</p:inputText>
-				
+
 				<p:outputLabel value="Numero:" for="numero" />
 				<p:inputText id="numero" maxlength="255" size="60"
 					style="text-align: left;"
 					value="#{fornecedorCrud.enderecoFornecedor.numero}">
 				</p:inputText>
-				
+
 				<p:outputLabel value="Complemento:" for="complemento" />
 				<p:inputText id="complemento" size="60" maxlength="255"
 					style="text-align: left;"
 					value="#{fornecedorCrud.enderecoFornecedor.complemento}">
 				</p:inputText>
-				
+
 				<p:outputLabel value="Bairro:" for="bairro" />
 				<p:inputText id="bairro" size="60" maxlength="50"
 					style="text-align: left;"
 					value="#{fornecedorCrud.enderecoFornecedor.bairro}">
 				</p:inputText>
-				
+
 				<p:outputLabel value="Inscricao Estadual:" for="inscricaoestadual" />
 				<p:inputText id="inscricaoestadual" maxlength="255" size="60"
 					style="text-align: left;"
 					value="#{fornecedorCrud.enderecoFornecedor.iestadual}">
 				</p:inputText>
-				
+
 				<p:outputLabel value="Referencia:" for="referencia" />
 				<p:inputText id="referencia" maxlength="255" size="60"
 					style="text-align: left;"
 					value="#{fornecedorCrud.enderecoFornecedor.referencia}">
 				</p:inputText>
-				
+
 			</h:panelGrid>
-			
-			
+
+
 			<p:commandButton
 				actionListener="#{fornecedorCrud.gravarEnderecoFornecedor}"
 				validateClient="true" value="Gravar"
@@ -167,7 +167,7 @@
 				value="Cancelar" update=":formEditar:tabelaEnderecoFornecedor"
 				immediate="true"
 				oncomplete="PF('dialogoEnderecoFornecedor').hide();" ajax="true" />
-				
+
 		</h:form>
 	</p:dialog>
 

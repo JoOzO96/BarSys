@@ -2,8 +2,10 @@ package br.sistema.controle;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
 import br.sistema.beans.Cidade;
@@ -55,12 +57,26 @@ public class FornecedorCrud {
 	}
 
 	public String gravar() {
-		EntityManager em = FabricaConexao.getEntityManager();
-		em.getTransaction().begin();
-		em.merge(objeto);
-		em.getTransaction().commit();
-		em.close();
-		return "FornecedorList?faces-redirect=true";
+		try{
+			EntityManager em = FabricaConexao.getEntityManager();
+			em.getTransaction().begin();
+			em.merge(objeto);
+			em.getTransaction().commit();
+			em.close();
+			return "FornecedorList?faces-redirect=true";
+		}catch(Exception e){
+			String mens = "";
+			FacesMessage mensagem = new FacesMessage();
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			mens = e.getCause().toString();
+			if (mens.contains("Deve ter pelo menos um endereco no fornecedor!")){
+				mensagem.setSummary("O Fornecedor precisa conter no minimo um endereco");
+			}else{
+				mensagem.setSummary ("Erro ao cadastrar o fornecedor");
+			}
+			FacesContext.getCurrentInstance().addMessage("", mensagem);
+		}
+		return "";
 	}
 
 	public String cancelar() {
@@ -75,13 +91,27 @@ public class FornecedorCrud {
 	}
 
 	public String excluir(Long id) {
-		EntityManager em = FabricaConexao.getEntityManager();
-		objeto = em.find(Fornecedor.class, id);
-		em.getTransaction().begin();
-		em.remove(objeto);
-		em.getTransaction().commit();
-		em.close();
-		return "FornecedorList?faces-redirect=true";
+		try {
+			EntityManager em = FabricaConexao.getEntityManager();
+			objeto = em.find(Fornecedor.class, id);
+			em.getTransaction().begin();
+			em.remove(objeto);
+			em.getTransaction().commit();
+			em.close();
+			return "FornecedorList?faces-redirect=true";
+		} catch (Exception e) {
+			String mens = "";
+			FacesMessage mensagem = new FacesMessage();
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			mens = e.getCause().toString();
+			if (mens.contains("entradaitem")){
+				mensagem.setSummary("O Fornecedor nao pode conter nenhuma entrada relacionada a ele");
+			}else{
+				mensagem.setSummary ("Erro ao deletar o fornecedor");
+			}
+			FacesContext.getCurrentInstance().addMessage("", mensagem);
+		}
+		return "";
 	}
 
 	public FornecedorCrud() {

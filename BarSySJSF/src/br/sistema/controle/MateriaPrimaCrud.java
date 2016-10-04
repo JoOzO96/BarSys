@@ -1,8 +1,11 @@
 package br.sistema.controle;
 
 import java.util.List;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
 import br.sistema.beans.MateriaPrima;
@@ -48,13 +51,29 @@ public class MateriaPrimaCrud {
 	}
 
 	public String excluir(Long id) {
-		EntityManager em = FabricaConexao.getEntityManager();
-		objeto = em.find(MateriaPrima.class, id);
-		 em.getTransaction().begin();
-		 em.remove(objeto);
-		 em.getTransaction().commit();
-		em.close();
-		 return "MateriaPrimaList?faces-redirect=true";
+		try{
+			EntityManager em = FabricaConexao.getEntityManager();
+			objeto = em.find(MateriaPrima.class, id);
+			 em.getTransaction().begin();
+			 em.remove(objeto);
+			 em.getTransaction().commit();
+			em.close();
+			 return "MateriaPrimaList?faces-redirect=true";
+		}catch(Exception e){
+			String mens = "";
+			FacesMessage mensagem = new FacesMessage();
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			mens = e.getCause().toString();
+			if (mens.contains("entradaitem")){
+				mensagem.setSummary("Não é possivel deletar esta Materia Prima, pois ela possui referencias em alguma entrada");
+			}else if (mens.contains("produtocomposicao")){
+				mensagem.setSummary ("Não é possivel delestar esta Materia Prima, pois ela possui refencias na tabela Produto Composicao");
+			}else{
+				mensagem.setSummary("Erro ao deletar a Materia Prima");
+			}
+			FacesContext.getCurrentInstance().addMessage("", mensagem);
+		}
+		return "";
 		}
 	
 	public MateriaPrimaCrud() {

@@ -1,5 +1,4 @@
 package br.upf.projetojsf.converter;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -11,8 +10,9 @@ import javax.persistence.EntityManager;
 import br.sistema.beans.Cliente;
 import br.sistema.uteis.FabricaConexao;
 
-@FacesConverter(value = "clienteConverter")
-public class ClienteConverter implements Converter {
+
+@FacesConverter(value = "clienteConverterNome")
+public class ClienteConverterNome implements Converter {
 	@Override
 	public Cliente getAsObject(FacesContext fc, UIComponent uic, String value) {
 		if (value != null && value.trim().length() > 0) {
@@ -30,10 +30,10 @@ public class ClienteConverter implements Converter {
 	}
 
 	@Override
-	public String getAsString(FacesContext fc, UIComponent uic, Object object) {
-		if (object != null) {
-			return String.valueOf(((Cliente) object).getCodCliente());
-		} else
-			return null;
+	 public String getAsString(FacesContext fc, UIComponent uic, Object object) {
+		 if(object != null) {
+			return String.valueOf(((Cliente) object).getNome()+ " | " + ((Cliente) object).getCpf() );
+		 } else
+		 	return null;
 	}
 }
