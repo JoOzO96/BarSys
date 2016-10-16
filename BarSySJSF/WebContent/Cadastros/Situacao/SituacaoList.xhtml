@@ -37,7 +37,18 @@
 				<h:outputText value="#{obj.codSituacao}" />
 			</p:column>
 			
-			<p:column headerText="Descricaoa" sortBy="#{obj.descricao}"
+			<p:column headerText="Descricao" sortBy="#{obj.descricao}"
+				filterBy="#{obj.descricao}" filterMatchMode="contains">
+				<h:outputText value="#{obj.descricao}" />
+			</p:column>
+			
+			<p:column headerText="Finaliza" sortBy="#{obj.finaliza}"
+				filterBy="#{obj.finaliza}" filterMatchMode="contains">
+				<h:outputLabel value="fa fa-plus" rendered="#{obj.finaliza==true}" />
+				<h:outputLabel  rendered="#{obj.finaliza ? 'Sim' : 'Nao'}" />
+			</p:column>
+			
+			<p:column headerText="Descricao" sortBy="#{obj.descricao}"
 				filterBy="#{obj.descricao}" filterMatchMode="contains">
 				<h:outputText value="#{obj.descricao}" />
 			</p:column>

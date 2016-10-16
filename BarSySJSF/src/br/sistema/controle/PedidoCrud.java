@@ -92,7 +92,6 @@ public class PedidoCrud {
 	public String alterar(Long id) {
 		EntityManager em = FabricaConexao.getEntityManager();
 		objeto = em.find(Pedido.class, id);
-		System.out.println(objeto.getItensPedido());
 		em.close();
 		return "PedidoForm?faces-redirect=true";
 	}

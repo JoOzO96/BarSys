@@ -47,10 +47,6 @@ public class ProdutoCrud {
 		objeto = new Produto();
 		return "ProdutoForm?faces-redirect=true";
 	}
-	
-	public void calculaCusto(){
-		
-	}
 
 	public String gravar() {
 		EntityManager em = FabricaConexao.getEntityManager();
@@ -112,16 +108,19 @@ public class ProdutoCrud {
 	public void incluirProdutoComposicao() {
 		rowIndex = null;
 		produtoComposicao = new ProdutoComposicao();
+		calculaCusto();
 	}
 
 	public void alterarProdutoComposicao(Integer rowIndex) {
 		this.rowIndex = rowIndex;
 		produtoComposicao = objeto.getProdutoComposicao().get(rowIndex); // pega item da
 															// coleção
+		calculaCusto();
 	}
 
 	public void excluirProdutoComposicao(Integer rowIndex) {
 		objeto.getProdutoComposicao().remove(rowIndex.intValue()); // exclui item
+		calculaCusto();
 	}
 
 	public void gravarProdutoComposicao() {
@@ -134,6 +133,15 @@ public class ProdutoCrud {
 		}
 		rowIndex = null;
 		produtoComposicao = null;
+		calculaCusto();
+	}
+	
+	public void calculaCusto(){
+		Float valorCusto = 0F;
+		for (ProdutoComposicao it : objeto.getProdutoComposicao()){
+			valorCusto += it.getMateriaPrima().getValorUltimaCompra();
+		}
+		objeto.setValorCusto(valorCusto);
 	}
 
 	public void cancelarProdutoComposicao() {

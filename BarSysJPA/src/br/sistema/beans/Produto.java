@@ -42,6 +42,7 @@ public class Produto implements Serializable {
 	@Valid
 	@OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "produto", fetch = FetchType.EAGER)
 	private List<ProdutoComposicao> produtoComposicao;
+	private Float valorCusto;
 	private static final long serialVersionUID = 1L;
 
 	public Produto() {
@@ -49,6 +50,15 @@ public class Produto implements Serializable {
 		unidade = "UN";
 		valorUn = 0F;
 		produtoComposicao = new ArrayList();
+		valorCusto = 0F;
+	}
+
+	public Float getValorCusto() {
+		return valorCusto;
+	}
+
+	public void setValorCusto(Float valorCusto) {
+		this.valorCusto = valorCusto;
 	}
 
 	public Long getCodProduto() {

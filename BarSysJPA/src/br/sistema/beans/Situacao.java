@@ -22,10 +22,28 @@ public class Situacao implements Serializable {
 	private Long codSituacao;
 	@NotNull(message = "Uma descricao deve ser informada")
 	private String descricao;
+	private boolean finaliza;
+	private boolean cozinha;
 	private static final long serialVersionUID = 1L;
 
 	public Situacao() {
 		super();
+	}
+
+	public boolean isFinaliza() {
+		return finaliza;
+	}
+
+	public void setFinaliza(boolean finaliza) {
+		this.finaliza = finaliza;
+	}
+
+	public boolean isCozinha() {
+		return cozinha;
+	}
+
+	public void setCozinha(boolean cozinha) {
+		this.cozinha = cozinha;
 	}
 
 	public Long getCodSituacao() {

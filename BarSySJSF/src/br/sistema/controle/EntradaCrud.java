@@ -41,7 +41,6 @@ public class EntradaCrud {
 		List<MateriaPrima> results = em.createQuery("from MateriaPrima where upper(nome) like " + "'"
 				+ query.trim().toUpperCase() + "%' " + "order by nome").getResultList();
 		em.close();
-		System.out.println(results);
 		return results;
 	}
 

@@ -35,7 +35,7 @@
 			</p:inputText>
 			
 			<p:outputLabel value="Valor Custo:" for="valorCusto" />
-			<p:inputText id="valorCusto" style="text-align:right">
+			<p:inputText id="valorCusto" value="#{produtoCrud.objeto.valorCusto}" style="text-align:right">
 				<f:convertNumber pattern="#,##0.00" />
 			</p:inputText>
 
@@ -143,7 +143,7 @@
 				actionListener="#{produtoCrud.gravarProdutoComposicao}"
 				validateClient="true" value="Gravar"
 				icon="fa fa-check fa-lg" style="width:88px;height:20px"
-				update=":formProdutoComposicao :formEditar:tabelaProdutoComposicao"
+				update=":formProdutoComposicao :formEditar:tabelaProdutoComposicao :formEditar:valorCusto"
 				oncomplete="if (!args.validationFailed){ PF('dialogoProdutoComposicao').hide();}"
 				ajax="true">
 			</p:commandButton>
@@ -151,7 +151,7 @@
 			<p:commandButton
 				actionListener="#{produtoCrud.cancelarProdutoComposicao}"
 				icon="fa fa-close fa-lg" style="width:88px;height:20px"
-				value="Cancelar" update=":formEditar:tabelaProdutoComposicao"
+				value="Cancelar" update=":formEditar:tabelaProdutoComposicao :formEditar:valorCusto"
 				immediate="true" oncomplete="PF('dialogoProdutoComposicao').hide();"
 				ajax="true" />
 

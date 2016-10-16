@@ -25,6 +25,12 @@
 
 			<p:outputLabel value="Descricao:" for="descricao" />
 			<p:inputText id="descricao" value="#{situacaoCrud.objeto.descricao}" />
+			
+			<p:outputLabel value="Finaliza Pedido:" for="finaliza" />
+			<p:selectBooleanCheckbox id="finaliza" value="#{situacaoCrud.objeto.finaliza}" />
+			
+			<p:outputLabel value="Lista em Abertos:" for="cozinha" />
+			<p:selectBooleanCheckbox id="cozinha" value="#{situacaoCrud.objeto.cozinha}" />
 
 			<f:facet name="footer">
 				<p:commandButton value="Gravar" action="#{situacaoCrud.gravar}"
