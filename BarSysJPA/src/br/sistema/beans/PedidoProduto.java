@@ -30,7 +30,7 @@ public class PedidoProduto implements Serializable {
 	@ManyToOne(optional = false)
 	@NotNull(message = "O produto deve ser inicializado!")
 	private Produto produto;
-
+	private Boolean finalizado;
 
 	private static final long serialVersionUID = 1L;
 
@@ -39,6 +39,7 @@ public class PedidoProduto implements Serializable {
 		valorUn = 0D;
 		valorDesc = 0D;
 		quantidade = 1D;
+		finalizado = false;
 	}
 
 	public Long getCodPedidoProduto() {
@@ -87,6 +88,14 @@ public class PedidoProduto implements Serializable {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public Boolean getFinalizado() {
+		return finalizado;
+	}
+
+	public void setFinalizado(Boolean finalizado) {
+		this.finalizado = finalizado;
 	}
 
 }

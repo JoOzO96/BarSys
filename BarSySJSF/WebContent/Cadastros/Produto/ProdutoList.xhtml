@@ -6,7 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title></title>
+	<title>Lista de Produtos</title>
 </h:head>
 <h:body onload="#{produtoCrud.inicializarLista()}">
 		<p:growl></p:growl>
@@ -21,7 +21,7 @@
 			<f:facet name="header">
 				<p:spacer height="30"></p:spacer>
 				<div align="left" style="position: absolute; top: 20px; width: 95%;">
-					<p:outputLabel value="Listagem de Matéria Prima"></p:outputLabel>
+					<p:outputLabel value="Listagem de Produtos"></p:outputLabel>
 				</div>
 				
 				<div align="right"
@@ -43,19 +43,23 @@
 			
 			<p:column headerText="Valor Unitario" sortBy="#{obj.valorUn}" filterBy="#{obj.valorUn}"
 				filterMatchMode="startsWith">
-				<h:outputText value="#{obj.valorUn}" />
+				<h:outputText value="#{obj.valorUn}" >
+					<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>
+				</h:outputText>
 			</p:column>
 			<p:column headerText="Unidade" sortBy="#{obj.unidade}" filterBy="#{obj.unidade}"
 				filterMatchMode="startsWith">
-				<h:outputText value="#{obj.unidade}" />
+				<h:outputText value="#{obj.unidade}"/>
 			</p:column>
-			<p:column headerText="" width="90">
+			<p:column headerText="Alterar" width="90">
 				<p:commandButton action="#{produtoCrud.alterar(obj.codProduto)}"
-					value="Alterar" ajax="false" />
+				icon="fa fa-pencil fa-lg" style="width:88px;height:20px"
+					ajax="false" />
 			</p:column>
-			<p:column headerText="" width="90">
+			<p:column headerText="Excluir" width="90">
 				<p:commandButton action="#{produtoCrud.excluir(obj.codProduto)}"
-					value="Excluir" ajax="false"
+				icon="fa fa-close fa-lg" style="width:88px;height:20px"
+					 ajax="false"
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>
 		</p:dataTable>

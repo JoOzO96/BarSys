@@ -25,6 +25,7 @@
 				<div align="right"
 					style="position: absolute; top: 12px; width: 95%;">
 					<p:commandButton id="botaoIncluir" value="Incluir"
+					icon="fa fa-plus fa-lg" style="width:88px;height:20px"
 						action="#{contasPagarCrud.incluir}" ajax="false" />
 				</div>
 			</f:facet>
@@ -53,19 +54,22 @@
 				</h:outputText>
 			</p:column>
 
-			<p:column headerText="" width="90">
+			<p:column headerText="Alterar" width="90">
 				<p:commandButton
+					icon="fa fa-pencil fa-lg" style="width:88px;height:20px"
 					action="#{contasPagarCrud.alterar(coPa.codContasPagar)}"
-					value="Alterar" ajax="false" />
+					ajax="false" />
 			</p:column>
-			<p:column headerText="" width="90">
+			<p:column headerText="Excluir" width="90">
 				<p:commandButton
+					icon="fa fa-close fa-lg" style="width:88px;height:20px"
 					action="#{contasPagarCrud.excluir(coPa.codContasPagar)}"
-					value="Excluir" ajax="false"
+					ajax="false"
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>
-			<p:column headerText="" width="90">
-				<p:commandButton id="botaoVerParcelas" value="Parcelas" ajax="true"
+			<p:column headerText="Parcelas" width="90">
+				<p:commandButton id="botaoVerParcelas" ajax="true"
+				icon="fa fa-ellipsis-h fa-lg" style="width:88px;height:20px"
 					actionListener="#{contasPagarCrud.alterar(coPa.codContasPagar)}"
 					update=":formParcelas" onclick="PF('dialogoParcelas').show();" />
 			</p:column>

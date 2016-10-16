@@ -6,7 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title></title>
+	<title>Lista de Pedidos</title>
 </h:head>
 <h:body onload="#{pedidoCrud.inicializarLista()}">
 		<p:growl></p:growl>
@@ -46,13 +46,13 @@
 				<h:outputText value="#{obj.situacao}" converter="situacaoConverterNome"/>
 			</p:column>
 			
-			<p:column headerText="" width="90">
+			<p:column headerText="Alterar" width="90">
 				<p:commandButton action="#{pedidoCrud.alterar(obj.codPedido)}"
-					value="Alterar" ajax="false" />
+					icon="fa fa-pencil fa-lg" style="width:88px;height:20px" ajax="false" />
 			</p:column>
-			<p:column headerText="" width="90">
+			<p:column headerText="Exlcuir" width="90">
 				<p:commandButton action="#{pedidoCrud.excluir(obj.codPedido)}"
-					value="Excluir" ajax="false"
+					ajax="false" icon="fa fa-close fa-lg" style="width:88px;height:20px"
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>
 		</p:dataTable>

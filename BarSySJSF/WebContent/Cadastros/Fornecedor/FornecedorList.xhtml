@@ -25,6 +25,7 @@
 				<div align="right"
 					style="position: absolute; top: 12px; width: 95%;">
 					<p:commandButton id="botaoIncluir" value="Incluir"
+					icon="fa fa-plus fa-lg" style="width:88px;height:20px"
 						action="#{fornecedorCrud.incluir}" ajax="false" />
 				</div>
 			</f:facet>
@@ -37,20 +38,23 @@
 				<h:outputText value="#{forne.cnpj}" />
 			</p:column>
 
-			<p:column headerText="" width="90">
-				<p:commandButton action="#{fornecedorCrud.alterar(forne.codFornecedor)}"
-					value="Alterar" ajax="false" />
+			<p:column headerText="Alterar" width="90">
+				<p:commandButton
+					action="#{fornecedorCrud.alterar(forne.codFornecedor)}"
+					ajax="false"  icon="fa fa-pencil" style="width:88px;height:20px"/>
 			</p:column>
-			<p:column headerText="" width="90">
-				<p:commandButton action="#{fornecedorCrud.excluir(forne.codFornecedor)}"
-					value="Excluir" ajax="false"
-					onclick="if (!confirm('Confirma a exclusão?')) return false" />
+			<p:column headerText="Excluir" width="90">
+				<p:commandButton
+					action="#{fornecedorCrud.excluir(forne.codFornecedor)}"
+					ajax="false" style="width:88px;height:20px"
+					onclick="if (!confirm('Confirma a exclusão?')) return false" icon="fa fa-close fa-lg"/>
 			</p:column>
-			<p:column headerText="" width="90">
-				<p:commandButton id="botaoVerEndereco" value="Endereco" ajax="true"
+			<p:column headerText="Enderecos" width="90">
+				<p:commandButton id="botaoVerEndereco" ajax="true"
 					actionListener="#{fornecedorCrud.alterar(forne.codFornecedor)}"
-					update=":formEnderecoFornecedor"
-					onclick="PF('dialogoEnderecoFornecedor').show();" />
+					update=":formEnderecoFornecedor" style="width:88px;height:20px"
+					onclick="PF('dialogoEnderecoFornecedor').show();" icon="fa fa-ellipsis-h fa-lg"/>
+
 			</p:column>
 		</p:dataTable>
 	</h:form>
@@ -70,29 +74,29 @@
 					</div>
 				</f:facet>
 				<p:column headerText="Cidade:">
-					<h:outputText value="#{obj.cidade}" converter="cidadeConverterNome"  />
+					<h:outputText value="#{obj.cidade}" converter="cidadeConverterNome" />
 				</p:column>
 
 				<p:column headerText="Rua:">
 					<h:outputText value="#{obj.rua}" />
 				</p:column>
-				
+
 				<p:column headerText="Numero:">
 					<h:outputText value="#{obj.numero}" />
 				</p:column>
-				
+
 				<p:column headerText="Complemento:">
 					<h:outputText value="#{obj.complemento}" />
 				</p:column>
-				
+
 				<p:column headerText="Bairro:">
 					<h:outputText value="#{obj.bairro}" />
 				</p:column>
-				
+
 				<p:column headerText="IE:">
 					<h:outputText value="#{obj.iestadual}" />
 				</p:column>
-				
+
 				<p:column headerText="Referencia:">
 					<h:outputText value="#{obj.referencia}" />
 				</p:column>

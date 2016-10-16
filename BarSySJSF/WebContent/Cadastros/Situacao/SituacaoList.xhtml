@@ -6,7 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title></title>
+	<title>Lista de Situacoes</title>
 </h:head>
 <h:body onload="#{situacaoCrud.inicializarLista()}">
 		<p:growl></p:growl>
@@ -27,6 +27,7 @@
 				<div align="right"
 					style="position: absolute; top: 12px; width: 95%;">
 					<p:commandButton id="botaoIncluir" value="Incluir"
+						icon="fa fa-plus fa-lg" style="width:88px;height:20px"
 						action="#{situacaoCrud.incluir}" ajax="false" />
 				</div>
 			</f:facet>
@@ -41,13 +42,14 @@
 				<h:outputText value="#{obj.descricao}" />
 			</p:column>
 			
-			<p:column headerText="" width="90">
+			<p:column headerText="Alterar" width="90">
 				<p:commandButton action="#{situacaoCrud.alterar(obj.codSituacao)}"
-					value="Alterar" ajax="false" />
+					 icon="fa fa-pencil fa-lg" style="width:88px;height:20px"
+					ajax="false" />
 			</p:column>
-			<p:column headerText="" width="90">
+			<p:column headerText="Excluir" width="90">
 				<p:commandButton action="#{situacaoCrud.excluir(obj.codSituacao)}"
-					value="Excluir" ajax="false"
+					ajax="false" icon="fa fa-close fa-lg" style="width:88px;height:20px"
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>
 		</p:dataTable>

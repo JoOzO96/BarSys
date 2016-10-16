@@ -6,13 +6,13 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Lista de Contas Pagar</title>
+	<title>Lista de Entradas</title>
 </h:head>
 <h:body onload="#{entradaCrud.inicializarLista()}">
 
 	<h:form id="formLista">
-		<p:dataTable var="ent" value="#{entradaCrud.lista}"
-			paginator="true" rows="10" rowsPerPageTemplate="5,10,15"
+		<p:dataTable var="ent" value="#{entradaCrud.lista}" paginator="true"
+			rows="10" rowsPerPageTemplate="5,10,15"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 {LastPageLink} {RowsPerPageDropdown}"
 			currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}."
@@ -25,6 +25,7 @@
 				<div align="right"
 					style="position: absolute; top: 12px; width: 95%;">
 					<p:commandButton id="botaoIncluir" value="Incluir"
+						icon="fa fa-plus fa-lg" style="width:88px;height:20px"
 						action="#{entradaCrud.incluir}" ajax="false" />
 				</div>
 			</f:facet>
@@ -39,38 +40,33 @@
 
 			<p:column headerText="Fornecedor:" sortBy="#{ent.fornecedor}"
 				filterBy="#{ent.fornecedor}" filterMatchMode="contains">
-				<h:outputText value="#{ent.fornecedor}" converter="fornecedorConverterNome"></h:outputText>
+				<h:outputText value="#{ent.fornecedor}"
+					converter="fornecedorConverterNome"></h:outputText>
 			</p:column>
 
-			<p:column  headerText="Valor Pago:" sortBy="#{coPa.valorPago}"
-				filterBy="#{coPa.valorPago}" filterMatchMode="contains">
-				<h:outputText value="#{coPa.valorPago}">
-					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
-				</h:outputText>
-			</p:column>
 
-			<p:column headerText="" width="90">
-				<p:commandButton
-					action="#{entradaCrud.alterar(ent.codEntrada)}"
-					value="Alterar" ajax="false" />
+			<p:column headerText="Alterar" width="90">
+				<p:commandButton action="#{entradaCrud.alterar(ent.codEntrada)}"
+					icon="fa fa-pencil fa-lg" style="width:88px;height:20px"
+					ajax="false" />
 			</p:column>
-			<p:column headerText="" width="90">
-				<p:commandButton
-					action="#{entradaCrud.excluir(ent.codEntrada)}"
-					value="Excluir" ajax="false"
+			<p:column headerText="Excluir" width="90">
+				<p:commandButton action="#{entradaCrud.excluir(ent.codEntrada)}"
+					ajax="false" icon="fa fa-close fa-lg"
+					style="width:88px;height:20px"
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>
-			<p:column headerText="" width="90">
-				<p:commandButton id="botaoVerItens" value="Itens" ajax="true"
+			<p:column headerText="Itens" width="90">
+				<p:commandButton id="botaoVerItens" ajax="true"
 					actionListener="#{entradaCrud.alterar(ent.codEntrada)}"
+					icon="fa fa-ellipsis-h fa-lg" style="width:88px;height:20px"
 					update=":formItens" onclick="PF('dialogoItens').show();" />
 			</p:column>
 		</p:dataTable>
 	</h:form>
 
-	<p:dialog header="Visualizar Itens"
-		widgetVar="dialogoItens" width="1000" resizable="false"
-		modal="true">
+	<p:dialog header="Visualizar Itens" widgetVar="dialogoItens"
+		width="1000" resizable="false" modal="true">
 		<h:form id="formItens">
 			<p:growl />
 			<p:dataTable id="tabelaItens" rowIndexVar="rowIndex" var="obj"
@@ -88,7 +84,7 @@
 						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 					</h:outputText>
 				</p:column>
-				
+
 				<p:column headerText="Quantidade:">
 					<h:outputText value="#{obj.quantidade}">
 						<f:convertNumber pattern="#,##0.00"></f:convertNumber>

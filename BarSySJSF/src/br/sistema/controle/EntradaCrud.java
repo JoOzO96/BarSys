@@ -2,8 +2,10 @@ package br.sistema.controle;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
 import br.sistema.beans.Cidade;
@@ -49,15 +51,6 @@ public class EntradaCrud {
 		em.close();
 	}
 	
-	public List<Cidade> completeCidade(String query) {
-		EntityManager em = FabricaConexao.getEntityManager();
-		 List<Cidade> results = em.createQuery(
-		 "from Cidade where upper(nome) like "+
-		"'"+query.trim().toUpperCase()+"%' "+
-		 "order by nome").getResultList();
-		 em.close();
-		 return results;
-		}
 	
 	public String incluir() {
 		objeto = new Entrada();
@@ -65,12 +58,26 @@ public class EntradaCrud {
 	}
 
 	public String gravar() {
-		EntityManager em = FabricaConexao.getEntityManager();
-		em.getTransaction().begin();
-		em.merge(objeto);
-		em.getTransaction().commit();
-		em.close();
-		return "EntradaList?faces-redirect=true";
+		try {
+			EntityManager em = FabricaConexao.getEntityManager();
+			em.getTransaction().begin();
+			em.merge(objeto);
+			em.getTransaction().commit();
+			em.close();
+			return "EntradaList?faces-redirect=true";
+		} catch (Exception e) {
+			String mens = "";
+			FacesMessage mensagem = new FacesMessage();
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			mens = e.getCause().toString();
+			if (mens.contains("1")){
+				mensagem.setSummary("A entrada precisa conter no minimo uma materia prima");
+			}else{
+				mensagem.setSummary ("Erro ao cadastrar o fornecedor");
+			}
+			FacesContext.getCurrentInstance().addMessage("", mensagem);
+		}
+		return "";
 	}
 
 	public String cancelar() {

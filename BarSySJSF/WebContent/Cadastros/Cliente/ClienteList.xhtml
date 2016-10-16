@@ -25,6 +25,7 @@
 				<div align="right"
 					style="position: absolute; top: 12px; width: 95%;">
 					<p:commandButton id="botaoIncluir" value="Incluir"
+					icon="fa fa-plus fa-lg" style="width:88px;height:20px"
 						action="#{clienteCrud.incluir}" ajax="false" />
 				</div>
 			</f:facet>
@@ -48,19 +49,21 @@
 				<h:outputText value="#{cli.rg}" />
 			</p:column>
 
-			<p:column headerText="" width="90">
+			<p:column headerText="Alterar" width="90">
 				<p:commandButton action="#{clienteCrud.alterar(cli.codCliente)}"
-					value="Alterar" ajax="false" />
+					icon="fa fa-pencil fa-lg" style="width:88px;height:20px" ajax="false" />
 			</p:column>
-			<p:column headerText="" width="90">
+			<p:column headerText="Ecluir" width="90">
 				<p:commandButton action="#{clienteCrud.excluir(cli.codCliente)}"
-					value="Excluir" ajax="false"
+					ajax="false"
+					icon="fa fa-close fa-lg" style="width:88px;height:20px"
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>
-			<p:column headerText="" width="90">
-				<p:commandButton id="botaoVerEndereco" value="Endereco" ajax="true"
+			<p:column headerText="Enderecos" width="90">
+				<p:commandButton id="botaoVerEndereco" ajax="true"
 					actionListener="#{clienteCrud.alterar(cli.codCliente)}"
 					update=":formEnderecoCliente"
+					icon="fa fa-ellipsis-h fa-lg" style="width:88px;height:20px"
 					onclick="PF('dialogoEnderecoCliente').show();" />
 			</p:column>
 		</p:dataTable>

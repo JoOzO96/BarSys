@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Lista de Pedidos Abertos</title>
+</h:head>
+<h:body onload="#{listaCrud.inicializarLista()}">
+
+	<h:form id="formLista">
+		<p:dataTable var="lis" value="#{listaCrud.lista}"
+			paginator="true" rows="10" rowsPerPageTemplate="5,10,15"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
+			{LastPageLink} {RowsPerPageDropdown}"
+			currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}."
+			emptyMessage="Nenhum resultado encontrado">
+			<f:facet name="header">
+				<p:spacer height="30"></p:spacer>
+				<div align="left" style="position: absolute; top: 20px; width: 95%;">
+					<p:outputLabel value="Listagem de Pedidos Abertos"></p:outputLabel>
+				</div>
+				<div align="right"
+					style="position: absolute; top: 12px; width: 95%;">
+					<p:commandButton id="botaoIncluir" value="Atualizar"
+						action="#{listaCrud.inicializarLista()}" ajax="false" />
+				</div>
+			</f:facet>
+			<p:column headerText="Codigo:" sortBy="#{lis.codPedidoProduto}"
+				filterBy="#{lis.codPedidoProduto}" filterMatchMode="contains">
+				<h:outputText value="#{lis.codPedidoProduto}"></h:outputText>
+			</p:column>
+			<p:column headerText="Produto:" sortBy="#{lis.produto}"
+				filterBy="#{lis.produto}" filterMatchMode="contains">
+				<h:outputText value="#{lis.produto}" converter="produtoConverterNome"></h:outputText>
+			</p:column>
+			<p:column headerText="Quantidade:" sortBy="#{lis.quantidade}"
+				filterBy="#{lis.quantidade}" filterMatchMode="contains">
+				<h:outputText value="#{lis.quantidade}"></h:outputText>
+			</p:column>
+			
+			<p:column headerText="Finaliza" width="90">
+				<p:commandButton id="botaoFinaliza" ajax="true" icon="fa fa-check fa-lg" style="width:88px;height:20px"
+					actionListener="#{listaCrud.finaliza(lis.codPedidoProduto)}"
+					 />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+
+</h:body>
+
+</html>

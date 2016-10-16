@@ -55,6 +55,7 @@
 						style="position: relative; height: 10px; top: -12px; width: 95%;">
 						<p:commandButton id="botaoIncluir" value="Incluir" ajax="true"
 							actionListener="#{contasPagarCrud.incluirParcelas}"
+							icon="fa fa-plus fa-lg" style="width:88px;height:20px"
 							update=":formParcelas" onclick="PF('dialogoParcelas').show();" />
 					</div>
 				</f:facet>
@@ -71,16 +72,18 @@
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="" width="60">
+				<p:column headerText="Alterar" width="90">
 					<p:commandButton
 						actionListener="#{contasPagarCrud.alterarParcelas(rowIndex)}"
-						value="Alterar" ajax="true" update=":formParcelas"
+						ajax="true" update=":formParcelas"
+						icon="fa fa-pencil fa-lg" style="width:88px;height:20px"
 						onclick="PF('dialogoParcelas').show();" />
 				</p:column>
-				<p:column headerText="" width="60">
+				<p:column headerText="Excluir" width="90">
 					<p:commandButton
 						actionListener="#{contasPagarCrud.excluirParcelas(rowIndex)}"
-						value="Excluir" ajax="true" update=":formEditar:tabelaParcelas :formEditar:valorPago"
+						ajax="true" update=":formEditar:tabelaParcelas :formEditar:valorPago"
+						icon="fa fa-close fa-lg" style="width:88px;height:20px"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
 					</p:commandButton>
 				</p:column>
@@ -89,8 +92,10 @@
 
 			<f:facet name="footer">
 				<p:commandButton value="Gravar" action="#{contasPagarCrud.gravar}"
+				icon="fa fa-check fa-lg" style="width:88px;height:20px"
 					ajax="false" />
 				<p:commandButton value="Cancelar"
+				icon="fa fa-close fa-lg" style="width:88px;height:20px"
 					action="#{contasPagarCrud.cancelar}" ajax="false" immediate="true" />
 			</f:facet>
 		</p:panelGrid>
@@ -118,12 +123,14 @@
 
 			<p:commandButton actionListener="#{contasPagarCrud.gravarParcelas}"
 				validateClient="true" value="Gravar"
+				icon="fa fa-check fa-lg" style="width:88px;height:20px"
 				update=":formParcelas :formEditar:tabelaParcelas :formEditar:valorPago"
 				oncomplete="if (!args.validationFailed){ PF('dialogoParcelas').hide();}"
 				ajax="true">
 			</p:commandButton>
 			<p:commandButton actionListener="#{contasPagarCrud.cancelarParcelas}"
 				value="Cancelar" update=":formEditar:tabelaParcelas :formEditar:valorPago"
+				 icon="fa fa-close fa-lg" style="width:88px;height:20px"
 				immediate="true" oncomplete="PF('dialogoParcelas').hide();"
 				ajax="true" />
 

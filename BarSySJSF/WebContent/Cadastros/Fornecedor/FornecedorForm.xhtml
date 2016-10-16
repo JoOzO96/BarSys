@@ -43,7 +43,8 @@
 						style="position: relative; height: 10px; top: -12px; width: 95%;">
 						<p:commandButton id="botaoIncluir" value="Incluir" ajax="true"
 							actionListener="#{fornecedorCrud.incluirEnderecoFornecedor}"
-							update=":formEnderecoFornecedor"
+							update=":formEnderecoFornecedor" icon="fa fa-plus fa-lg"
+							style="width:88px;height:25px"
 							onclick="PF('dialogoEnderecoFornecedor').show();" />
 					</div>
 				</f:facet>
@@ -76,17 +77,18 @@
 					<h:outputText value="#{obj.referencia}" />
 				</p:column>
 
-				<p:column headerText="" width="60">
-					<p:commandButton
+				<p:column headerText="Alterar" width="90">
+					<p:commandButton icon="fa fa-pencil fa-lg"
+						style="width:88px;height:20px"
 						actionListener="#{fornecedorCrud.alterarEnderecoFornecedor(rowIndex)}"
-						value="Alterar" ajax="true" update=":formEnderecoFornecedor"
+						ajax="true" update=":formEnderecoFornecedor"
 						onclick="PF('dialogoEnderecoFornecedor').show();" />
 				</p:column>
-				<p:column headerText="" width="60">
-					<p:commandButton
+				<p:column headerText="Excluir" width="90">
+					<p:commandButton icon="fa fa-close fa-lg"
+						style="width:88px;height:20px"
 						actionListener="#{fornecedorCrud.excluirEnderecoFornecedor(rowIndex)}"
-						value="Excluir" ajax="true"
-						update=":formEditar:tabelaEnderecoFornecedor"
+						ajax="true" update=":formEditar:tabelaEnderecoFornecedor"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
 					</p:commandButton>
 				</p:column>
@@ -95,9 +97,11 @@
 
 			<f:facet name="footer">
 				<p:commandButton value="Gravar" action="#{fornecedorCrud.gravar}"
+					icon="fa fa-check fa-lg" style="width:88px;height:20px"
 					ajax="false" />
-				<p:commandButton value="Cancelar"
-					action="#{fornecedorCrud.cancelar}" ajax="false" immediate="true" />
+				<p:commandButton value="Cancelar" icon="fa fa-close fa-lg"
+					style="width:88px;height:20px" action="#{fornecedorCrud.cancelar}"
+					ajax="false" immediate="true" />
 			</f:facet>
 		</p:panelGrid>
 	</h:form>
@@ -157,7 +161,7 @@
 
 			<p:commandButton
 				actionListener="#{fornecedorCrud.gravarEnderecoFornecedor}"
-				validateClient="true" value="Gravar"
+				validateClient="true" value="Gravar" icon="fa fa-check fa-lg" style="width:88px;height:20px"
 				update=":formEnderecoFornecedor :formEditar:tabelaEnderecoFornecedor"
 				oncomplete="if (!args.validationFailed){ PF('dialogoEnderecoFornecedor').hide();}"
 				ajax="true">
@@ -165,7 +169,7 @@
 			<p:commandButton
 				actionListener="#{fornecedorCrud.cancelarEnderecoFornecedor}"
 				value="Cancelar" update=":formEditar:tabelaEnderecoFornecedor"
-				immediate="true"
+				immediate="true" icon="fa fa-close fa-lg" style="width:88px;height:20px"
 				oncomplete="PF('dialogoEnderecoFornecedor').hide();" ajax="true" />
 
 		</h:form>

@@ -27,8 +27,8 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public class Entrada implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = SEQUENCE, generator = "seq_Cidade")
-	@SequenceGenerator(name = "seq_Cidade", sequenceName = "seq_Cidade", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = SEQUENCE, generator = "seq_entrada")
+	@SequenceGenerator(name = "seq_entrada", sequenceName = "seq_entrada", initialValue = 1, allocationSize = 1)
 	private Long codEntrada;
 	@NotNull
 	@Length(min = 1, max = 254, message = "O numero deve ter entre {min} e {max} caracteres!")

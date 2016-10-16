@@ -17,10 +17,8 @@ public class ProdutoCrud {
 	private List<Produto> lista;
 	private Produto objeto;
 
-	@SuppressWarnings("unchecked")
 	public void inicializarLista() {
 		EntityManager em = FabricaConexao.getEntityManager();
-		
 		lista = em.createQuery("from Produto").getResultList();
 		em.close();
 	}
@@ -48,6 +46,10 @@ public class ProdutoCrud {
 	public String incluir() {
 		objeto = new Produto();
 		return "ProdutoForm?faces-redirect=true";
+	}
+	
+	public void calculaCusto(){
+		
 	}
 
 	public String gravar() {

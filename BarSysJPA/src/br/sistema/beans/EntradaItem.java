@@ -19,8 +19,8 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public class EntradaItem implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = SEQUENCE, generator = "seq_entrada")
-	@SequenceGenerator(name = "seq_entrada", sequenceName = "seq_entrada", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(strategy = SEQUENCE, generator = "seq_entradaitem")
+	@SequenceGenerator(name = "seq_entradaitem", sequenceName = "seq_entradaitem", allocationSize = 1, initialValue = 1)
 	private Long codEntradaItem;
 	@NotNull(message = "Deve informar o custo unitario do produto!")
 	private Float custoUnitario;

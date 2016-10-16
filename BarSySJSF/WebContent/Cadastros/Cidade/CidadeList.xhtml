@@ -32,7 +32,8 @@
 					<div align="right"
 						style="position: absolute; top: 12px; width: 95%;">
 						<div class="form-group">
-							<p:commandButton class="btn btn-success" id="botaoIncluir"
+							<p:commandButton  id="botaoIncluir"
+								icon="fa fa-plus fa-lg" style="width:70px;height:20px"
 								value="Incluir" action="#{cidadeCrud.incluir}" ajax="false" />
 						</div>
 					</div>
@@ -49,13 +50,14 @@
 				filterBy="#{cid.estado}" filterMatchMode="contains">
 				<h:outputText value="#{cid.estado}" />
 			</p:column>
-			<p:column headerText="" width="90">
+			<p:column headerText="Alterar" width="90">
 				<p:commandButton action="#{cidadeCrud.alterar(cid.codCidade)}"
-					value="Alterar" ajax="false" />
+					icon="fa fa-pencil fa-lg" style="width:70px;height:20px" ajax="false" />
 			</p:column>
-			<p:column headerText="" width="90">
+			<p:column headerText="Excluir" width="90">
 				<p:commandButton action="#{cidadeCrud.excluir(cid.codCidade)}"
-					value="Excluir" ajax="false"
+					ajax="false"
+					icon="fa fa-close fa-lg" style="width:70px;height:20px"
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>
 		</p:dataTable>

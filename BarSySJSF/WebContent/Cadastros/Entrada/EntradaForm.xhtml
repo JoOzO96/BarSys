@@ -51,6 +51,7 @@
 						<p:commandButton id="botaoIncluir" value="Incluir" ajax="true"
 							actionListener="#{entradaCrud.incluirItensEntrada}"
 							update=":formItensEntrada"
+							icon="fa fa-plus fa-lg" style="width:88px;height:20px"
 							onclick="PF('dialogoItensEntrada').show();" />
 					</div>
 				</f:facet>
@@ -72,16 +73,18 @@
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="" width="60">
+				<p:column headerText="Alterar" width="90">
 					<p:commandButton
 						actionListener="#{entradaCrud.alterarItensEntrada(rowIndex)}"
-						value="Alterar" ajax="true" update=":formItensEntrada"
+						ajax="true" update=":formItensEntrada"
+						icon="fa fa-pencil fa-lg" style="width:88px;height:20px"
 						onclick="PF('dialogoItensEntrada').show();" />
 				</p:column>
-				<p:column headerText="" width="60">
+				<p:column headerText="Excluir" width="90">
 					<p:commandButton
 						actionListener="#{entradaCrud.excluirItensEntrada(rowIndex)}"
-						value="Excluir" ajax="true"
+						ajax="true"
+						icon="fa fa-close fa-lg" style="width:88px;height:20px"
 						update=":formEditar:tabelaItensEntrada"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
 					</p:commandButton>
@@ -91,8 +94,10 @@
 
 			<f:facet name="footer">
 				<p:commandButton value="Gravar" action="#{entradaCrud.gravar}"
+				icon="fa fa-check fa-lg" style="width:88px;height:20px"
 					ajax="false" />
 				<p:commandButton value="Cancelar" action="#{entradaCrud.cancelar}"
+				icon="fa fa-close fa-lg" style="width:88px;height:20px"
 					ajax="false" immediate="true" />
 			</f:facet>
 		</p:panelGrid>
@@ -130,12 +135,14 @@
 
 			<p:commandButton actionListener="#{entradaCrud.gravarItensEntrada}"
 				validateClient="true" value="Gravar"
+				icon="fa fa-check fa-lg" style="width:88px;height:20px"
 				update=":formItensEntrada :formEditar:tabelaItensEntrada :formEditar:valorTotal"
 				oncomplete="if (!args.validationFailed){ PF('dialogoItensEntrada').hide();}"
 				ajax="true">
 			</p:commandButton>
 			<p:commandButton actionListener="#{entradaCrud.cancelarItensEntrada}"
 				value="Cancelar"
+				icon="fa fa-close fa-lg" style="width:88px;height:20px"
 				update=":formEditar:tabelaItensEntrada :formEditar:valorTotal"
 				immediate="true" oncomplete="PF('dialogoItensEntrada').hide();"
 				ajax="true" />
