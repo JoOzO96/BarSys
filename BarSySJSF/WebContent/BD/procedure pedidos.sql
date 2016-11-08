@@ -23,9 +23,15 @@
 		
 		return new;
 		ELSIF (TG_OP = 'UPDATE') then
-		--altera quantidade
+		--altera quantidade prod anterior
+		v_quantidade_antiga = (SELECT quantidade FROM materiaprima where codMateriaPrima = old.materiaprima_codMateriaPrima);
+		v_quantidade_antiga = v_quantidade_antiga - old.quantidade;
+		update materiaprima set quantidade = v_quantidade_antiga where codMateriaPrima = old.materiaprima_codMateriaPrima;
+		
+		
+		--altera quantidade prod atual
 		v_quantidade_antiga = (SELECT quantidade FROM materiaprima where codMateriaPrima = new.materiaprima_codMateriaPrima);
-		v_quantidade_antiga = v_quantidade_antiga - old.quantidade + new.quantidade;
+		v_quantidade_antiga = v_quantidade_antiga + new.quantidade;
 		update materiaprima set quantidade = v_quantidade_antiga where codMateriaPrima = new.materiaprima_codMateriaPrima;
 
 		--altera valor cust
