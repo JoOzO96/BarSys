@@ -8,8 +8,14 @@
 <h:head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="X-UA-Conpatible" content="IE=edge" />
-	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
 	<title></title>
+
+	<style>
+.test {
+	text-align: right;
+}
+</style>
+
 </h:head>
 <h:body>
 	<h:form id="formEditar">
@@ -30,13 +36,15 @@
 			<p:inputText id="unidade" value="#{produtoCrud.objeto.unidade}" />
 
 			<p:outputLabel value="Valor Unitario:" for="valorUn" />
-			<p:inputText id="valorUn" value="#{produtoCrud.objeto.valorUn}" style="text-align:right">
-				<f:convertNumber pattern="#,##0.00" />
-			</p:inputText>
-			
+			<p:inputNumber id="valorUn" decimalSeparator=","
+				thousandSeparator="." symbol="R$ " styleClass="test" type="text"
+				value="#{produtoCrud.objeto.valorUn}">
+			</p:inputNumber>
+
 			<p:outputLabel value="Valor Custo:" for="valorCusto" />
-			<p:inputText id="valorCusto" value="#{produtoCrud.objeto.valorCusto}" style="text-align:right">
-				<f:convertNumber pattern="#,##0.00" />
+			<p:inputText id="valorCusto" value="#{produtoCrud.objeto.valorCusto}"
+				style="text-align:right" readonly="true">
+				<f:convertNumber pattern="R$#,##0.00" />
 			</p:inputText>
 
 			<p:outputLabel value="ProdutoComposicao" />
@@ -52,26 +60,20 @@
 						style="position: relative; height: 10px; top: -12px; width: 95%;">
 						<p:commandButton id="botaoIncluir" value="Incluir" ajax="true"
 							actionListener="#{produtoCrud.incluirProdutoComposicao}"
-							update=":formProdutoComposicao"
-							icon="fa fa-plus fa-lg" style="width:88px;height:20px"
+							update=":formProdutoComposicao" icon="fa fa-plus fa-lg"
+							style="width:88px;height:20px"
 							onclick="PF('dialogoProdutoComposicao').show();" />
 					</div>
 				</f:facet>
 
 				<p:column headerText="Materia Prima:">
-					<h:outputText value="#{obj.materiaPrima}"
-						 converter="materiaPrimaConverterNome"/>
+					<h:outputText
+						value="#{obj.materiaPrima.nome} - #{obj.materiaPrima.unidade}" />
 				</p:column>
 
 				<p:column headerText="Quantidade:">
-					<h:outputText value="#{obj.quantidade}" style="text-align:right">
-						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
-					</h:outputText>
-				</p:column>
-				
-				<p:column headerText="Unidade:">
-					<h:outputText value="#{obj.materiaPrima.unidade}" style="text-align:right">
-						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+					<h:outputText value="#{obj.quantidade}" style="float:right">
+						<f:convertNumber pattern="#,###0.000"></f:convertNumber>
 					</h:outputText>
 				</p:column>
 
@@ -85,8 +87,8 @@
 				<p:column headerText="Excluir" width="100">
 					<p:commandButton
 						actionListener="#{produtoCrud.excluirProdutoComposicao(rowIndex)}"
-						ajax="true"
-						icon="fa fa-close fa-lg" style="width:88px;height:20px"
+						ajax="true" icon="fa fa-close fa-lg"
+						style="width:88px;height:20px"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
 					</p:commandButton>
 				</p:column>
@@ -96,10 +98,10 @@
 
 			<f:facet name="footer">
 				<p:commandButton value="Gravar" action="#{produtoCrud.gravar}"
-				icon="fa fa-check fa-lg" style="width:88px;height:20px"
+					icon="fa fa-check fa-lg" style="width:88px;height:20px"
 					ajax="false" />
 				<p:commandButton value="Cancelar" action="#{produtoCrud.cancelar}"
-				icon="fa fa-close fa-lg" style="width:88px;height:20px"
+					icon="fa fa-close fa-lg" style="width:88px;height:20px"
 					ajax="false" immediate="true" />
 			</f:facet>
 		</p:panelGrid>
@@ -113,27 +115,19 @@
 			<p:growl />
 			<h:panelGrid columns="2" style="margin-bottom:10px">
 				<p:commandLink value="Materia Prima:"
-					onclick="parent.abrePopUp('/BarSysJSF/faces/Cadastros/MateriaPrima/MateriaPrimaList.xhtml', 'Cadastro de Materia Prima', 600, 800, true)" />
+					onclick="PF('dialogoMate').show();" />
 				<p:autoComplete id="materiaPrima" size="60" dropdown="true"
 					multiple="false" forceSelection="true" var="obj"
-					itemLabel="#{obj.nome}" itemValue="#{obj}"
+					itemLabel="#{obj.nome} - #{obj.unidade}" itemValue="#{obj}"
 					value="#{produtoCrud.produtoComposicao.materiaPrima}"
 					converter="materiaPrimaConverter"
-					completeMethod="#{produtoCrud.completeMateriaPrima}"
-					>
-						<p:ajax event="itemSelect" update="unidade"/> 
-						<p:ajax event="change" update="unidade"></p:ajax>
-					</p:autoComplete>
-					
-				<p:outputLabel value="Unidade:" for="unidade" />
-				<p:inputText id="unidade" style="text-align:left" readonly="true"
-					value="#{produtoCrud.produtoComposicao.materiaPrima.unidade}" >
-				</p:inputText>
+					completeMethod="#{produtoCrud.completeMateriaPrima}">
+				</p:autoComplete>
 
 				<p:outputLabel value="Quantidade:" for="quantidade" />
 				<p:inputText id="quantidade" style="text-align:right"
-					value="#{produtoCrud.produtoComposicao.quantidade}" >
-						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+					value="#{produtoCrud.produtoComposicao.quantidade}">
+					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 				</p:inputText>
 
 			</h:panelGrid>
@@ -141,21 +135,30 @@
 
 			<p:commandButton
 				actionListener="#{produtoCrud.gravarProdutoComposicao}"
-				validateClient="true" value="Gravar"
-				icon="fa fa-check fa-lg" style="width:88px;height:20px"
+				validateClient="true" value="Gravar" icon="fa fa-check fa-lg"
+				style="width:88px;height:20px"
 				update=":formProdutoComposicao :formEditar:tabelaProdutoComposicao :formEditar:valorCusto"
 				oncomplete="if (!args.validationFailed){ PF('dialogoProdutoComposicao').hide();}"
 				ajax="true">
 			</p:commandButton>
-			
+
 			<p:commandButton
 				actionListener="#{produtoCrud.cancelarProdutoComposicao}"
 				icon="fa fa-close fa-lg" style="width:88px;height:20px"
-				value="Cancelar" update=":formEditar:tabelaProdutoComposicao :formEditar:valorCusto"
+				value="Cancelar"
+				update=":formEditar:tabelaProdutoComposicao :formEditar:valorCusto"
 				immediate="true" oncomplete="PF('dialogoProdutoComposicao').hide();"
 				ajax="true" />
 
 		</h:form>
+	</p:dialog>
+
+	<p:dialog header="Materia Prima" widgetVar="dialogoMate" width="800"
+		height="600" resizable="false" modal="true">
+
+		<iframe src="../MateriaPrima/MateriaPrimaList.xhtml"
+			style="width: 100%; height: 100%;" frameborder="0"></iframe>
+
 	</p:dialog>
 </h:body>
 </html>

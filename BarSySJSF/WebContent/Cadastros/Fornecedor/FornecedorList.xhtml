@@ -31,11 +31,16 @@
 			</f:facet>
 			<p:column headerText="Código" sortBy="#{forne.codFornecedor}"
 				filterBy="#{forne.codFornecedor}" filterMatchMode="exact">
-				<h:outputText value="#{forne.codFornecedor}" />
+				<h:outputText value="#{forne.codFornecedor}" style="float: right;"/>
 			</p:column>
 			<p:column headerText="CNPJ:" sortBy="#{forne.cnpj}"
 				filterBy="#{forne.cnpj}" filterMatchMode="contains">
-				<h:outputText value="#{forne.cnpj}" />
+				<h:outputText value="#{forne.cnpj}" style="float: right;"/>
+			</p:column>
+			
+			<p:column headerText="Razão Social:" sortBy="#{forne.nome}"
+				filterBy="#{forne.nome}" filterMatchMode="contains">
+				<h:outputText value="#{forne.nome}" />
 			</p:column>
 
 			<p:column headerText="Alterar" width="90">
@@ -74,7 +79,7 @@
 					</div>
 				</f:facet>
 				<p:column headerText="Cidade:">
-					<h:outputText value="#{obj.cidade}" converter="cidadeConverterNome" />
+					<h:outputText value="#{obj.cidade.nome} - #{obj.cidade.estado}" />
 				</p:column>
 
 				<p:column headerText="Rua:">
@@ -82,7 +87,7 @@
 				</p:column>
 
 				<p:column headerText="Numero:">
-					<h:outputText value="#{obj.numero}" />
+					<h:outputText value="#{obj.numero}" style="float: right;"/>
 				</p:column>
 
 				<p:column headerText="Complemento:">
@@ -94,7 +99,7 @@
 				</p:column>
 
 				<p:column headerText="IE:">
-					<h:outputText value="#{obj.iestadual}" />
+					<h:outputText value="#{obj.iestadual}" style="float: right;"/>
 				</p:column>
 
 				<p:column headerText="Referencia:">

@@ -8,13 +8,12 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
-import br.sistema.beans.Cidade;
-import br.sistema.beans.ContasPagarParcela;
 import br.sistema.beans.Entrada;
 import br.sistema.beans.EntradaItem;
 import br.sistema.beans.Fornecedor;
 import br.sistema.beans.MateriaPrima;
 import br.sistema.uteis.FabricaConexao;
+
 @ManagedBean
 @SessionScoped
 public class EntradaCrud {
@@ -27,15 +26,16 @@ public class EntradaCrud {
 		lista = em.createQuery("from Entrada").getResultList();
 		em.close();
 	}
-	
+
 	public List<Fornecedor> completeFornecedor(String query) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		List<Fornecedor> results = em.createQuery("from Fornecedor where upper(nome) like " + "'"
-				+ query.trim().toUpperCase() + "%' " + "order by nome").getResultList();
+		List<Fornecedor> results = em.createQuery(
+				"from Fornecedor where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+				.getResultList();
 		em.close();
 		return results;
 	}
-	
+
 	public List<MateriaPrima> completeMateriaPrima(String query) {
 		EntityManager em = FabricaConexao.getEntityManager();
 		List<MateriaPrima> results = em.createQuery("from MateriaPrima where upper(nome) like " + "'"
@@ -49,8 +49,7 @@ public class EntradaCrud {
 		lista = em.createQuery("from Entrada").getResultList();
 		em.close();
 	}
-	
-	
+
 	public String incluir() {
 		objeto = new Entrada();
 		return "EntradaForm?faces-redirect=true";
@@ -69,10 +68,10 @@ public class EntradaCrud {
 			FacesMessage mensagem = new FacesMessage();
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 			mens = e.getCause().toString();
-			if (mens.contains("1")){
+			if (mens.contains("1")) {
 				mensagem.setSummary("A entrada precisa conter no minimo uma materia prima");
-			}else{
-				mensagem.setSummary ("Erro ao cadastrar o fornecedor");
+			} else {
+				mensagem.setSummary("Erro ao cadastrar a entrada");
 			}
 			FacesContext.getCurrentInstance().addMessage("", mensagem);
 		}
@@ -120,17 +119,10 @@ public class EntradaCrud {
 		this.objeto = objeto;
 	}
 
-	
-	
-	
-	
 	// --------------------------------------------------------
 	// Para as contas a pagar
 	// --------------------------------------------------------
-	
-	
-	
-	
+
 	private EntradaItem entradaItem; // item em edição, vinculado ao formulário
 
 	private Integer rowIndex = null; // índice do item selecionado - alterar e
@@ -144,23 +136,26 @@ public class EntradaCrud {
 	public void alterarItensEntrada(Integer rowIndex) {
 		this.rowIndex = rowIndex;
 		entradaItem = objeto.getItensEntrada().get(rowIndex); // pega item da
-															// coleção
+																// coleção
 	}
 
 	public void excluirItensEntrada(Integer rowIndex) {
 		objeto.getItensEntrada().remove(rowIndex.intValue()); // exclui item
+		calculaValorPago();
 	}
 
 	public void gravarItensEntrada() {
 		if (this.rowIndex == null) {
 			entradaItem.setEntrada(objeto);
-			objeto.getItensEntrada().add(entradaItem); // adiciona item na coleção
+			objeto.getItensEntrada().add(entradaItem); // adiciona item na
+														// coleção
 		} else {
 			objeto.getItensEntrada().set(rowIndex, entradaItem); // altera na
-																// coleção
+																	// coleção
 		}
 		rowIndex = null;
 		entradaItem = null;
+		calculaValorPago();
 	}
 
 	public void cancelarItensEntrada() {
@@ -175,14 +170,16 @@ public class EntradaCrud {
 	public void setEntradaItem(EntradaItem entradaItem) {
 		this.entradaItem = entradaItem;
 	}
-	
-	
+
 	public void calculaValorPago() {
 		Float custoTotal = 0.0F;
-		for (EntradaItem it : objeto.getItensEntrada())
-			custoTotal += it.getCustoTotal();
-		entradaItem.setCustoTotal(custoTotal);
+		
+		if (objeto.getItensEntrada().size() > 0) {
+			for (EntradaItem it : objeto.getItensEntrada())
+				custoTotal += it.getCustoUnitario() * it.getQuantidade();
+		}
+		System.out.println(objeto.getItensEntrada().size() + " " + custoTotal);
+		objeto.setValorTotal(custoTotal);
 	}
-	
 
 }

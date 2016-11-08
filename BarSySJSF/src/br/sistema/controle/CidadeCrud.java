@@ -14,11 +14,12 @@ public class CidadeCrud {
 
 	private List<Cidade> lista;
 	private Cidade objeto;
-	private String[] listaUF = { "RS", "SC", "PR", "SP" };
+	private String[] listaUF = { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
+			"PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO", "EX" };
 
 	public void inicializarLista() {
 		EntityManager em = FabricaConexao.getEntityManager();
-		
+
 		lista = em.createQuery("from Cidade").getResultList();
 		em.close();
 	}
@@ -51,13 +52,13 @@ public class CidadeCrud {
 	public String excluir(Long id) {
 		EntityManager em = FabricaConexao.getEntityManager();
 		objeto = em.find(Cidade.class, id);
-		 em.getTransaction().begin();
-		 em.remove(objeto);
-		 em.getTransaction().commit();
+		em.getTransaction().begin();
+		em.remove(objeto);
+		em.getTransaction().commit();
 		em.close();
-		 return "CidadeList?faces-redirect=true";
-		}
-	
+		return "CidadeList?faces-redirect=true";
+	}
+
 	public CidadeCrud() {
 		super();
 	}

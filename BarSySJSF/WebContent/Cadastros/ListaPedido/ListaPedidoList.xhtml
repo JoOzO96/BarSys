@@ -38,11 +38,13 @@
 			</p:column>
 			<p:column headerText="Quantidade:" sortBy="#{lis.quantidade}"
 				filterBy="#{lis.quantidade}" filterMatchMode="contains">
-				<h:outputText value="#{lis.quantidade}"></h:outputText>
+				<h:outputText value="#{lis.quantidade}">
+					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+				</h:outputText>
 			</p:column>
 			
 			<p:column headerText="Finaliza" width="90">
-				<p:commandButton id="botaoFinaliza" ajax="true" icon="fa fa-check fa-lg" style="width:88px;height:20px"
+				<p:commandButton id="botaoFinaliza" ajax="true" update="formLista" icon="fa fa-check fa-lg" style="width:88px;height:20px"
 					actionListener="#{listaCrud.finaliza(lis.codPedidoProduto)}"
 					 />
 			</p:column>

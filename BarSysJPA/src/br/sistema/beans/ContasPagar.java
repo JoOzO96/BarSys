@@ -1,24 +1,26 @@
 package br.sistema.beans;
 
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.GenerationType.SEQUENCE;
+
 import java.io.Serializable;
-import java.lang.Float;
-import java.lang.Long;
-import java.lang.String;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.GenerationType.SEQUENCE;
 
 /**
  * Entity implementation class for Entity: ContasPagar
@@ -34,6 +36,7 @@ public class ContasPagar implements Serializable {
 	private Long codContasPagar;
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull(message = "Deve informar o vencimento da conta!")
+	@Future(message="Não é possivel adicionar uma conta a pagar com a data de vencimento no passado.")
 	private Date vencimento;
 	@NotNull(message = "Deve informar o valor total da conta a receber!")
 	@Min(message = "O valor total deve ser maior que zero.", value = 0)

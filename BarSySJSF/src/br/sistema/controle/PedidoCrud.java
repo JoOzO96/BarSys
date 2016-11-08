@@ -92,7 +92,7 @@ public class PedidoCrud {
 	public String alterar(Long id) {
 		EntityManager em = FabricaConexao.getEntityManager();
 		objeto = em.find(Pedido.class, id);
-		em.close();
+		//em.close();
 		return "PedidoForm?faces-redirect=true";
 	}
 
@@ -171,5 +171,15 @@ public class PedidoCrud {
 
 	public void setItensPedido(PedidoProduto itensPedido) {
 		this.itensPedido = itensPedido;
+	}
+	public void retornaCusto(){
+		itensPedido.setValorUn(itensPedido.getProduto().getValorUn());
+	}
+	public void retornaValorUn(){
+		System.out.println(itensPedido.getValorUn());
+		itensPedido.setValorUn(itensPedido.getValorUn().floatValue());
+	}
+	public void formataValorUn(Float valor){
+		itensPedido.setValorUn(valor);
 	}
 }

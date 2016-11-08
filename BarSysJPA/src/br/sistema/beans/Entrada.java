@@ -48,6 +48,7 @@ public class Entrada implements Serializable {
 	public Entrada() {
 		super();
 		itensEntrada = new ArrayList();
+		valorTotal = 0F;
 	}
 
 	public Long getCodEntrada() {

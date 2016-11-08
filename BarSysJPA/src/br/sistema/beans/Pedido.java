@@ -51,7 +51,7 @@ public class Pedido implements Serializable {
 		super();
 		data = new Date();
 		valorTotal = 0F;
-		itensPedido = new ArrayList<PedidoProduto>();
+		itensPedido = new ArrayList<>();
 	}
 
 	public Long getCodPedido() {

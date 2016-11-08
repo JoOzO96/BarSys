@@ -31,11 +31,11 @@
 			</f:facet>
 			<p:column headerText="Código" sortBy="#{ent.codEntrada}"
 				filterBy="#{ent.codEntrada}" filterMatchMode="exact">
-				<h:outputText value="#{ent.codEntrada}" />
+				<h:outputText value="#{ent.codEntrada}" style="float:right" />
 			</p:column>
 			<p:column headerText="Nr. Nota:" sortBy="#{ent.numeroNota}"
 				filterBy="#{ent.numeroNota}" filterMatchMode="contains">
-				<h:outputText value="#{ent.numeroNota}"></h:outputText>
+				<h:outputText value="#{ent.numeroNota}" style="float:right"/>
 			</p:column>
 
 			<p:column headerText="Fornecedor:" sortBy="#{ent.fornecedor}"
@@ -79,15 +79,19 @@
 					</div>
 				</f:facet>
 
+				<p:column headerText="Item:">
+					<h:outputText value="#{obj.materiaPrima.nome} - #{obj.materiaPrima.unidade}" ></h:outputText>
+				</p:column>
+				
 				<p:column headerText="Valor Unitario:">
-					<h:outputText value="#{obj.custoUnitario}">
-						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+					<h:outputText value="#{obj.custoUnitario}" style="float:right">
+						<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Quantidade:">
-					<h:outputText value="#{obj.quantidade}">
-						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+					<h:outputText value="#{obj.quantidade}"  style="float:right">
+						<f:convertNumber pattern="#,## 0.00"></f:convertNumber>
 					</h:outputText>
 				</p:column>
 

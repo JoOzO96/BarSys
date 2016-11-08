@@ -19,23 +19,27 @@
 
 			<p:outputLabel value="Código:" for="id" />
 			<p:inputText id="id" readonly="true" size="5" disabled="true"
-				value="#{entradaCrud.objeto.codEntrada}" />
+				value="#{entradaCrud.objeto.codEntrada}" style="text-align:right" />
 
 			<p:outputLabel value="Nr Nota:" for="nrNota" />
-			<p:inputText id="nrNota" value="#{entradaCrud.objeto.numeroNota}" />
+			<p:inputText id="nrNota" value="#{entradaCrud.objeto.numeroNota}"
+				style="text-align:right" />
 
-			<p:outputLabel value="Valor Total:" for="valorTotal" />
-			<p:inputText id="valorTotal" value="#{entradaCrud.objeto.valorTotal}">
-				<f:convertNumber pattern="#,##0.00" />
-			</p:inputText>
-
-			<p:outputLabel value="Fornecedor:" for="fornecedor" />
+			<p:commandLink value="Fornecedor:" for="fornecedor"
+				onclick="PF('dialogoForn').show();" />
 			<p:autoComplete id="fornecedor" style="width:600px" dropdown="true"
-				multiple="false" forceSelection="true" var="forn"
+				size="60" multiple="false" forceSelection="true" var="forn"
 				itemLabel="#{forn.nome}" itemValue="#{forn}"
 				value="#{entradaCrud.objeto.fornecedor}"
 				converter="fornecedorConverter"
 				completeMethod="#{entradaCrud.completeFornecedor}" />
+
+			<p:outputLabel value="Valor Total:" for="valorTotal" />
+			<p:inputText id="valorTotal" value="#{entradaCrud.objeto.valorTotal}"
+				readonly="true" style="text-align: right;">
+				<f:convertNumber pattern="R$#,##0.00" />
+			</p:inputText>
+
 
 			<p:outputLabel value="Itens" />
 			<p:dataTable id="tabelaItensEntrada" rowIndexVar="rowIndex" var="obj"
@@ -50,42 +54,43 @@
 						style="position: relative; height: 10px; top: -12px; width: 95%;">
 						<p:commandButton id="botaoIncluir" value="Incluir" ajax="true"
 							actionListener="#{entradaCrud.incluirItensEntrada}"
-							update=":formItensEntrada"
-							icon="fa fa-plus fa-lg" style="width:88px;height:20px"
+							update=":formItensEntrada" icon="fa fa-plus fa-lg"
+							style="width:88px;height:20px"
 							onclick="PF('dialogoItensEntrada').show();" />
 					</div>
 				</f:facet>
 
 				<p:column headerText="Materia Prima:" for="materiaPrima">
-					<h:outputText value="#{obj.materiaPrima}" converter="materiaPrimaConverterNome"></h:outputText>
+					<h:outputText
+						value="#{obj.materiaPrima.nome} - #{obj.materiaPrima.unidade} "></h:outputText>
 				</p:column>
 
 
 				<p:column headerText="Quantidade:" for="quantidade">
-					<h:outputText value="#{obj.quantidade}">
+					<h:outputText value="#{obj.quantidade}" style="float:right">
 						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Custo Un.:">
-					<h:outputText value="#{obj.custoUnitario}">
-						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+					<h:outputText value="#{obj.custoUnitario}" style="float:right">
+						<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Alterar" width="90">
 					<p:commandButton
 						actionListener="#{entradaCrud.alterarItensEntrada(rowIndex)}"
-						ajax="true" update=":formItensEntrada"
-						icon="fa fa-pencil fa-lg" style="width:88px;height:20px"
+						ajax="true" update=":formItensEntrada" icon="fa fa-pencil fa-lg"
+						style="width:88px;height:20px"
 						onclick="PF('dialogoItensEntrada').show();" />
 				</p:column>
 				<p:column headerText="Excluir" width="90">
 					<p:commandButton
 						actionListener="#{entradaCrud.excluirItensEntrada(rowIndex)}"
-						ajax="true"
-						icon="fa fa-close fa-lg" style="width:88px;height:20px"
-						update=":formEditar:tabelaItensEntrada"
+						ajax="true" icon="fa fa-close fa-lg"
+						style="width:88px;height:20px"
+						update=":formEditar:tabelaItensEntrada :formEditar:valorTotal"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
 					</p:commandButton>
 				</p:column>
@@ -94,17 +99,17 @@
 
 			<f:facet name="footer">
 				<p:commandButton value="Gravar" action="#{entradaCrud.gravar}"
-				icon="fa fa-check fa-lg" style="width:88px;height:20px"
+					icon="fa fa-check fa-lg" style="width:88px;height:20px"
 					ajax="false" />
 				<p:commandButton value="Cancelar" action="#{entradaCrud.cancelar}"
-				icon="fa fa-close fa-lg" style="width:88px;height:20px"
+					icon="fa fa-close fa-lg" style="width:88px;height:20px"
 					ajax="false" immediate="true" />
 			</f:facet>
 		</p:panelGrid>
 	</h:form>
 
-	<p:dialog header="Editar ItensEntrada" widgetVar="dialogoItensEntrada"
-		width="1000" resizable="false" modal="true">
+	<p:dialog header="Editar Itens Entrada" widgetVar="dialogoItensEntrada"
+		width="780" resizable="false" modal="true">
 		<h:form id="formItensEntrada">
 			<p:growl />
 			<h:panelGrid columns="2" style="margin-bottom:10px">
@@ -112,19 +117,20 @@
 				<p:outputLabel value="MateriaPrima:" for="materiaPrima" />
 				<p:autoComplete id="materiaPrima" style="width:600px"
 					dropdown="true" multiple="false" forceSelection="true" var="mpri"
-					itemLabel="#{mpri.nome}" itemValue="#{mpri}"
+					itemLabel="#{mpri.nome} - #{mpri.unidade}" itemValue="#{mpri}"
 					value="#{entradaCrud.entradaItem.materiaPrima}"
 					converter="materiaPrimaConverter"
-					completeMethod="#{entradaCrud.completeMateriaPrima}" />
+					completeMethod="#{entradaCrud.completeMateriaPrima}" size="60">
+				</p:autoComplete>
 
 				<p:outputLabel value="Valor Un.:" for="valorUnitario" />
-				<p:inputText id="valorUnitario"
+				<p:inputText id="valorUnitario" style="text-align:right"
 					value="#{entradaCrud.entradaItem.custoUnitario}">
 					<f:convertNumber pattern="#,##0.00" />
 				</p:inputText>
 
 				<p:outputLabel value="Quantidade:" for="quantidade" />
-				<p:inputText id="quantidade"
+				<p:inputText id="quantidade" style="text-align:right"
 					value="#{entradaCrud.entradaItem.quantidade}">
 					<f:convertNumber pattern="#,##0.00" />
 				</p:inputText>
@@ -134,15 +140,15 @@
 
 
 			<p:commandButton actionListener="#{entradaCrud.gravarItensEntrada}"
-				validateClient="true" value="Gravar"
-				icon="fa fa-check fa-lg" style="width:88px;height:20px"
+				validateClient="true" value="Gravar" icon="fa fa-check fa-lg"
+				style="width:88px;height:20px"
 				update=":formItensEntrada :formEditar:tabelaItensEntrada :formEditar:valorTotal"
 				oncomplete="if (!args.validationFailed){ PF('dialogoItensEntrada').hide();}"
 				ajax="true">
 			</p:commandButton>
 			<p:commandButton actionListener="#{entradaCrud.cancelarItensEntrada}"
-				value="Cancelar"
-				icon="fa fa-close fa-lg" style="width:88px;height:20px"
+				value="Cancelar" icon="fa fa-close fa-lg"
+				style="width:88px;height:20px"
 				update=":formEditar:tabelaItensEntrada :formEditar:valorTotal"
 				immediate="true" oncomplete="PF('dialogoItensEntrada').hide();"
 				ajax="true" />
@@ -150,5 +156,12 @@
 		</h:form>
 	</p:dialog>
 
+	<p:dialog header="Fornecedores" widgetVar="dialogoForn" width="800"
+		height="500" resizable="false" modal="true" position="center">
+
+		<iframe src="../Fornecedor/FornecedorList.xhtml"
+			style="width: 100%; height: 100%;" frameborder="0"></iframe>
+
+	</p:dialog>
 </h:body>
 </html>

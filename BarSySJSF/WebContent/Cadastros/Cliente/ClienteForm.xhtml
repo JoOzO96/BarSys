@@ -26,11 +26,10 @@
 
 			<p:outputLabel value="CPF:" for="cpf" />
 			<p:inputMask id="cpf" value="#{clienteCrud.objeto.cpf}"
-				mask="999.999.999-99" />
+				mask="999.999.999-99" style="text-align: right;"/>
 
 			<p:outputLabel value="RG:" for="rg" />
-			<p:inputMask id="rg" value="#{clienteCrud.objeto.rg}"
-				/>
+			<p:inputMask id="rg" value="#{clienteCrud.objeto.rg}" style="text-align: right;"/>
 
 
 			<p:outputLabel value="Endereco Cliente" />
@@ -46,14 +45,14 @@
 						style="position: relative; height: 10px; top: -12px; width: 95%;">
 						<p:commandButton id="botaoIncluir" value="Incluir" ajax="true"
 							actionListener="#{clienteCrud.incluirEnderecoCliente}"
-							update=":formEnderecoCliente"
-							icon="fa fa-plus fa-lg" style="width:88px;height:20px"
+							update=":formEnderecoCliente" icon="fa fa-plus fa-lg"
+							style="width:88px;height:20px"
 							onclick="PF('dialogoEnderecoCliente').show();" />
 					</div>
 				</f:facet>
 
 				<p:column headerText="Cidade:">
-					<h:outputText value="#{obj.cidade}" converter="cidadeConverterNome" />
+					<h:outputText value="#{obj.cidade.nome} - #{obj.cidade.estado}" />
 				</p:column>
 
 				<p:column headerText="Rua:">
@@ -61,7 +60,7 @@
 				</p:column>
 
 				<p:column headerText="Numero:">
-					<h:outputText value="#{obj.numero}" />
+					<h:outputText value="#{obj.numero}" style="float: right;"/>
 				</p:column>
 
 				<p:column headerText="Complemento:">
@@ -73,7 +72,7 @@
 				</p:column>
 
 				<p:column headerText="IE:">
-					<h:outputText value="#{obj.iestadual}" />
+					<h:outputText value="#{obj.iestadual}" style="float: right;"/>
 				</p:column>
 
 				<p:column headerText="Referencia:">
@@ -90,7 +89,8 @@
 				<p:column headerText="Excluir" width="90">
 					<p:commandButton
 						actionListener="#{recebimentoCrud.excluirEnderecoCliente(rowIndex)}"
-						icon="fa fa-close fa-lg" style="width:88px;height:20px" ajax="true"
+						icon="fa fa-close fa-lg" style="width:88px;height:20px"
+						ajax="true"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
 					</p:commandButton>
 				</p:column>
@@ -99,9 +99,11 @@
 
 			<f:facet name="footer">
 				<p:commandButton value="Gravar" action="#{clienteCrud.gravar}"
-					ajax="false" icon="fa fa-check fa-lg" style="width:88px;height:20px" />
+					ajax="false" icon="fa fa-check fa-lg"
+					style="width:88px;height:20px" />
 				<p:commandButton value="Cancelar" action="#{clienteCrud.cancelar}"
-					ajax="false" immediate="true" icon="fa fa-close fa-lg" style="width:88px;height:20px" />
+					ajax="false" immediate="true" icon="fa fa-close fa-lg"
+					style="width:88px;height:20px" />
 			</f:facet>
 		</p:panelGrid>
 	</h:form>
@@ -112,47 +114,43 @@
 		<h:form id="formEnderecoCliente">
 			<p:growl />
 			<h:panelGrid columns="2" style="margin-bottom:10px">
-				<p:commandLink value="Cidade"
-					onclick="parent.abrePopUp('/BarSysJSF/faces/Cadastros/Cidade/CidadeList.xhtml', 'Cadastro de Clientees', 600, 800, true)" />
+				<p:commandLink value="Cidade: *" onclick="PF('dialogoCid').show();" />
 				<p:autoComplete id="cidade" size="60" dropdown="true"
 					multiple="false" forceSelection="true" var="obj"
-					itemLabel="#{obj.nome}" itemValue="#{obj}"
+					itemLabel="#{obj.nome} - #{obj.estado}" itemValue="#{obj}"
 					value="#{clienteCrud.enderecoCliente.cidade}"
-					converter="cidadeConverter"
+					converter="cidadeConverter" maxResults="5"
 					completeMethod="#{clienteCrud.completeCidade}" />
 
-				<p:outputLabel value="Endereco:" for="endereco" />
+				<p:outputLabel value="Endereco: *" for="endereco" />
 				<p:inputText id="endereco" size="60" style="text-align: left;"
 					value="#{clienteCrud.enderecoCliente.rua}">
 				</p:inputText>
 
-				<p:outputLabel value="Numero:" for="numero" />
+				<p:outputLabel value="Numero: *" for="numero" />
 				<p:inputText id="numero" maxlength="255" size="60"
-					style="text-align: left;"
+					style="text-align: right;"
 					value="#{clienteCrud.enderecoCliente.numero}">
 				</p:inputText>
 
 				<p:outputLabel value="Complemento:" for="complemento" />
 				<p:inputText id="complemento" size="60" maxlength="255"
-					style="text-align: left;"
 					value="#{clienteCrud.enderecoCliente.complemento}">
 				</p:inputText>
 
-				<p:outputLabel value="Bairro:" for="bairro" />
+				<p:outputLabel value="Bairro: *" for="bairro" />
 				<p:inputText id="bairro" size="60" maxlength="50"
-					style="text-align: left;"
 					value="#{clienteCrud.enderecoCliente.bairro}">
 				</p:inputText>
 
 				<p:outputLabel value="Inscricao Estadual:" for="inscricaoestadual" />
 				<p:inputText id="inscricaoestadual" maxlength="255" size="60"
-					style="text-align: left;"
+					style="text-align: right;"
 					value="#{clienteCrud.enderecoCliente.iestadual}">
 				</p:inputText>
 
 				<p:outputLabel value="Referencia:" for="referencia" />
 				<p:inputText id="referencia" maxlength="255" size="60"
-					style="text-align: left;"
 					value="#{clienteCrud.enderecoCliente.referencia}">
 				</p:inputText>
 
@@ -161,7 +159,8 @@
 
 			<p:commandButton
 				actionListener="#{clienteCrud.gravarEnderecoCliente}"
-				validateClient="true" value="Gravar" icon="fa fa-check fa-lg" style="width:88px;height:20px"
+				validateClient="true" value="Gravar" icon="fa fa-check fa-lg"
+				style="width:88px;height:20px"
 				update=":formEnderecoCliente :formEditar:tabelaEnderecoCliente"
 				oncomplete="if (!args.validationFailed){ PF('dialogoEnderecoCliente').hide();}"
 				ajax="true">
@@ -176,5 +175,12 @@
 		</h:form>
 	</p:dialog>
 
+	<p:dialog header="Cidades" widgetVar="dialogoCid" width="800"
+		height="600" resizable="false" modal="true">
+
+		<iframe src="../Cidade/CidadeList.xhtml"
+			style="width: 100%; height: 100%;" frameborder="0"></iframe>
+
+	</p:dialog>
 </h:body>
 </html>

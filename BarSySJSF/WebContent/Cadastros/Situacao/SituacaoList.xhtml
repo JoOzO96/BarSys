@@ -9,10 +9,10 @@
 	<title>Lista de Situacoes</title>
 </h:head>
 <h:body onload="#{situacaoCrud.inicializarLista()}">
-		<p:growl></p:growl>
+	<p:growl></p:growl>
 	<h:form id="formLista">
-		<p:dataTable var="obj" value="#{situacaoCrud.lista}"
-			paginator="true" rows="10" rowsPerPageTemplate="10, 20, 30, 40, 50"
+		<p:dataTable var="obj" value="#{situacaoCrud.lista}" paginator="true"
+			rows="10" rowsPerPageTemplate="10, 20, 30, 40, 50"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 			{LastPageLink} {RowsPerPageDropdown}"
 			currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}."
@@ -23,7 +23,7 @@
 				<div align="left" style="position: absolute; top: 20px; width: 95%;">
 					<p:outputLabel value="Listagem de Matéria Prima"></p:outputLabel>
 				</div>
-				
+
 				<div align="right"
 					style="position: absolute; top: 12px; width: 95%;">
 					<p:commandButton id="botaoIncluir" value="Incluir"
@@ -31,36 +31,40 @@
 						action="#{situacaoCrud.incluir}" ajax="false" />
 				</div>
 			</f:facet>
-			
-			<p:column headerText="Código" sortBy="#{obj.codSituacao}" filterBy="#{obj.codSituacao}"
-				filterMatchMode="exact">
-				<h:outputText value="#{obj.codSituacao}" />
+
+			<p:column headerText="Código" sortBy="#{obj.codSituacao}"
+				filterBy="#{obj.codSituacao}" filterMatchMode="exact">
+				<h:outputText value="#{obj.codSituacao}" style="center"/>
 			</p:column>
-			
+
 			<p:column headerText="Descricao" sortBy="#{obj.descricao}"
 				filterBy="#{obj.descricao}" filterMatchMode="contains">
 				<h:outputText value="#{obj.descricao}" />
 			</p:column>
-			
+
 			<p:column headerText="Finaliza" sortBy="#{obj.finaliza}"
 				filterBy="#{obj.finaliza}" filterMatchMode="contains">
-				<h:outputLabel value="fa fa-plus" rendered="#{obj.finaliza==true}" />
-				<h:outputLabel  rendered="#{obj.finaliza ? 'Sim' : 'Nao'}" />
+				<h:graphicImage value="/resources/icones/icon-check.ico"
+					rendered="#{obj.finaliza}" />
+				<h:graphicImage value="/resources/icones/icon-close.ico" rendered="#{!obj.finaliza}" />
 			</p:column>
-			
-			<p:column headerText="Descricao" sortBy="#{obj.descricao}"
-				filterBy="#{obj.descricao}" filterMatchMode="contains">
-				<h:outputText value="#{obj.descricao}" />
+
+			<p:column headerText="Cozinha" sortBy="#{obj.cozinha}"
+				filterBy="#{obj.cozinha}" filterMatchMode="contains">
+				<h:graphicImage value="/resources/icones/icon-check.ico"
+					rendered="#{obj.cozinha}" />
+				<h:graphicImage value="/resources/icones/icon-close.ico" rendered="#{!obj.cozinha}" />
 			</p:column>
-			
+
 			<p:column headerText="Alterar" width="90">
 				<p:commandButton action="#{situacaoCrud.alterar(obj.codSituacao)}"
-					 icon="fa fa-pencil fa-lg" style="width:88px;height:20px"
+					icon="fa fa-pencil fa-lg" style="width:88px;height:20px"
 					ajax="false" />
 			</p:column>
 			<p:column headerText="Excluir" width="90">
 				<p:commandButton action="#{situacaoCrud.excluir(obj.codSituacao)}"
-					ajax="false" icon="fa fa-close fa-lg" style="width:88px;height:20px"
+					ajax="false" icon="fa fa-close fa-lg"
+					style="width:88px;height:20px"
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>
 		</p:dataTable>

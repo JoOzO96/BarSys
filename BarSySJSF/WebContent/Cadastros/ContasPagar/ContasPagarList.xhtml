@@ -31,7 +31,7 @@
 			</f:facet>
 			<p:column headerText="Código" sortBy="#{coPa.codContasPagar}"
 				filterBy="#{coPa.codContasPagar}" filterMatchMode="exact">
-				<h:outputText value="#{coPa.codContasPagar}" />
+				<h:outputText value="#{coPa.codContasPagar}" style="float:right"/>
 			</p:column>
 			<p:column headerText="Data Vencimento:" sortBy="#{coPa.vencimento}"
 				filterBy="#{coPa.vencimento}" filterMatchMode="contains">
@@ -42,15 +42,15 @@
 
 			<p:column headerText="Valor Total:" sortBy="#{coPa.valorTotal}"
 				filterBy="#{coPa.valorTotal}" filterMatchMode="contains">
-				<h:outputText value="#{coPa.valorTotal}">
-					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+				<h:outputText value="#{coPa.valorTotal}" style="float:right">
+					<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>
 				</h:outputText>
 			</p:column>
 
 			<p:column  headerText="Valor Pago:" sortBy="#{coPa.valorPago}"
 				filterBy="#{coPa.valorPago}" filterMatchMode="contains">
-				<h:outputText value="#{coPa.valorPago}">
-					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+				<h:outputText value="#{coPa.valorPago}" style="float:right">
+					<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>
 				</h:outputText>
 			</p:column>
 
@@ -99,7 +99,7 @@
 				
 				<p:column headerText="Valor:">
 					<h:outputText value="#{obj.valor}">
-						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+						<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>
 					</h:outputText>
 				</p:column>
 

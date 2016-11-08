@@ -34,7 +34,7 @@
 			
 			<p:column headerText="Código" sortBy="#{obj.codProduto}" filterBy="#{obj.codProduto}"
 				filterMatchMode="exact">
-				<h:outputText value="#{obj.codProduto}" />
+				<h:outputText value="#{obj.codProduto}" style="float:right" />
 			</p:column>
 			
 			<p:column headerText="Nome" sortBy="#{obj.nome}"
@@ -44,7 +44,7 @@
 			
 			<p:column headerText="Valor Unitario" sortBy="#{obj.valorUn}" filterBy="#{obj.valorUn}"
 				filterMatchMode="startsWith">
-				<h:outputText value="#{obj.valorUn}" >
+				<h:outputText value="#{obj.valorUn}" style="float:right">
 					<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>
 				</h:outputText>
 			</p:column>

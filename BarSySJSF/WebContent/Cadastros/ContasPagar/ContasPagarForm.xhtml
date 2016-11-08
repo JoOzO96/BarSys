@@ -19,10 +19,10 @@
 
 			<p:outputLabel value="Código:" for="id" />
 			<p:inputText id="id" readonly="true" size="5" disabled="true"
-				value="#{contasPagarCrud.objeto.codContasPagar}" />
+				value="#{contasPagarCrud.objeto.codContasPagar}" style="text-align:right"/>
 
 			<p:outputLabel value="Descricao:" for="descricao" />
-			<p:inputText id="descricao"
+			<p:inputText id="descricao" size="60"
 				value="#{contasPagarCrud.objeto.descricao}" />
 
 			<p:outputLabel value="Data de Vencimento:" for="dataVencimento" />
@@ -31,15 +31,15 @@
 				mask="true" showOn="button" />
 
 			<p:outputLabel value="Valor Total:" for="valorTotal" />
-			<p:inputText id="valorTotal"
-				value="#{contasPagarCrud.objeto.valorTotal}">
-				<f:convertNumber pattern="#,##0.00" />
+			<p:inputText id="valorTotal" style="text-align: right"
+				value="#{contasPagarCrud.objeto.valorTotal}" >
+				<f:convertNumber pattern="R$#,##0.00" />
 			</p:inputText>
 
 			<p:outputLabel value="Valor Pago:" for="valorPago" />
-			<p:inputText id="valorPago" disabled="true"
+			<p:inputText id="valorPago" disabled="true" style="text-align: right"
 				value="#{contasPagarCrud.objeto.valorPago}" readonly="true">
-				<f:convertNumber pattern="#,##0.00" />
+				<f:convertNumber pattern="R$#,##0.00" />
 			</p:inputText>
 
 			<p:outputLabel value="Parcelas" />
@@ -67,8 +67,8 @@
 				</p:column>
 
 				<p:column headerText="Valor:">
-					<h:outputText value="#{obj.valor}">
-						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+					<h:outputText value="#{obj.valor}" style="text-align: right">
+						<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>
 					</h:outputText>
 				</p:column>
 
@@ -108,14 +108,14 @@
 			<h:panelGrid columns="2" style="margin-bottom:10px">
 
 				<p:outputLabel value="Data de Pagamento" for="dataPagamento" />
-				<p:calendar id="dataPagamento"
+				<p:calendar id="dataPagamento" 
 					value="#{contasPagarCrud.parcelas.dataPagamento}"
 					pattern="dd/MM/yyyy" mask="true" showOn="button" />
 
 
 				<p:outputLabel value="Valor:" for="valor" />
-				<p:inputText id="valor" value="#{contasPagarCrud.parcelas.valor}">
-					<f:convertNumber pattern="#,##0.00" />
+				<p:inputText id="valor" value="#{contasPagarCrud.parcelas.valor}" style="text-align: right">
+					<f:convertNumber pattern="R$#,##0.00" />
 				</p:inputText>
 
 			</h:panelGrid>

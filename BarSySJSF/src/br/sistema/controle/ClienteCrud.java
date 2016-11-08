@@ -26,7 +26,7 @@ public class ClienteCrud {
 
 	public void enderecoCliente() {
 		EntityManager em = FabricaConexao.getEntityManager();
-		lista = em.createQuery("from Cliente").getResultList();
+		lista = em.createQuery("from Carro").getResultList();
 		em.close();
 	}
 	

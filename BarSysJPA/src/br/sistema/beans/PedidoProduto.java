@@ -1,9 +1,12 @@
 package br.sistema.beans;
 
 import java.io.Serializable;
-import java.lang.Double;
-import java.lang.Long;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -19,11 +22,11 @@ public class PedidoProduto implements Serializable {
 	@SequenceGenerator(name = "seq_pedidoproduto", sequenceName = "seq_pedidoproduto", allocationSize = 1, initialValue = 1)
 	private Long codPedidoProduto;
 	@NotNull(message = "Deve informar o valor do produto!")
-	private Double valorUn;
+	private Float valorUn;
 	@NotNull(message = "Deve informar o valor do desconto!")
-	private Double valorDesc;
+	private Float valorDesc;
 	@NotNull(message = "Deve informar a quantidade!")
-	private Double quantidade;
+	private Float quantidade;
 	@ManyToOne(optional = false)
 	@NotNull(message = "O pedido deve ser inicializado!")
 	private Pedido pedido;
@@ -36,9 +39,9 @@ public class PedidoProduto implements Serializable {
 
 	public PedidoProduto() {
 		super();
-		valorUn = 0D;
-		valorDesc = 0D;
-		quantidade = 1D;
+		valorUn = 0F;
+		valorDesc = 0F;
+		quantidade = 1F;
 		finalizado = false;
 	}
 
@@ -50,27 +53,27 @@ public class PedidoProduto implements Serializable {
 		this.codPedidoProduto = codPedidoProduto;
 	}
 
-	public Double getValorUn() {
+	public Float getValorUn() {
 		return valorUn;
 	}
 
-	public void setValorUn(Double valorUn) {
+	public void setValorUn(Float valorUn) {
 		this.valorUn = valorUn;
 	}
 
-	public Double getValorDesc() {
+	public Float getValorDesc() {
 		return valorDesc;
 	}
 
-	public void setValorDesc(Double valorDesc) {
+	public void setValorDesc(Float valorDesc) {
 		this.valorDesc = valorDesc;
 	}
 
-	public Double getQuantidade() {
+	public Float getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(Double quantidade) {
+	public void setQuantidade(Float quantidade) {
 		this.quantidade = quantidade;
 	}
 
@@ -98,4 +101,8 @@ public class PedidoProduto implements Serializable {
 		this.finalizado = finalizado;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 }

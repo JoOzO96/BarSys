@@ -21,19 +21,19 @@
 			</f:facet>
 			<p:outputLabel value="Código:" for="codPedido" />
 			<p:inputText id="codPedido" readonly="true"
-				value="#{pedidoCrud.objeto.codPedido}" />
+				value="#{pedidoCrud.objeto.codPedido}" style="text-align:right"/>
 
 			<p:commandLink value="Cliente:"
-				onclick="parent.abrePopUp('/BarSysJSF/faces/Cadastros/Cliente/ClienteList.xhtml', 'Cadastro de Clientees', 600, 800, true)" />
-			<p:autoComplete id="cliente" dropdown="true"
+				onclick="PF('dialogoCli').show();" />
+			<p:autoComplete id="cliente" dropdown="true" size="60"
 				multiple="false" forceSelection="true" var="obj"
 				itemLabel="#{obj.nome}" itemValue="#{obj}"
 				value="#{pedidoCrud.objeto.cliente}" converter="clienteConverter"
 				completeMethod="#{pedidoCrud.completeCliente}" />
 
 			<p:commandLink value="Situação:"
-				onclick="parent.abrePopUp('/BarSysJSF/faces/Cadastros/Situacao/SituacaoList.xhtml', 'Cadastro de Clientees', 600, 800, true)" />
-			<p:autoComplete id="situacao" dropdown="true"
+				onclick="PF('dialogoSit').show();" />
+			<p:autoComplete id="situacao" dropdown="true" size="60"
 				multiple="false" forceSelection="true" var="obj"
 				itemLabel="#{obj.descricao}" itemValue="#{obj}"
 				value="#{pedidoCrud.objeto.situacao}" converter="situacaoConverter"
@@ -44,7 +44,7 @@
 				pattern="dd/MM/yyyy" mask="true" showOn="button" />
 
 			<p:outputLabel value="Comanda Nr.:" for="comandaNr" />
-			<p:inputText id="comandaNr" value="#{pedidoCrud.objeto.nrComanda}" />
+			<p:inputText id="comandaNr" value="#{pedidoCrud.objeto.nrComanda}" size="60" style="text-align: right;"/>
 
 			<p:outputLabel value="ItensPedido" />
 			<p:dataTable id="tabelaItensPedido" rowIndexVar="rowIndex" var="obj"
@@ -66,16 +66,19 @@
 				</f:facet>
 
 				<p:column headerText="Produto:">
-					<h:outputText value="#{obj.produto}"
-						converter="produtoConverterNome" />
+					<h:outputText value="#{obj.produto.nome}" />
 				</p:column>
 
 				<p:column headerText="Valor Un.:">
-					<h:outputText value="#{obj.valorUn}" />
+					<h:outputText value="#{obj.valorUn}" style="float: right;" >
+						<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>	
+					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Quantidade:">
-					<h:outputText value="#{obj.quantidade}" />
+					<h:outputText value="#{obj.quantidade}" style="float: right;">
+						<f:convertNumber pattern="#,##0.00"></f:convertNumber>	
+					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Alterar" width="100">
@@ -115,23 +118,28 @@
 		<h:form id="formItensPedido">
 			<p:growl />
 			<h:panelGrid columns="2" style="margin-bottom:10px">
-				<p:commandLink value="Produto:"
-					onclick="parent.abrePopUp('/BarSysJSF/faces/Cadastros/Produto/ProdutoList.xhtml', 'Cadastro de Produtos', 600, 800, true)" />
-				<p:autoComplete id="pedido" size="60" dropdown="true"
+				<p:commandLink value="Produto:" 
+					onclick="PF('dialogoProduto').show();" />
+				<p:autoComplete id="pedido" size="60" dropdown="true" 
 					multiple="false" forceSelection="true" var="obj"
 					itemLabel="#{obj.nome}" itemValue="#{obj}"
 					value="#{pedidoCrud.itensPedido.produto}"
 					converter="produtoConverter"
-					completeMethod="#{pedidoCrud.completeProduto}" />
+					completeMethod="#{pedidoCrud.completeProduto}" >
+						<p:ajax event="itemSelect" update="valorUn" listener="#{pedidoCrud.retornaCusto()}"></p:ajax>
+						<p:ajax event="change" update="valorUn" listener="#{pedidoCrud.retornaCusto()}"></p:ajax>
+					</p:autoComplete>
 
 				<p:outputLabel value="Valor Un:" for="valorUn" />
-				<p:inputText id="valorUn" style="text-align: left;"
+				<p:inputText id="valorUn" style="text-align: right;"
 					value="#{pedidoCrud.itensPedido.valorUn}">
+					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 				</p:inputText>
 
 				<p:outputLabel value="Quantidade:" for="quantidade" />
-				<p:inputText id="quantidade" style="text-align: left;"
+				<p:inputText id="quantidade" style="text-align: right;"
 					value="#{pedidoCrud.itensPedido.quantidade}">
+					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 				</p:inputText>
 
 			</h:panelGrid>
@@ -149,10 +157,34 @@
 				actionListener="#{pedidoCrud.cancelarItensPedido}"
 				icon="fa fa-close fa-lg" style="width:88px;height:20px"
 				value="Cancelar" update=":formEditar:tabelaItensPedido"
-				immediate="true" oncomplete="PF('dialogoItensPedidosicao').hide();"
+				immediate="true" oncomplete="PF('dialogoItensPedido').hide();"
 				ajax="true" />
 
 		</h:form>
+	</p:dialog>
+	
+	<p:dialog header="Cliente" widgetVar="dialogoCli" width="800"
+		height="500" resizable="false" modal="true" position="center">
+
+		<iframe src="../Cliente/ClienteList.xhtml"
+			style="width: 100%; height: 100%;" frameborder="0"></iframe>
+
+	</p:dialog>
+	
+	<p:dialog header="Situacao" widgetVar="dialogoSit" width="800"
+		height="500" resizable="false" modal="true" position="center">
+
+		<iframe src="../Situacao/SituacaoList.xhtml"
+			style="width: 100%; height: 100%;" frameborder="0"></iframe>
+
+	</p:dialog>
+	
+	<p:dialog header="Produto" widgetVar="dialogoProduto" width="800"
+		height="500" resizable="false" modal="true" position="center">
+
+		<iframe src="../Produto/ProdutoList.xhtml"
+			style="width: 100%; height: 100%;" frameborder="0"></iframe>
+
 	</p:dialog>
 </h:body>
 </html>

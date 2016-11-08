@@ -21,14 +21,14 @@
 			</f:facet>
 			<p:outputLabel value="Código:" for="codMateriaPrima" />
 			<p:inputText id="codMateriaPrima" readonly="true"
-				value="#{materiaPrimaCrud.objeto.codMateriaPrima}" />
+				value="#{materiaPrimaCrud.objeto.codMateriaPrima}" style="text-align:right"/>
 
 			<p:outputLabel value="Nome:" for="nome" />
 			<p:inputText id="nome" value="#{materiaPrimaCrud.objeto.nome}" />
 
 
 			<p:outputLabel value="Quantidade:" for="quantidade" />
-			<p:inputText id="quantidade" readonly="true"
+			<p:inputText id="quantidade" readonly="true" style="text-align: right"
 				value="#{materiaPrimaCrud.objeto.quantidade}">
 				<f:convertNumber pattern="#,##0.00" />
 			</p:inputText>
@@ -42,13 +42,13 @@
 				mask="true" showOn="button" />
 
 			<p:outputLabel value="Valor Ultima Compra:" for="valorUltimaCompra" />
-			<p:inputText id="valorUltimaCompra" readonly="true"
+			<p:inputText id="valorUltimaCompra" readonly="true" style="text-align: right"
 				value="#{materiaPrimaCrud.objeto.valorUltimaCompra}">
 				<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 			</p:inputText>
 			
 			<p:outputLabel value="Valor Custo Medio:" for="valorCustoMedio" />
-			<p:inputText id="valorCustoMedio" readonly="true"
+			<p:inputText id="valorCustoMedio" readonly="true" style="text-align: right"
 				value="#{materiaPrimaCrud.objeto.valorCustoMedio}">
 				<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 			</p:inputText>

@@ -34,7 +34,7 @@
 			
 			<p:column headerText="Código" sortBy="#{obj.codMateriaPrima}" filterBy="#{obj.codMateriaPrima}"
 				filterMatchMode="exact">
-				<h:outputText value="#{obj.codMateriaPrima}" />
+				<h:outputText value="#{obj.codMateriaPrima}" style="float:right"/>
 			</p:column>
 			
 			<p:column headerText="Nome:" sortBy="#{obj.nome}"
@@ -44,7 +44,7 @@
 			
 			<p:column headerText="Qtd Estoque:" sortBy="#{obj.quantidade}" filterBy="#{obj.quantidade}"
 				filterMatchMode="startsWith">
-				<h:outputText value="#{obj.quantidade}">
+				<h:outputText value="#{obj.quantidade}" style="float: right;">
 					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 				</h:outputText>
 			</p:column>

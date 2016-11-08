@@ -19,18 +19,18 @@
 
 			<p:outputLabel value="Código:" for="id" />
 			<p:inputText id="id" readonly="true" size="5"
-				value="#{fornecedorCrud.objeto.codFornecedor}" />
+				value="#{fornecedorCrud.objeto.codFornecedor}" style="text-align:right"/>
 
-			<p:outputLabel value="Nome:" for="nome" />
-			<p:inputText id="nome" size="50"
+			<p:outputLabel value="Nome: *" for="nome" />
+			<p:inputText id="nome" size="60"
 				value="#{fornecedorCrud.objeto.nome}" />
 
-			<p:outputLabel value="CNPJ:" for="cnpj" />
-			<p:inputMask id="cnpj" size="50"
-				value="#{fornecedorCrud.objeto.cnpj}" mask="99.999.999/9999-99" />
+			<p:outputLabel value="CNPJ: *" for="cnpj" />
+			<p:inputMask id="cnpj" size="27"
+				value="#{fornecedorCrud.objeto.cnpj}" mask="99.999.999/9999-99" style="text-align:right"/>
 
 
-			<p:outputLabel value="EnderecoFornecedor" />
+			<p:outputLabel value="Endereco Fornecedor" />
 			<p:dataTable id="tabelaEnderecoFornecedor" rowIndexVar="rowIndex"
 				var="obj" value="#{fornecedorCrud.objeto.enderecoFornecedor}"
 				emptyMessage="Nenhum resultado encontrado">
@@ -50,7 +50,7 @@
 				</f:facet>
 
 				<p:column headerText="Cidade:">
-					<h:outputText value="#{obj.cidade}" converter="cidadeConverterNome" />
+					<h:outputText value="#{obj.cidade.nome} - #{obj.cidade.estado}" />
 				</p:column>
 
 				<p:column headerText="Rua:">
@@ -58,7 +58,7 @@
 				</p:column>
 
 				<p:column headerText="Numero:">
-					<h:outputText value="#{obj.numero}" />
+					<h:outputText value="#{obj.numero}" style="float: right;"/>
 				</p:column>
 
 				<p:column headerText="Complemento:">
@@ -70,7 +70,7 @@
 				</p:column>
 
 				<p:column headerText="IE:">
-					<h:outputText value="#{obj.iestadual}" />
+					<h:outputText value="#{obj.iestadual}" style="float: right;"/>
 				</p:column>
 
 				<p:column headerText="Referencia:">
@@ -107,52 +107,46 @@
 	</h:form>
 
 	<p:dialog header="Editar Endereco Fornecedor"
-		widgetVar="dialogoEnderecoFornecedor" width="1000" resizable="false"
+		widgetVar="dialogoEnderecoFornecedor" width="600" resizable="false"
 		modal="true">
 		<h:form id="formEnderecoFornecedor">
 			<p:growl />
 			<h:panelGrid columns="2" style="margin-bottom:10px">
-				<p:commandLink value="Cidade"
-					onclick="parent.abrePopUp('/BarSysJSF/faces/Cadastros/Cidade/CidadeList.xhtml', 'Cadastro de Fornecedores', 600, 800, true)" />
+				<p:commandLink value="Cidade: *" onclick="PF('dialogoCid').show();" />
 				<p:autoComplete id="cidade" size="60" dropdown="true"
 					multiple="false" forceSelection="true" var="obj"
-					itemLabel="#{obj.nome}" itemValue="#{obj}"
+					itemLabel="#{obj.nome} - #{obj.estado}" itemValue="#{obj}"
 					value="#{fornecedorCrud.enderecoFornecedor.cidade}"
-					converter="cidadeConverter"
-					completeMethod="#{fornecedorCrud.completeCidade}" />
+					converter="cidadeConverter" maxResults="5"
+					completeMethod="#{fornecedorCrud.completeCidade}"/>
 
-				<p:outputLabel value="Endereco:" for="endereco" />
+				<p:outputLabel value="Endereco:  *" for="endereco" />
 				<p:inputText id="endereco" size="60" style="text-align: left;"
 					value="#{fornecedorCrud.enderecoFornecedor.rua}">
 				</p:inputText>
 
-				<p:outputLabel value="Numero:" for="numero" />
+				<p:outputLabel value="Numero: *" for="numero" />
 				<p:inputText id="numero" maxlength="255" size="60"
-					style="text-align: left;"
-					value="#{fornecedorCrud.enderecoFornecedor.numero}">
+					value="#{fornecedorCrud.enderecoFornecedor.numero}" style="text-align:right">
 				</p:inputText>
 
 				<p:outputLabel value="Complemento:" for="complemento" />
 				<p:inputText id="complemento" size="60" maxlength="255"
-					style="text-align: left;"
 					value="#{fornecedorCrud.enderecoFornecedor.complemento}">
 				</p:inputText>
 
-				<p:outputLabel value="Bairro:" for="bairro" />
+				<p:outputLabel value="Bairro: *" for="bairro" />
 				<p:inputText id="bairro" size="60" maxlength="50"
-					style="text-align: left;"
 					value="#{fornecedorCrud.enderecoFornecedor.bairro}">
 				</p:inputText>
 
 				<p:outputLabel value="Inscricao Estadual:" for="inscricaoestadual" />
 				<p:inputText id="inscricaoestadual" maxlength="255" size="60"
-					style="text-align: left;"
-					value="#{fornecedorCrud.enderecoFornecedor.iestadual}">
+					value="#{fornecedorCrud.enderecoFornecedor.iestadual}" style="text-align:right">
 				</p:inputText>
 
 				<p:outputLabel value="Referencia:" for="referencia" />
 				<p:inputText id="referencia" maxlength="255" size="60"
-					style="text-align: left;"
 					value="#{fornecedorCrud.enderecoFornecedor.referencia}">
 				</p:inputText>
 
@@ -161,7 +155,8 @@
 
 			<p:commandButton
 				actionListener="#{fornecedorCrud.gravarEnderecoFornecedor}"
-				validateClient="true" value="Gravar" icon="fa fa-check fa-lg" style="width:88px;height:20px"
+				validateClient="true" value="Gravar" icon="fa fa-check fa-lg"
+				style="width:88px;height:20px"
 				update=":formEnderecoFornecedor :formEditar:tabelaEnderecoFornecedor"
 				oncomplete="if (!args.validationFailed){ PF('dialogoEnderecoFornecedor').hide();}"
 				ajax="true">
@@ -169,10 +164,20 @@
 			<p:commandButton
 				actionListener="#{fornecedorCrud.cancelarEnderecoFornecedor}"
 				value="Cancelar" update=":formEditar:tabelaEnderecoFornecedor"
-				immediate="true" icon="fa fa-close fa-lg" style="width:88px;height:20px"
+				immediate="true" icon="fa fa-close fa-lg"
+				style="width:88px;height:20px"
 				oncomplete="PF('dialogoEnderecoFornecedor').hide();" ajax="true" />
 
 		</h:form>
+	</p:dialog>
+
+
+	<p:dialog header="Cidades" widgetVar="dialogoCid" width="800"
+		height="600" resizable="true" modal="true">
+
+		<iframe src="../Cidade/CidadeList.xhtml"
+			style="width: 100%; height: 100%;" frameborder="0"></iframe>
+
 	</p:dialog>
 
 </h:body>
