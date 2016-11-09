@@ -44,7 +44,7 @@
 			
 			<p:column headerText="Qtd Estoque:" sortBy="#{obj.quantidade}" filterBy="#{obj.quantidade}"
 				filterMatchMode="startsWith">
-				<h:outputText value="#{obj.quantidade}" style="float: right;">
+				<h:outputText value="#{obj.quantidade}" >
 					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 				</h:outputText>
 			</p:column>

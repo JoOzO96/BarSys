@@ -43,7 +43,7 @@
 
 			<p:outputLabel value="Valor Custo:" for="valorCusto" />
 			<p:inputText id="valorCusto" value="#{produtoCrud.objeto.valorCusto}"
-				style="text-align:right" readonly="true">
+				 readonly="true">
 				<f:convertNumber pattern="R$#,##0.00" />
 			</p:inputText>
 
@@ -125,7 +125,7 @@
 				</p:autoComplete>
 
 				<p:outputLabel value="Quantidade:" for="quantidade" />
-				<p:inputText id="quantidade" style="text-align:right"
+				<p:inputText id="quantidade" 
 					value="#{produtoCrud.produtoComposicao.quantidade}">
 					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 				</p:inputText>

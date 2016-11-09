@@ -18,8 +18,8 @@
 			</f:facet>
 
 			<p:outputLabel value="Código:" for="id" />
-			<p:inputText id="id" readonly="true" size="5" disabled="true"
-				value="#{contasPagarCrud.objeto.codContasPagar}" style="text-align:right"/>
+			<p:inputText id="id" disabled="true"size="5" 
+				value="#{contasPagarCrud.objeto.codContasPagar}" />
 
 			<p:outputLabel value="Descricao:" for="descricao" />
 			<p:inputText id="descricao" size="60"
@@ -31,13 +31,13 @@
 				mask="true" showOn="button" />
 
 			<p:outputLabel value="Valor Total:" for="valorTotal" />
-			<p:inputText id="valorTotal" style="text-align: right"
+			<p:inputText id="valorTotal" "
 				value="#{contasPagarCrud.objeto.valorTotal}" >
 				<f:convertNumber pattern="R$#,##0.00" />
 			</p:inputText>
 
 			<p:outputLabel value="Valor Pago:" for="valorPago" />
-			<p:inputText id="valorPago" disabled="true" style="text-align: right"
+			<p:inputText id="valorPago" disabled="true" "
 				value="#{contasPagarCrud.objeto.valorPago}" readonly="true">
 				<f:convertNumber pattern="R$#,##0.00" />
 			</p:inputText>
@@ -67,7 +67,7 @@
 				</p:column>
 
 				<p:column headerText="Valor:">
-					<h:outputText value="#{obj.valor}" style="text-align: right">
+					<h:outputText value="#{obj.valor}" ">
 						<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>
 					</h:outputText>
 				</p:column>
@@ -114,7 +114,7 @@
 
 
 				<p:outputLabel value="Valor:" for="valor" />
-				<p:inputText id="valor" value="#{contasPagarCrud.parcelas.valor}" style="text-align: right">
+				<p:inputText id="valor" value="#{contasPagarCrud.parcelas.valor}" ">
 					<f:convertNumber pattern="R$#,##0.00" />
 				</p:inputText>
 

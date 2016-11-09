@@ -18,7 +18,7 @@
 			</f:facet>
 
 			<p:outputLabel value="Código:" for="id" />
-			<p:inputText id="id" readonly="true" size="5"
+			<p:inputText id="id" disabled="true" size="5"
 				value="#{clienteCrud.objeto.codCliente}" />
 
 			<p:outputLabel value="Nome:" for="nome" />
@@ -26,10 +26,10 @@
 
 			<p:outputLabel value="CPF:" for="cpf" />
 			<p:inputMask id="cpf" value="#{clienteCrud.objeto.cpf}"
-				mask="999.999.999-99" style="text-align: right;"/>
+				mask="999.999.999-99" />
 
 			<p:outputLabel value="RG:" for="rg" />
-			<p:inputMask id="rg" value="#{clienteCrud.objeto.rg}" style="text-align: right;"/>
+			<p:inputMask id="rg" value="#{clienteCrud.objeto.rg}" />
 
 
 			<p:outputLabel value="Endereco Cliente" />
@@ -60,7 +60,7 @@
 				</p:column>
 
 				<p:column headerText="Numero:">
-					<h:outputText value="#{obj.numero}" style="float: right;"/>
+					<h:outputText value="#{obj.numero}" />
 				</p:column>
 
 				<p:column headerText="Complemento:">
@@ -72,7 +72,7 @@
 				</p:column>
 
 				<p:column headerText="IE:">
-					<h:outputText value="#{obj.iestadual}" style="float: right;"/>
+					<h:outputText value="#{obj.iestadual}" />
 				</p:column>
 
 				<p:column headerText="Referencia:">
@@ -129,7 +129,7 @@
 
 				<p:outputLabel value="Numero: *" for="numero" />
 				<p:inputText id="numero" maxlength="255" size="60"
-					style="text-align: right;"
+					
 					value="#{clienteCrud.enderecoCliente.numero}">
 				</p:inputText>
 
@@ -145,7 +145,7 @@
 
 				<p:outputLabel value="Inscricao Estadual:" for="inscricaoestadual" />
 				<p:inputText id="inscricaoestadual" maxlength="255" size="60"
-					style="text-align: right;"
+					
 					value="#{clienteCrud.enderecoCliente.iestadual}">
 				</p:inputText>
 

@@ -18,12 +18,11 @@
 			</f:facet>
 
 			<p:outputLabel value="Código:" for="id" />
-			<p:inputText id="id" readonly="true" size="5" disabled="true"
-				value="#{entradaCrud.objeto.codEntrada}" style="text-align:right" />
+			<p:inputText id="id" disabled="true" size="5"
+				value="#{entradaCrud.objeto.codEntrada}"></p:inputText>
 
 			<p:outputLabel value="Nr Nota:" for="nrNota" />
-			<p:inputText id="nrNota" value="#{entradaCrud.objeto.numeroNota}"
-				style="text-align:right" />
+			<p:inputText id="nrNota" value="#{entradaCrud.objeto.numeroNota}" />
 
 			<p:commandLink value="Fornecedor:" for="fornecedor"
 				onclick="PF('dialogoForn').show();" />
@@ -36,7 +35,7 @@
 
 			<p:outputLabel value="Valor Total:" for="valorTotal" />
 			<p:inputText id="valorTotal" value="#{entradaCrud.objeto.valorTotal}"
-				readonly="true" style="text-align: right;">
+				disabled="true">
 				<f:convertNumber pattern="R$#,##0.00" />
 			</p:inputText>
 
@@ -62,7 +61,7 @@
 
 				<p:column headerText="Materia Prima:" for="materiaPrima">
 					<h:outputText
-						value="#{obj.materiaPrima.nome} - #{obj.materiaPrima.unidade} "></h:outputText>
+						value="#{obj.materiaPrima.nome} - #{obj.materiaPrima.unidade} " />
 				</p:column>
 
 
@@ -124,13 +123,13 @@
 				</p:autoComplete>
 
 				<p:outputLabel value="Valor Un.:" for="valorUnitario" />
-				<p:inputText id="valorUnitario" style="text-align:right"
+				<p:inputText id="valorUnitario"
 					value="#{entradaCrud.entradaItem.custoUnitario}">
 					<f:convertNumber pattern="#,##0.00" />
 				</p:inputText>
 
 				<p:outputLabel value="Quantidade:" for="quantidade" />
-				<p:inputText id="quantidade" style="text-align:right"
+				<p:inputText id="quantidade"
 					value="#{entradaCrud.entradaItem.quantidade}">
 					<f:convertNumber pattern="#,##0.00" />
 				</p:inputText>

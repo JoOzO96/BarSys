@@ -21,7 +21,7 @@
 			</f:facet>
 			<p:outputLabel value="Código:" for="codPedido" />
 			<p:inputText id="codPedido" readonly="true"
-				value="#{pedidoCrud.objeto.codPedido}" style="text-align:right"/>
+				value="#{pedidoCrud.objeto.codPedido}" />
 
 			<p:commandLink value="Cliente:"
 				onclick="PF('dialogoCli').show();" />
@@ -44,7 +44,7 @@
 				pattern="dd/MM/yyyy" mask="true" showOn="button" />
 
 			<p:outputLabel value="Comanda Nr.:" for="comandaNr" />
-			<p:inputText id="comandaNr" value="#{pedidoCrud.objeto.nrComanda}" size="60" style="text-align: right;"/>
+			<p:inputText id="comandaNr" value="#{pedidoCrud.objeto.nrComanda}" size="60" />
 
 			<p:outputLabel value="ItensPedido" />
 			<p:dataTable id="tabelaItensPedido" rowIndexVar="rowIndex" var="obj"
@@ -70,13 +70,13 @@
 				</p:column>
 
 				<p:column headerText="Valor Un.:">
-					<h:outputText value="#{obj.valorUn}" style="float: right;" >
+					<h:outputText value="#{obj.valorUn}"  >
 						<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>	
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Quantidade:">
-					<h:outputText value="#{obj.quantidade}" style="float: right;">
+					<h:outputText value="#{obj.quantidade}" >
 						<f:convertNumber pattern="#,##0.00"></f:convertNumber>	
 					</h:outputText>
 				</p:column>
@@ -131,13 +131,13 @@
 					</p:autoComplete>
 
 				<p:outputLabel value="Valor Un:" for="valorUn" />
-				<p:inputText id="valorUn" style="text-align: right;"
+				<p:inputText id="valorUn" 
 					value="#{pedidoCrud.itensPedido.valorUn}">
 					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 				</p:inputText>
 
 				<p:outputLabel value="Quantidade:" for="quantidade" />
-				<p:inputText id="quantidade" style="text-align: right;"
+				<p:inputText id="quantidade" 
 					value="#{pedidoCrud.itensPedido.quantidade}">
 					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 				</p:inputText>
