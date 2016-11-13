@@ -71,7 +71,7 @@
 
 				<p:column headerText="Valor Un.:">
 					<h:outputText value="#{obj.valorUn}"  >
-						<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>	
+						<f:convertNumber pattern="R$ #,##0.00"></f:convertNumber>	
 					</h:outputText>
 				</p:column>
 
@@ -131,10 +131,9 @@
 					</p:autoComplete>
 
 				<p:outputLabel value="Valor Un: *" for="valorUn" />
-				<p:inputText id="valorUn" 
-					value="#{pedidoCrud.itensPedido.valorUn}">
-					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
-				</p:inputText>
+				<p:inputNumber id="valorUn" decimalSeparator=","
+				thousandSeparator="." symbol="R$ " type="text"
+				value="#{pedidoCrud.itensPedido.valorUn}"/>
 
 				<p:outputLabel value="Quantidade: *" for="quantidade" />
 				<p:inputText id="quantidade" 

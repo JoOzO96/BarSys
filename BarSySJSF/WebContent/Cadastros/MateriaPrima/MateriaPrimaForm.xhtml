@@ -20,7 +20,7 @@
 				<p:outputLabel value="Edição de Materia Prima" />
 			</f:facet>
 			<p:outputLabel value="Código:" for="codMateriaPrima" />
-			<p:inputText id="codMateriaPrima" readonly="true"
+			<p:inputText id="codMateriaPrima" readonly="true" disabled="true"
 				value="#{materiaPrimaCrud.objeto.codMateriaPrima}" />
 
 			<p:outputLabel value="Nome: *" for="nome" />
@@ -44,13 +44,13 @@
 			<p:outputLabel value="Valor Ultima Compra:" for="valorUltimaCompra" />
 			<p:inputText id="valorUltimaCompra" disabled="true"
 				value="#{materiaPrimaCrud.objeto.valorUltimaCompra}">
-				<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+				<f:convertNumber pattern="R$ #,##0.00"></f:convertNumber>
 			</p:inputText>
 			
 			<p:outputLabel value="Valor Custo Medio:" for="valorCustoMedio" />
 			<p:inputText id="valorCustoMedio" disabled="true"
 				value="#{materiaPrimaCrud.objeto.valorCustoMedio}">
-				<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+				<f:convertNumber pattern="R$ #,##0.00"></f:convertNumber>
 			</p:inputText>
 
 			<f:facet name="footer">

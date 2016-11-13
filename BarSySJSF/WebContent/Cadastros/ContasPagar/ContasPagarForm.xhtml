@@ -39,7 +39,7 @@
 			<p:outputLabel value="Valor Pago:" for="valorPago" />
 			<p:inputText id="valorPago" disabled="true"
 				value="#{contasPagarCrud.objeto.valorPago}" readonly="true">
-				<f:convertNumber pattern="R$#,##0.00" />
+				<f:convertNumber pattern="R$ #,##0.00" />
 			</p:inputText>
 
 			<p:outputLabel value="Parcelas" />
@@ -115,9 +115,10 @@
 
 
 				<p:outputLabel value="Valor: *" for="valor" />
-				<p:inputNumber id="valor" decimalSeparator="," thousandSeparator="."
-					symbol="R$ " type="text" value="#{contasPagarCrud.parcelas.valor}">
-				</p:inputNumber>
+				<p:inputNumber id="valor" decimalSeparator=","
+				thousandSeparator="." symbol="R$ " type="text"
+				value="#{contasPagarCrud.parcelas.valor}">
+			</p:inputNumber>
 
 			</h:panelGrid>
 

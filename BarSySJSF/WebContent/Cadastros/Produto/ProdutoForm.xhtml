@@ -20,7 +20,7 @@
 				<p:outputLabel value="Edição de Produto" />
 			</f:facet>
 			<p:outputLabel value="Código:" for="codProduto" />
-			<p:inputText id="codProduto" readonly="true"
+			<p:inputText id="codProduto" readonly="true" disabled="true"
 				value="#{produtoCrud.objeto.codProduto}" />
 
 			<p:outputLabel value="Nome: *" for="nome" />
@@ -37,18 +37,18 @@
 
 			<p:outputLabel value="Valor Custo:" for="valorCusto" />
 			<p:inputText id="valorCusto" value="#{produtoCrud.objeto.valorCusto}"
-				 readonly="true">
+				 readonly="true" disabled="true">
 				<f:convertNumber pattern="R$#,##0.00" />
 			</p:inputText>
 
-			<p:outputLabel value="ProdutoComposicao" />
+			<p:outputLabel value="Produto Composicao" />
 			<p:dataTable id="tabelaProdutoComposicao" rowIndexVar="rowIndex"
 				var="obj" value="#{produtoCrud.objeto.produtoComposicao}"
 				emptyMessage="Nenhum resultado encontrado">
 				<f:facet name="header">
 					<div align="left"
 						style="position: relative; height: 10px; top: 5px; width: 95%;">
-						<p:outputLabel value="Listagem de Endereços"></p:outputLabel>
+						<p:outputLabel value="Listagem de Produtos na Composicao"></p:outputLabel>
 					</div>
 					<div align="right"
 						style="position: relative; height: 10px; top: -12px; width: 95%;">

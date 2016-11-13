@@ -26,7 +26,7 @@
 
 			<p:commandLink value="Fornecedor: *" for="fornecedor"
 				onclick="PF('dialogoForn').show();" />
-			<p:autoComplete id="fornecedor" style="width:600px" dropdown="true"
+			<p:autoComplete id="fornecedor" dropdown="true"
 				size="60" multiple="false" forceSelection="true" var="forn"
 				itemLabel="#{forn.nome}" itemValue="#{forn}"
 				value="#{entradaCrud.objeto.fornecedor}"
@@ -36,7 +36,7 @@
 			<p:outputLabel value="Valor Total: *" for="valorTotal" />
 			<p:inputText id="valorTotal" value="#{entradaCrud.objeto.valorTotal}"
 				disabled="true">
-				<f:convertNumber pattern="R$#,##0.00" />
+				<f:convertNumber pattern="R$ #,##0.00" />
 			</p:inputText>
 
 
@@ -73,7 +73,7 @@
 
 				<p:column headerText="Custo Un.:">
 					<h:outputText value="#{obj.custoUnitario}" style="float:right">
-						<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>
+						<f:convertNumber pattern="R$ #,##0.00"></f:convertNumber>
 					</h:outputText>
 				</p:column>
 
@@ -114,7 +114,7 @@
 			<h:panelGrid columns="2" style="margin-bottom:10px">
 
 				<p:outputLabel value="MateriaPrima: *" for="materiaPrima" />
-				<p:autoComplete id="materiaPrima" style="width:600px"
+				<p:autoComplete id="materiaPrima"
 					dropdown="true" multiple="false" forceSelection="true" var="mpri"
 					itemLabel="#{mpri.nome} - #{mpri.unidade}" itemValue="#{mpri}"
 					value="#{entradaCrud.entradaItem.materiaPrima}"
@@ -123,10 +123,9 @@
 				</p:autoComplete>
 
 				<p:outputLabel value="Valor Un.: *" for="valorUnitario" />
-				<p:inputText id="valorUnitario"
-					value="#{entradaCrud.entradaItem.custoUnitario}">
-					<f:convertNumber pattern="#,##0.00" />
-				</p:inputText>
+				<p:inputNumber id="valorUnitario" decimalSeparator=","
+				thousandSeparator="." symbol="R$ " type="text"
+				value="#{entradaCrud.entradaItem.custoUnitario}"/>
 
 				<p:outputLabel value="Quantidade: *" for="quantidade" />
 				<p:inputText id="quantidade"
