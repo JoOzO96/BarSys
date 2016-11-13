@@ -21,10 +21,10 @@
 			<p:inputText id="id" disabled="true" size="5"
 				value="#{entradaCrud.objeto.codEntrada}"></p:inputText>
 
-			<p:outputLabel value="Nr Nota:" for="nrNota" />
+			<p:outputLabel value="Nr Nota: *" for="nrNota" />
 			<p:inputText id="nrNota" value="#{entradaCrud.objeto.numeroNota}" />
 
-			<p:commandLink value="Fornecedor:" for="fornecedor"
+			<p:commandLink value="Fornecedor: *" for="fornecedor"
 				onclick="PF('dialogoForn').show();" />
 			<p:autoComplete id="fornecedor" style="width:600px" dropdown="true"
 				size="60" multiple="false" forceSelection="true" var="forn"
@@ -33,7 +33,7 @@
 				converter="fornecedorConverter"
 				completeMethod="#{entradaCrud.completeFornecedor}" />
 
-			<p:outputLabel value="Valor Total:" for="valorTotal" />
+			<p:outputLabel value="Valor Total: *" for="valorTotal" />
 			<p:inputText id="valorTotal" value="#{entradaCrud.objeto.valorTotal}"
 				disabled="true">
 				<f:convertNumber pattern="R$#,##0.00" />
@@ -113,7 +113,7 @@
 			<p:growl />
 			<h:panelGrid columns="2" style="margin-bottom:10px">
 
-				<p:outputLabel value="MateriaPrima:" for="materiaPrima" />
+				<p:outputLabel value="MateriaPrima: *" for="materiaPrima" />
 				<p:autoComplete id="materiaPrima" style="width:600px"
 					dropdown="true" multiple="false" forceSelection="true" var="mpri"
 					itemLabel="#{mpri.nome} - #{mpri.unidade}" itemValue="#{mpri}"
@@ -122,13 +122,13 @@
 					completeMethod="#{entradaCrud.completeMateriaPrima}" size="60">
 				</p:autoComplete>
 
-				<p:outputLabel value="Valor Un.:" for="valorUnitario" />
+				<p:outputLabel value="Valor Un.: *" for="valorUnitario" />
 				<p:inputText id="valorUnitario"
 					value="#{entradaCrud.entradaItem.custoUnitario}">
 					<f:convertNumber pattern="#,##0.00" />
 				</p:inputText>
 
-				<p:outputLabel value="Quantidade:" for="quantidade" />
+				<p:outputLabel value="Quantidade: *" for="quantidade" />
 				<p:inputText id="quantidade"
 					value="#{entradaCrud.entradaItem.quantidade}">
 					<f:convertNumber pattern="#,##0.00" />

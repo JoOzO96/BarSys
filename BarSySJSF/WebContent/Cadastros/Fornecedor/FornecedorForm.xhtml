@@ -18,7 +18,7 @@
 			</f:facet>
 
 			<p:outputLabel value="Código:" for="id" />
-			<p:inputText id="id" disabled="true"size="5"
+			<p:inputText id="id" disabled="true" size="5"
 				value="#{fornecedorCrud.objeto.codFornecedor}" />
 
 			<p:outputLabel value="Nome: *" for="nome" />
@@ -118,7 +118,7 @@
 					itemLabel="#{obj.nome} - #{obj.estado}" itemValue="#{obj}"
 					value="#{fornecedorCrud.enderecoFornecedor.cidade}"
 					converter="cidadeConverter" maxResults="5"
-					completeMethod="#{fornecedorCrud.completeCidade}"/>
+					completeMethod="#{fornecedorCrud.completeCidade}" />
 
 				<p:outputLabel value="Endereco:  *" for="endereco" />
 				<p:inputText id="endereco" size="60" style="text-align: left;"
@@ -127,7 +127,7 @@
 
 				<p:outputLabel value="Numero: *" for="numero" />
 				<p:inputText id="numero" maxlength="255" size="60"
-					value="#{fornecedorCrud.enderecoFornecedor.numero}" >
+					value="#{fornecedorCrud.enderecoFornecedor.numero}">
 				</p:inputText>
 
 				<p:outputLabel value="Complemento:" for="complemento" />
@@ -142,7 +142,7 @@
 
 				<p:outputLabel value="Inscricao Estadual:" for="inscricaoestadual" />
 				<p:inputText id="inscricaoestadual" maxlength="255" size="60"
-					value="#{fornecedorCrud.enderecoFornecedor.iestadual}" >
+					value="#{fornecedorCrud.enderecoFornecedor.iestadual}">
 				</p:inputText>
 
 				<p:outputLabel value="Referencia:" for="referencia" />

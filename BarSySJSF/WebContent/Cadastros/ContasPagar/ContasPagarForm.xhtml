@@ -18,26 +18,26 @@
 			</f:facet>
 
 			<p:outputLabel value="Código:" for="id" />
-			<p:inputText id="id" disabled="true"size="5" 
+			<p:inputText id="id" size="5" disabled="true"
 				value="#{contasPagarCrud.objeto.codContasPagar}" />
 
-			<p:outputLabel value="Descricao:" for="descricao" />
+			<p:outputLabel value="Descricao: *" for="descricao" />
 			<p:inputText id="descricao" size="60"
 				value="#{contasPagarCrud.objeto.descricao}" />
 
-			<p:outputLabel value="Data de Vencimento:" for="dataVencimento" />
+			<p:outputLabel value="Data de Vencimento: *" for="dataVencimento" />
 			<p:calendar id="dataVencimento"
 				value="#{contasPagarCrud.objeto.vencimento}" pattern="dd/MM/yyyy"
 				mask="true" showOn="button" />
 
-			<p:outputLabel value="Valor Total:" for="valorTotal" />
-			<p:inputText id="valorTotal" "
-				value="#{contasPagarCrud.objeto.valorTotal}" >
-				<f:convertNumber pattern="R$#,##0.00" />
-			</p:inputText>
+			<p:outputLabel value="Valor Total: *" for="valorTotal" />
+			<p:inputNumber id="valorTotal" decimalSeparator=","
+				thousandSeparator="." symbol="R$ " type="text"
+				value="#{contasPagarCrud.objeto.valorTotal}">
+			</p:inputNumber>
 
 			<p:outputLabel value="Valor Pago:" for="valorPago" />
-			<p:inputText id="valorPago" disabled="true" "
+			<p:inputText id="valorPago" disabled="true"
 				value="#{contasPagarCrud.objeto.valorPago}" readonly="true">
 				<f:convertNumber pattern="R$#,##0.00" />
 			</p:inputText>
@@ -67,7 +67,7 @@
 				</p:column>
 
 				<p:column headerText="Valor:">
-					<h:outputText value="#{obj.valor}" ">
+					<h:outputText value="#{obj.valor}">
 						<f:convertNumber pattern="R$#,##0.00"></f:convertNumber>
 					</h:outputText>
 				</p:column>
@@ -75,14 +75,15 @@
 				<p:column headerText="Alterar" width="90">
 					<p:commandButton
 						actionListener="#{contasPagarCrud.alterarParcelas(rowIndex)}"
-						ajax="true" update=":formParcelas"
-						icon="fa fa-pencil fa-lg" style="width:88px;height:20px"
+						ajax="true" update=":formParcelas" icon="fa fa-pencil fa-lg"
+						style="width:88px;height:20px"
 						onclick="PF('dialogoParcelas').show();" />
 				</p:column>
 				<p:column headerText="Excluir" width="90">
 					<p:commandButton
 						actionListener="#{contasPagarCrud.excluirParcelas(rowIndex)}"
-						ajax="true" update=":formEditar:tabelaParcelas :formEditar:valorPago"
+						ajax="true"
+						update=":formEditar:tabelaParcelas :formEditar:valorPago"
 						icon="fa fa-close fa-lg" style="width:88px;height:20px"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
 					</p:commandButton>
@@ -92,11 +93,11 @@
 
 			<f:facet name="footer">
 				<p:commandButton value="Gravar" action="#{contasPagarCrud.gravar}"
-				icon="fa fa-check fa-lg" style="width:88px;height:20px"
+					icon="fa fa-check fa-lg" style="width:88px;height:20px"
 					ajax="false" />
-				<p:commandButton value="Cancelar"
-				icon="fa fa-close fa-lg" style="width:88px;height:20px"
-					action="#{contasPagarCrud.cancelar}" ajax="false" immediate="true" />
+				<p:commandButton value="Cancelar" icon="fa fa-close fa-lg"
+					style="width:88px;height:20px" action="#{contasPagarCrud.cancelar}"
+					ajax="false" immediate="true" />
 			</f:facet>
 		</p:panelGrid>
 	</h:form>
@@ -107,30 +108,31 @@
 			<p:growl />
 			<h:panelGrid columns="2" style="margin-bottom:10px">
 
-				<p:outputLabel value="Data de Pagamento" for="dataPagamento" />
-				<p:calendar id="dataPagamento" 
+				<p:outputLabel value="Data de Pagamento: *" for="dataPagamento" />
+				<p:calendar id="dataPagamento"
 					value="#{contasPagarCrud.parcelas.dataPagamento}"
 					pattern="dd/MM/yyyy" mask="true" showOn="button" />
 
 
-				<p:outputLabel value="Valor:" for="valor" />
-				<p:inputText id="valor" value="#{contasPagarCrud.parcelas.valor}" ">
-					<f:convertNumber pattern="R$#,##0.00" />
-				</p:inputText>
+				<p:outputLabel value="Valor: *" for="valor" />
+				<p:inputNumber id="valor" decimalSeparator="," thousandSeparator="."
+					symbol="R$ " type="text" value="#{contasPagarCrud.parcelas.valor}">
+				</p:inputNumber>
 
 			</h:panelGrid>
 
 
 			<p:commandButton actionListener="#{contasPagarCrud.gravarParcelas}"
-				validateClient="true" value="Gravar"
-				icon="fa fa-check fa-lg" style="width:88px;height:20px"
+				validateClient="true" value="Gravar" icon="fa fa-check fa-lg"
+				style="width:88px;height:20px"
 				update=":formParcelas :formEditar:tabelaParcelas :formEditar:valorPago"
 				oncomplete="if (!args.validationFailed){ PF('dialogoParcelas').hide();}"
 				ajax="true">
 			</p:commandButton>
 			<p:commandButton actionListener="#{contasPagarCrud.cancelarParcelas}"
-				value="Cancelar" update=":formEditar:tabelaParcelas :formEditar:valorPago"
-				 icon="fa fa-close fa-lg" style="width:88px;height:20px"
+				value="Cancelar"
+				update=":formEditar:tabelaParcelas :formEditar:valorPago"
+				icon="fa fa-close fa-lg" style="width:88px;height:20px"
 				immediate="true" oncomplete="PF('dialogoParcelas').hide();"
 				ajax="true" />
 

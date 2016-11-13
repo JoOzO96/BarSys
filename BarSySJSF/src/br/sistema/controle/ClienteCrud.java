@@ -2,9 +2,13 @@ package br.sistema.controle;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+
+import org.postgresql.util.PSQLException;
 
 import br.sistema.beans.Cidade;
 import br.sistema.beans.Cliente;
@@ -66,6 +70,7 @@ public class ClienteCrud {
 	}
 
 	public String excluir(Long id) {
+	try{
 		EntityManager em = FabricaConexao.getEntityManager();
 		objeto = em.find(Cliente.class, id);
 		em.getTransaction().begin();
@@ -73,6 +78,26 @@ public class ClienteCrud {
 		em.getTransaction().commit();
 		em.close();
 		return "ClienteList?faces-redirect=true";
+	} catch (Exception e) {
+		FacesMessage mensagem = new FacesMessage();
+		mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+		Throwable err = e.getCause();
+		
+		while (err != null){
+			if (err instanceof PSQLException) {
+				PSQLException pe = (PSQLException) err;
+				String erro = pe.toString();
+				if (erro.contains("pedido")){
+					mensagem.setSummary("Nao é possivel excluir o cliente, pois ele esta vinculado a um Pedido");
+				} else if (erro.contains("clienteendereco")) {
+					mensagem.setSummary("Nao é possivel excluir a cidade, pois ela esta vinculada a um Cliente");
+				}
+	         }
+			err = err.getCause();
+		}
+		FacesContext.getCurrentInstance().addMessage(null, mensagem);
+		return "";
+	}
 	}
 
 	public ClienteCrud() {

@@ -69,12 +69,13 @@ public class FornecedorCrud {
 			FacesMessage mensagem = new FacesMessage();
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 			mens = e.getCause().toString();
+			System.out.println(mens);
 			if (mens.contains("Deve ter pelo menos um endereco no fornecedor!")){
 				mensagem.setSummary("O Fornecedor precisa conter no minimo um endereco");
 			}else{
 				mensagem.setSummary ("Erro ao cadastrar o fornecedor");
 			}
-			FacesContext.getCurrentInstance().addMessage("", mensagem);
+			FacesContext.getCurrentInstance().addMessage("growl", mensagem);
 		}
 		return "";
 	}

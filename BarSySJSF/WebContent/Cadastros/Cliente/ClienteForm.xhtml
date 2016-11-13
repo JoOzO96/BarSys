@@ -21,10 +21,10 @@
 			<p:inputText id="id" disabled="true" size="5"
 				value="#{clienteCrud.objeto.codCliente}" />
 
-			<p:outputLabel value="Nome:" for="nome" />
+			<p:outputLabel value="Nome: *" for="nome" />
 			<p:inputText id="nome" size="50" value="#{clienteCrud.objeto.nome}" />
 
-			<p:outputLabel value="CPF:" for="cpf" />
+			<p:outputLabel value="CPF: *" for="cpf" />
 			<p:inputMask id="cpf" value="#{clienteCrud.objeto.cpf}"
 				mask="999.999.999-99" />
 
@@ -51,15 +51,15 @@
 					</div>
 				</f:facet>
 
-				<p:column headerText="Cidade:">
+				<p:column headerText="Cidade: *">
 					<h:outputText value="#{obj.cidade.nome} - #{obj.cidade.estado}" />
 				</p:column>
 
-				<p:column headerText="Rua:">
+				<p:column headerText="Rua: *">
 					<h:outputText value="#{obj.rua}" />
 				</p:column>
 
-				<p:column headerText="Numero:">
+				<p:column headerText="Numero: *">
 					<h:outputText value="#{obj.numero}" />
 				</p:column>
 
@@ -67,7 +67,7 @@
 					<h:outputText value="#{obj.complemento}" />
 				</p:column>
 
-				<p:column headerText="Bairro:">
+				<p:column headerText="Bairro: *">
 					<h:outputText value="#{obj.bairro}" />
 				</p:column>
 

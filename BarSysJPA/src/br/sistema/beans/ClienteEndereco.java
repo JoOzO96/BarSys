@@ -38,6 +38,7 @@ public class ClienteEndereco implements Serializable {
 	private String bairro;
 	private String complemento;
 	private String referencia;
+	@ManyToOne(optional = false)
 	private Cidade cidade;
 	@ManyToOne(optional = false)
 	@NotNull(message="O cliente deve ser inicializado!")

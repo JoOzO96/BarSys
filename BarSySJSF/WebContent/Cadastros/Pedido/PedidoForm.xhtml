@@ -23,7 +23,7 @@
 			<p:inputText id="codPedido" readonly="true"
 				value="#{pedidoCrud.objeto.codPedido}" />
 
-			<p:commandLink value="Cliente:"
+			<p:commandLink value="Cliente: *"
 				onclick="PF('dialogoCli').show();" />
 			<p:autoComplete id="cliente" dropdown="true" size="60"
 				multiple="false" forceSelection="true" var="obj"
@@ -31,7 +31,7 @@
 				value="#{pedidoCrud.objeto.cliente}" converter="clienteConverter"
 				completeMethod="#{pedidoCrud.completeCliente}" />
 
-			<p:commandLink value="Situação:"
+			<p:commandLink value="Situação: *"
 				onclick="PF('dialogoSit').show();" />
 			<p:autoComplete id="situacao" dropdown="true" size="60"
 				multiple="false" forceSelection="true" var="obj"
@@ -39,11 +39,11 @@
 				value="#{pedidoCrud.objeto.situacao}" converter="situacaoConverter"
 				completeMethod="#{pedidoCrud.completeSituacao}" />
 
-			<p:outputLabel value="Data:" for="data" />
+			<p:outputLabel value="Data: *" for="data" />
 			<p:calendar id="data" value="#{pedidoCrud.objeto.data}"
 				pattern="dd/MM/yyyy" mask="true" showOn="button" />
 
-			<p:outputLabel value="Comanda Nr.:" for="comandaNr" />
+			<p:outputLabel value="Comanda Nr.: *" for="comandaNr" />
 			<p:inputText id="comandaNr" value="#{pedidoCrud.objeto.nrComanda}" size="60" />
 
 			<p:outputLabel value="ItensPedido" />
@@ -118,7 +118,7 @@
 		<h:form id="formItensPedido">
 			<p:growl />
 			<h:panelGrid columns="2" style="margin-bottom:10px">
-				<p:commandLink value="Produto:" 
+				<p:commandLink value="Produto: *" 
 					onclick="PF('dialogoProduto').show();" />
 				<p:autoComplete id="pedido" size="60" dropdown="true" 
 					multiple="false" forceSelection="true" var="obj"
@@ -130,13 +130,13 @@
 						<p:ajax event="change" update="valorUn" listener="#{pedidoCrud.retornaCusto()}"></p:ajax>
 					</p:autoComplete>
 
-				<p:outputLabel value="Valor Un:" for="valorUn" />
+				<p:outputLabel value="Valor Un: *" for="valorUn" />
 				<p:inputText id="valorUn" 
 					value="#{pedidoCrud.itensPedido.valorUn}">
 					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 				</p:inputText>
 
-				<p:outputLabel value="Quantidade:" for="quantidade" />
+				<p:outputLabel value="Quantidade: *" for="quantidade" />
 				<p:inputText id="quantidade" 
 					value="#{pedidoCrud.itensPedido.quantidade}">
 					<f:convertNumber pattern="#,##0.00"></f:convertNumber>

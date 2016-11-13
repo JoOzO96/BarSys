@@ -23,7 +23,7 @@
 			<p:inputText id="codMateriaPrima" readonly="true"
 				value="#{materiaPrimaCrud.objeto.codMateriaPrima}" />
 
-			<p:outputLabel value="Nome:" for="nome" />
+			<p:outputLabel value="Nome: *" for="nome" />
 			<p:inputText id="nome" value="#{materiaPrimaCrud.objeto.nome}" />
 
 
@@ -33,7 +33,7 @@
 				<f:convertNumber pattern="#,##0.00" />
 			</p:inputText>
 
-			<p:outputLabel value="Unidade:" for="unidade" />
+			<p:outputLabel value="Unidade: *" for="unidade" />
 			<p:inputText id="unidade" value="#{materiaPrimaCrud.objeto.unidade}" />
 
 			<p:outputLabel value="Data de Cadastro" for="datacadastro" />

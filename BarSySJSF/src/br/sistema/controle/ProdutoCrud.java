@@ -139,7 +139,7 @@ public class ProdutoCrud {
 	public void calculaCusto(){
 		Float valorCusto = 0F;
 		for (ProdutoComposicao it : objeto.getProdutoComposicao()){
-			valorCusto += it.getMateriaPrima().getValorUltimaCompra();
+			valorCusto += it.getMateriaPrima().getValorUltimaCompra() * it.getQuantidade();
 		}
 		objeto.setValorCusto(valorCusto);
 	}

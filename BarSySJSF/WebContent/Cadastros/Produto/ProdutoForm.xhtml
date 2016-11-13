@@ -10,12 +10,6 @@
 	<meta http-equiv="X-UA-Conpatible" content="IE=edge" />
 	<title></title>
 
-	<style>
-.test {
-	text-align: right;
-}
-</style>
-
 </h:head>
 <h:body>
 	<h:form id="formEditar">
@@ -29,15 +23,15 @@
 			<p:inputText id="codProduto" readonly="true"
 				value="#{produtoCrud.objeto.codProduto}" />
 
-			<p:outputLabel value="Nome:" for="nome" />
+			<p:outputLabel value="Nome: *" for="nome" />
 			<p:inputText id="nome" value="#{produtoCrud.objeto.nome}" />
 
-			<p:outputLabel value="Unidade:" for="unidade" />
+			<p:outputLabel value="Unidade: *" for="unidade" />
 			<p:inputText id="unidade" value="#{produtoCrud.objeto.unidade}" />
 
-			<p:outputLabel value="Valor Unitario:" for="valorUn" />
+			<p:outputLabel value="Valor Unitario: *" for="valorUn" />
 			<p:inputNumber id="valorUn" decimalSeparator=","
-				thousandSeparator="." symbol="R$ " styleClass="test" type="text"
+				thousandSeparator="." symbol="R$ " type="text"
 				value="#{produtoCrud.objeto.valorUn}">
 			</p:inputNumber>
 
@@ -114,7 +108,7 @@
 		<h:form id="formProdutoComposicao">
 			<p:growl />
 			<h:panelGrid columns="2" style="margin-bottom:10px">
-				<p:commandLink value="Materia Prima:"
+				<p:commandLink value="Materia Prima: *"
 					onclick="PF('dialogoMate').show();" />
 				<p:autoComplete id="materiaPrima" size="60" dropdown="true"
 					multiple="false" forceSelection="true" var="obj"
@@ -124,7 +118,7 @@
 					completeMethod="#{produtoCrud.completeMateriaPrima}">
 				</p:autoComplete>
 
-				<p:outputLabel value="Quantidade:" for="quantidade" />
+				<p:outputLabel value="Quantidade: *" for="quantidade" />
 				<p:inputText id="quantidade" 
 					value="#{produtoCrud.produtoComposicao.quantidade}">
 					<f:convertNumber pattern="#,##0.00"></f:convertNumber>

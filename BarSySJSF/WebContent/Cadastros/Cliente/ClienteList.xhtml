@@ -9,7 +9,7 @@
 	<title>Lista de Cliente</title>
 </h:head>
 <h:body onload="#{clienteCrud.inicializarLista()}">
-
+	<p:growl id="growl"></p:growl>
 	<h:form id="formLista">
 		<p:dataTable var="cli" value="#{clienteCrud.lista}"
 			paginator="true" rows="10" rowsPerPageTemplate="5,10,15"
@@ -17,6 +17,7 @@
 {LastPageLink} {RowsPerPageDropdown}"
 			currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}."
 			emptyMessage="Nenhum resultado encontrado">
+			
 			<f:facet name="header">
 				<p:spacer height="30"></p:spacer>
 				<div align="left" style="position: absolute; top: 20px; width: 95%;">
@@ -57,8 +58,8 @@
 			</p:column>
 			<p:column headerText="Ecluir" width="90">
 				<p:commandButton action="#{clienteCrud.excluir(cli.codCliente)}"
-					ajax="false"
-					icon="fa fa-close fa-lg" style="width:88px;height:20px"
+					ajax="true"
+					icon="fa fa-close fa-lg" style="width:88px;height:20px" 
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>
 			<p:column headerText="Enderecos" width="90">
@@ -114,6 +115,7 @@
 				</p:column>
 			</p:dataTable>
 		</h:form>
+		<p:messages autoUpdate="true"></p:messages>
 	</p:dialog>
 
 </h:body>
