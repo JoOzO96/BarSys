@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 /**
  * Entity implementation class for Entity: Fornecedor
@@ -27,6 +28,7 @@ public class Fornecedor implements Serializable {
 	@GeneratedValue(generator = "seq_fornecedor")
 	@SequenceGenerator(name = "seq_fornecedor", sequenceName = "seq_fornecedor", allocationSize = 1, initialValue = 1)
 	private Long codFornecedor;
+	@CNPJ(message="O CNPJ não é valido")
 	@NotEmpty(message = "Deve informar o CNPJ do fornecedor!")
 	private String cnpj;
 	@NotEmpty(message = "Deve informar o nome do fornecedor!")

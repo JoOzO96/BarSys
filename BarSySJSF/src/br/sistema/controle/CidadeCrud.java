@@ -82,7 +82,7 @@ public class CidadeCrud {
 		         }
 				err = err.getCause();
 			}
-			FacesContext.getCurrentInstance().addMessage(null, mensagem);
+			FacesContext.getCurrentInstance().addMessage("", mensagem);
 			return "";
 		}
 	}

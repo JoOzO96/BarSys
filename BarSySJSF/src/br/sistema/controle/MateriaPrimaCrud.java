@@ -8,6 +8,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
+import org.postgresql.util.PSQLException;
+
 import br.sistema.beans.MateriaPrima;
 import br.sistema.uteis.FabricaConexao;
 
@@ -20,7 +22,7 @@ public class MateriaPrimaCrud {
 
 	public void inicializarLista() {
 		EntityManager em = FabricaConexao.getEntityManager();
-		
+
 		lista = em.createQuery("from MateriaPrima").getResultList();
 		em.close();
 	}
@@ -51,31 +53,53 @@ public class MateriaPrimaCrud {
 	}
 
 	public String excluir(Long id) {
-		try{
+		try {
 			EntityManager em = FabricaConexao.getEntityManager();
 			objeto = em.find(MateriaPrima.class, id);
-			 em.getTransaction().begin();
-			 em.remove(objeto);
-			 em.getTransaction().commit();
+			em.getTransaction().begin();
+			em.remove(objeto);
+			em.getTransaction().commit();
 			em.close();
-			 return "MateriaPrimaList?faces-redirect=true";
-		}catch(Exception e){
+			return "MateriaPrimaList?faces-redirect=true";
+		} catch (Exception e) {
 			String mens = "";
 			FacesMessage mensagem = new FacesMessage();
-			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
-			mens = e.getCause().toString();
-			if (mens.contains("entradaitem")){
-				mensagem.setSummary("Não é possivel deletar esta Materia Prima, pois ela possui referencias em alguma entrada");
-			}else if (mens.contains("produtocomposicao")){
-				mensagem.setSummary ("Não é possivel delestar esta Materia Prima, pois ela possui refencias na tabela Produto Composicao");
-			}else{
-				mensagem.setSummary("Erro ao deletar a Materia Prima");
+			Throwable err = e.getCause();
+
+			while (err != null) {
+				if (err instanceof PSQLException) {
+					mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+					PSQLException pe = (PSQLException) err;
+					String erro = pe.toString();
+					if (erro.contains("entradaitem")) {
+						mensagem.setSummary(
+								"Nao é possivel excluir a Materia Prima, pois ela esta vinculada a uma Entrada");
+					} else if (erro.contains("produtocomposicao")) {
+						mensagem.setSummary(
+								"Nao é possivel excluir a Materia Prima, pois ela esta vinculada a uma Composição de Produtos");
+					} else {
+						mensagem.setSummary(
+								"Nao é possivel excluir a Materia Prima, pois ela esta vinculada a uma Composição de Produtos");
+					}
+				}
+				err = err.getCause();
 			}
+			// mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			// mens = e.getCause().toString();
+			// if (mens.contains("entradaitem")){
+			// mensagem.setSummary("Não é possivel deletar esta Materia Prima,
+			// pois ela possui referencias em alguma entrada");
+			// }else if (mens.contains("produtocomposicao")){
+			// mensagem.setSummary ("Não é possivel delestar esta Materia Prima,
+			// pois ela possui refencias na tabela Produto Composicao");
+			// }else{
+			// mensagem.setSummary("Erro ao deletar a Materia Prima");
+			// }
 			FacesContext.getCurrentInstance().addMessage("", mensagem);
 		}
 		return "";
-		}
-	
+	}
+
 	public MateriaPrimaCrud() {
 		super();
 	}
