@@ -67,6 +67,9 @@ public class PedidoCrud {
 	public String gravar() {
 		try {
 			EntityManager em = FabricaConexao.getEntityManager();
+			if (objeto.getCliente() == null) {
+				objeto.setCliente(em.find(Cliente.class, 1));
+			}
 			em.getTransaction().begin();
 			em.merge(objeto);
 			em.getTransaction().commit();

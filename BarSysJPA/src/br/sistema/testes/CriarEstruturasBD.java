@@ -5600,8 +5600,9 @@ public class CriarEstruturasBD {
 		em.createNativeQuery("INSERT INTO cliente (codcliente, cpf, datacadastro, nome, rg) VALUES (1, '000.000.002-72', NULL, 'DIVERSOS', '')").executeUpdate();
 		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (1, true, 'Aberto', false);").executeUpdate();
 		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (2, true, 'Em Preparo', false);").executeUpdate();
-		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (3, false, 'Entregue', false);").executeUpdate();
-		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (4, false, 'Finalizado', true);").executeUpdate();		
+		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (3, false, 'Aguardando Entrega', false);").executeUpdate();
+		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (4, false, 'Entregue', true);").executeUpdate();		
+		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (5, false, 'Finalizado', true);").executeUpdate();
 		
 		em.getTransaction().commit();
 		em.close();
@@ -5611,6 +5612,8 @@ public class CriarEstruturasBD {
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
 		BigInteger result = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('cidadeid', 5566, true)").getSingleResult();
+		BigInteger result1 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_cliente', 2, true)").getSingleResult();
+		BigInteger result2 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_situacao', 5, true)").getSingleResult();
 		em.getTransaction().commit();
 		em.close();
 	}
@@ -5628,7 +5631,7 @@ public class CriarEstruturasBD {
 	public void Teste06(){
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
-		em.createNativeQuery("CREATE OR REPLACE FUNCTION pedidoitem_estoque() returns trigger as $$	declare		v_quantidadeatual FLOAT;		r  materiaprima%rowtype;		v_quantidadecomposicao FLOAT;	begin		if (new.finalizado = true) then		for r in (Select mp.codmateriaprima		from pedidoproduto pp 		inner join produtocomposicao pc on pc.produto_codproduto = new.produto_codproduto		inner join materiaprima mp on pc.materiaprima_codmateriaprima = mp.codmateriaprima		order by mp.codmateriaprima)		loop			v_quantidadeatual = (SELECT quantidade from materiaprima where codmateriaprima = r.codmateriaprima);			v_quantidadecomposicao = (SELECT p.quantidade from produtocomposicao p 			where p.materiaprima_codmateriaprima = r.codmateriaprima);			v_quantidadeatual = v_quantidadeatual - v_quantidadecomposicao;			update materiaprima set quantidade = v_quantidadeatual where codmateriaprima = r.codmateriaprima;		end loop;				end if;	return new;	end;$$ LANGUAGE plpgsql;update pedidoproduto set finalizado = true where codpedidoproduto = 1;update pedidoproduto set finalizado = false where codpedidoproduto = 1;CREATE TRIGGER pedidoitem_estoque after UPDATE ON pedidoproduto FOR EACH ROW EXECUTE PROCEDURE pedidoitem_estoque();").executeUpdate();
+		em.createNativeQuery("CREATE OR REPLACE FUNCTION pedidoitem_estoque() returns trigger as $$	declare		v_quantidadeatual FLOAT;		r  materiaprima%rowtype;		pedprod pedidoproduto%rowtype;		numprodutos FLOAT;		v_quantidadecomposicao FLOAT;	begin		if (new.finalizado = true) then		for r in (Select mp.codmateriaprima		from pedidoproduto pp 		inner join produtocomposicao pc on pc.produto_codproduto = new.produto_codproduto		inner join materiaprima mp on pc.materiaprima_codmateriaprima = mp.codmateriaprima		order by mp.codmateriaprima)		loop			v_quantidadeatual = (SELECT quantidade from materiaprima where codmateriaprima = r.codmateriaprima);			v_quantidadecomposicao = (SELECT p.quantidade from produtocomposicao p 			where p.materiaprima_codmateriaprima = r.codmateriaprima);			v_quantidadeatual = v_quantidadeatual - v_quantidadecomposicao;			update materiaprima set quantidade = v_quantidadeatual where codmateriaprima = r.codmateriaprima;		end loop;			if(new.finalizado = true) then				numprodutos = (SELECT count(codpedidoproduto) from pedidoproduto where pedido_codpedido = new.pedido_codpedido);				if (numprodutos > 1) then					UPDATE pedido set situacao_codsituacao = 2 where codpedido = new.pedido_codpedido;				else					UPDATE pedido set situacao_codsituacao = 3 where codpedido = new.pedido_codpedido;				end if;			end if;						if (SELECT count(codpedidoproduto) from pedidoproduto where finalizado = true and pedido_codpedido = new.pedido_codpedido) = (SELECT count(codpedidoproduto) from pedidoproduto where pedido_codpedido = new.pedido_codpedido) then				UPDATE pedido set situacao_codsituacao = 3 where codpedido = new.pedido_codpedido;			end if;				end if;	return new;	end;$$ LANGUAGE plpgsql; CREATE TRIGGER pedidoitem_estoque after UPDATE ON pedidoproduto FOR EACH ROW EXECUTE PROCEDURE pedidoitem_estoque();").executeUpdate();
 		em.getTransaction().commit();
 		em.close();
 	}

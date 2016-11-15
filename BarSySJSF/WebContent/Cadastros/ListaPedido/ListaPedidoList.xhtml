@@ -11,7 +11,8 @@
 <h:body onload="#{listaCrud.inicializarLista()}">
 
 	<h:form id="formLista">
-		<p:dataTable var="lis" value="#{listaCrud.lista}"
+	<p:poll interval="3" listener="#{listaCrud.inicializarLista()}" update="dataLista" />
+		<p:dataTable var="lis" value="#{listaCrud.lista}" id="dataLista"
 			paginator="true" rows="10" rowsPerPageTemplate="5,10,15"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 			{LastPageLink} {RowsPerPageDropdown}"

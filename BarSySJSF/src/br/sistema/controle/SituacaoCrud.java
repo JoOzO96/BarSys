@@ -52,7 +52,7 @@ public class SituacaoCrud {
 
 	public String excluir(Long id) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		if (id > 4) {
+		if (id > 5) {
 			objeto = em.find(Situacao.class, id);
 			em.getTransaction().begin();
 			em.remove(objeto);

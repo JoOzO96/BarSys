@@ -19,6 +19,7 @@
 		<class>br.sistema.beans.Produto</class>
 		<class>br.sistema.beans.ProdutoComposicao</class>
 		<class>br.sistema.beans.Emitente</class>
+		<class>br.sistema.beans.Usuario</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/barsys" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
