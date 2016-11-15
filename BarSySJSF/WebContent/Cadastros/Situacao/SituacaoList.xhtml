@@ -9,8 +9,8 @@
 	<title>Lista de Situacoes</title>
 </h:head>
 <h:body onload="#{situacaoCrud.inicializarLista()}">
-	<p:growl></p:growl>
 	<h:form id="formLista">
+	<p:growl></p:growl>
 		<p:dataTable var="obj" value="#{situacaoCrud.lista}" paginator="true"
 			rows="10" rowsPerPageTemplate="10, 20, 30, 40, 50"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}

@@ -33,17 +33,16 @@ public class ClienteCrud {
 		lista = em.createQuery("from Carro").getResultList();
 		em.close();
 	}
-	
+
 	public List<Cidade> completeCidade(String query) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		 List<Cidade> results = em.createQuery(
-		 "from Cidade where upper(nome) like "+
-		"'"+query.trim().toUpperCase()+"%' "+
-		 "order by nome").getResultList();
-		 em.close();
-		 return results;
-		}
-	
+		List<Cidade> results = em.createQuery(
+				"from Cidade where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+				.getResultList();
+		em.close();
+		return results;
+	}
+
 	public String incluir() {
 		objeto = new Cliente();
 		return "ClienteForm?faces-redirect=true";
@@ -70,34 +69,45 @@ public class ClienteCrud {
 	}
 
 	public String excluir(Long id) {
-	try{
-		EntityManager em = FabricaConexao.getEntityManager();
-		objeto = em.find(Cliente.class, id);
-		em.getTransaction().begin();
-		em.remove(objeto);
-		em.getTransaction().commit();
-		em.close();
-		return "ClienteList?faces-redirect=true";
-	} catch (Exception e) {
-		FacesMessage mensagem = new FacesMessage();
-		mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
-		Throwable err = e.getCause();
-		
-		while (err != null){
-			if (err instanceof PSQLException) {
-				PSQLException pe = (PSQLException) err;
-				String erro = pe.toString();
-				if (erro.contains("pedido")){
-					mensagem.setSummary("Nao é possivel excluir o cliente, pois ele esta vinculado a um Pedido");
-				} else if (erro.contains("clienteendereco")) {
-					mensagem.setSummary("Nao é possivel excluir a cidade, pois ela esta vinculada a um Cliente");
-				}
-	         }
-			err = err.getCause();
-		}
-		FacesContext.getCurrentInstance().addMessage(null, mensagem);
-		return "";
-	}
+//		try {
+			EntityManager em = FabricaConexao.getEntityManager();
+			if (id > 1) {
+				objeto = em.find(Cliente.class, id);
+				em.getTransaction().begin();
+				em.remove(objeto);
+				em.getTransaction().commit();
+				em.close();
+				return "ClienteList?faces-redirect=true";
+			}else{
+				FacesMessage mensagem = new FacesMessage();
+				mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+				mensagem.setSummary("Nao é possivel excluir a Situacao, pois ela é padrao do sistema");
+				FacesContext.getCurrentInstance().addMessage("", mensagem);
+				return "";
+			}
+//		} catch (Exception e) {
+//			FacesMessage mensagem = new FacesMessage();
+//			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+//			Throwable err = e.getCause();
+//
+//			while (err != null) {
+//				if (err instanceof PSQLException) {
+//					PSQLException pe = (PSQLException) err;
+//					String erro = pe.toString();
+//					if (erro.contains("pedido")) {
+//						mensagem.setSummary("Nao é possivel excluir o cliente, pois ele esta vinculado a um Pedido");
+//					} else if (erro.contains("clienteendereco")) {
+//						mensagem.setSummary("Nao é possivel excluir o cliente, pois ela esta vinculada a um Cliente");
+//					}else{
+//						mensagem.setSummary("Nao é possivel excluir a Situacao, pois ela é padrao do sistema");
+//					}
+//					FacesContext.getCurrentInstance().addMessage("", mensagem);
+//				}
+//				err = err.getCause();
+//			}
+//			FacesContext.getCurrentInstance().addMessage("", mensagem);
+//			return "";
+//		}
 	}
 
 	public ClienteCrud() {
@@ -120,18 +130,12 @@ public class ClienteCrud {
 		this.objeto = objeto;
 	}
 
-	
-	
-	
-	
 	// --------------------------------------------------------
 	// Para os itens
 	// --------------------------------------------------------
-	
-	
-	
-	
-	private ClienteEndereco enderecoCliente; // item em edição, vinculado ao formulário
+
+	private ClienteEndereco enderecoCliente; // item em edição, vinculado ao
+												// formulário
 
 	private Integer rowIndex = null; // índice do item selecionado - alterar e
 										// excluir
@@ -143,8 +147,10 @@ public class ClienteCrud {
 
 	public void alterarEnderecoCliente(Integer rowIndex) {
 		this.rowIndex = rowIndex;
-		enderecoCliente = objeto.getEnderecoCliente().get(rowIndex); // pega item da
-															// coleção
+		enderecoCliente = objeto.getEnderecoCliente().get(rowIndex); // pega
+																		// item
+																		// da
+		// coleção
 	}
 
 	public void excluirEnderecoCliente(Integer rowIndex) {
@@ -154,10 +160,12 @@ public class ClienteCrud {
 	public void gravarEnderecoCliente() {
 		if (this.rowIndex == null) {
 			enderecoCliente.setCliente(objeto);
-			objeto.getEnderecoCliente().add(enderecoCliente); // adiciona item na coleção
+			objeto.getEnderecoCliente().add(enderecoCliente); // adiciona item
+																// na coleção
 		} else {
-			objeto.getEnderecoCliente().set(rowIndex, enderecoCliente); // altera na
-																// coleção
+			objeto.getEnderecoCliente().set(rowIndex, enderecoCliente); // altera
+																		// na
+			// coleção
 		}
 		rowIndex = null;
 		enderecoCliente = null;

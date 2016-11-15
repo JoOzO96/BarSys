@@ -9,15 +9,15 @@
 	<title>Lista de Cliente</title>
 </h:head>
 <h:body onload="#{clienteCrud.inicializarLista()}">
-	<p:growl id="growl"></p:growl>
 	<h:form id="formLista">
-		<p:dataTable var="cli" value="#{clienteCrud.lista}"
-			paginator="true" rows="10" rowsPerPageTemplate="5,10,15"
+	<p:growl></p:growl>
+		<p:dataTable var="cli" value="#{clienteCrud.lista}" paginator="true"
+			rows="10" rowsPerPageTemplate="5,10,15"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
 {LastPageLink} {RowsPerPageDropdown}"
 			currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}."
 			emptyMessage="Nenhum resultado encontrado">
-			
+
 			<f:facet name="header">
 				<p:spacer height="30"></p:spacer>
 				<div align="left" style="position: absolute; top: 20px; width: 95%;">
@@ -26,47 +26,47 @@
 				<div align="right"
 					style="position: absolute; top: 12px; width: 95%;">
 					<p:commandButton id="botaoIncluir" value="Incluir"
-					icon="fa fa-plus fa-lg" style="width:88px;height:20px"
-						action="#{clienteCrud.incluir}" ajax="false" >
+						icon="fa fa-plus fa-lg" style="width:88px;height:20px"
+						action="#{clienteCrud.incluir}" ajax="false">
 						<p:ajax></p:ajax>
-						</p:commandButton>
+					</p:commandButton>
 				</div>
 			</f:facet>
 			<p:column headerText="Código" sortBy="#{cli.codCliente}"
 				filterBy="#{cli.codCliente}" filterMatchMode="exact">
 				<h:outputText value="#{cli.codCliente}" />
 			</p:column>
-			
+
 			<p:column headerText="Nome:" sortBy="#{cli.nome}"
 				filterBy="#{cli.nome}" filterMatchMode="contains">
 				<h:outputText value="#{cli.nome}" />
 			</p:column>
-			
-			<p:column headerText="CPF:" sortBy="#{cli.cpf}"
-				filterBy="#{cli.cpf}" filterMatchMode="contains">
+
+			<p:column headerText="CPF:" sortBy="#{cli.cpf}" filterBy="#{cli.cpf}"
+				filterMatchMode="contains">
 				<h:outputText value="#{cli.cpf}" />
 			</p:column>
-			
-			<p:column headerText="RG:" sortBy="#{cli.rg}"
-				filterBy="#{cli.rg}" filterMatchMode="contains">
+
+			<p:column headerText="RG:" sortBy="#{cli.rg}" filterBy="#{cli.rg}"
+				filterMatchMode="contains">
 				<h:outputText value="#{cli.rg}" />
 			</p:column>
 
 			<p:column headerText="Alterar" width="90">
 				<p:commandButton action="#{clienteCrud.alterar(cli.codCliente)}"
-					icon="fa fa-pencil fa-lg" style="width:88px;height:20px" ajax="false" />
+					icon="fa fa-pencil fa-lg" style="width:88px;height:20px"
+					ajax="false" />
 			</p:column>
 			<p:column headerText="Ecluir" width="90">
 				<p:commandButton action="#{clienteCrud.excluir(cli.codCliente)}"
-					ajax="true"
-					icon="fa fa-close fa-lg" style="width:88px;height:20px" 
+					ajax="true" icon="fa fa-close fa-lg" style="width:88px;height:20px"
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>
 			<p:column headerText="Enderecos" width="90">
 				<p:commandButton id="botaoVerEndereco" ajax="true"
 					actionListener="#{clienteCrud.alterar(cli.codCliente)}"
-					update=":formEnderecoCliente"
-					icon="fa fa-ellipsis-h fa-lg" style="width:88px;height:20px"
+					update=":formEnderecoCliente" icon="fa fa-ellipsis-h fa-lg"
+					style="width:88px;height:20px"
 					onclick="PF('dialogoEnderecoCliente').show();" />
 			</p:column>
 		</p:dataTable>
@@ -76,7 +76,6 @@
 		widgetVar="dialogoEnderecoCliente" width="1000" resizable="false"
 		modal="true">
 		<h:form id="formEnderecoCliente">
-			<p:growl />
 			<p:dataTable id="tabelaEnderecoCliente" rowIndexVar="rowIndex"
 				var="obj" value="#{clienteCrud.objeto.enderecoCliente}"
 				emptyMessage="Nenhum resultado encontrado">
@@ -87,37 +86,35 @@
 					</div>
 				</f:facet>
 				<p:column headerText="Cidade:">
-					<h:outputText value="#{obj.cidade.nome}"  />
+					<h:outputText value="#{obj.cidade.nome}" />
 				</p:column>
 
 				<p:column headerText="Rua:">
 					<h:outputText value="#{obj.rua}" />
 				</p:column>
-				
+
 				<p:column headerText="Numero:">
 					<h:outputText value="#{obj.numero}" />
 				</p:column>
-				
+
 				<p:column headerText="Complemento:">
 					<h:outputText value="#{obj.complemento}" />
 				</p:column>
-				
+
 				<p:column headerText="Bairro:">
 					<h:outputText value="#{obj.bairro}" />
 				</p:column>
-				
+
 				<p:column headerText="IE:">
 					<h:outputText value="#{obj.iestadual}" />
 				</p:column>
-				
+
 				<p:column headerText="Referencia:">
 					<h:outputText value="#{obj.referencia}" />
 				</p:column>
 			</p:dataTable>
 		</h:form>
-		<p:messages autoUpdate="true"></p:messages>
 	</p:dialog>
-
 </h:body>
 
 </html>

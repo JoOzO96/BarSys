@@ -1,8 +1,11 @@
 package br.sistema.controle;
 
 import java.util.List;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
 import br.sistema.beans.Situacao;
@@ -17,7 +20,7 @@ public class SituacaoCrud {
 
 	public void inicializarLista() {
 		EntityManager em = FabricaConexao.getEntityManager();
-		
+
 		lista = em.createQuery("from Situacao").getResultList();
 		em.close();
 	}
@@ -49,14 +52,23 @@ public class SituacaoCrud {
 
 	public String excluir(Long id) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		objeto = em.find(Situacao.class, id);
-		 em.getTransaction().begin();
-		 em.remove(objeto);
-		 em.getTransaction().commit();
-		em.close();
-		 return "SituacaoList?faces-redirect=true";
+		if (id > 4) {
+			objeto = em.find(Situacao.class, id);
+			em.getTransaction().begin();
+			em.remove(objeto);
+			em.getTransaction().commit();
+			em.close();
+			return "SituacaoList?faces-redirect=true";
+		} else {
+			FacesMessage mensagem = new FacesMessage();
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			mensagem.setSummary("Nao é possivel excluir a Situacao, pois ela é padrao do sistema");
+			FacesContext.getCurrentInstance().addMessage("", mensagem);
+			return "";
 		}
-	
+
+	}
+
 	public SituacaoCrud() {
 		super();
 	}
