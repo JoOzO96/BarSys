@@ -15,11 +15,26 @@ import br.sistema.uteis.FabricaConexao;
 @ManagedBean
 @SessionScoped
 public class LoginControle {
-
 	private String usuario;
 	private String senha;
+	/**
+	 * Atributo para controle do usuário logado. É inicializado quando
+	 * informados login e senha válidos. Setado para null quando o usuário sair
+	 * do sistema.
+	 */
 	private Usuario usuarioLogado = null;
 
+	public LoginControle() {
+	}
+
+	/**
+	 * Método responsável por valodar o login e senha do usuário. Se for válido
+	 * inicializa o usuário logado com a instancia do usuário respectivo ao
+	 * login e senha informados e redireciona para a tela principal da
+	 * aplicação.
+	 * 
+	 * @throws Exception
+	 */
 	public String entrar() {
 		EntityManager em = FabricaConexao.getEntityManager();
 		Query qry = em.createQuery("from Usuario where usuario = :usuario and senha = :senha");
@@ -34,28 +49,20 @@ public class LoginControle {
 			return "";
 		} else {
 			usuarioLogado = list.get(0);
-			return "/faces/Sistema/Home/Home.xhtml";
+			return "/Sistema/Home/Home.xhtml";
 		}
 	}
 
+	/**
+	 * Método responsável por desconectar o usuário e abrir a página de login
+	 * 
+	 * @throws Exception
+	 */
 	public String sair() {
 		usuarioLogado = null;
 		FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário Desconectado!", "");
-		FacesContext.getCurrentInstance().addMessage("", mensagem);
-		return "/faces/Login/LoginForm.xhtml";
-	}
-
-	public Usuario getUsuarioLogado() {
-		return usuarioLogado;
-	}
-
-	public void setUsuarioLogado(Usuario usuarioLogado) {
-		this.usuarioLogado = usuarioLogado;
-	}
-
-	public LoginControle() {
-		super();
-		// TODO Auto-generated constructor stub
+		FacesContext.getCurrentInstance().addMessage(null, mensagem);
+		return "/Sistema/Login/LoginForm.xhtml";
 	}
 
 	public String getUsuario() {
@@ -74,5 +81,13 @@ public class LoginControle {
 		this.senha = senha;
 	}
 
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
 
+	public void setUsuarioLogado(Usuario usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
+	}
+	
+	
 }
