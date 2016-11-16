@@ -67,33 +67,28 @@ public class PedidoCrud {
 			if (objeto.getCliente() == null) {
 				objeto.setCliente(em.find(Cliente.class, 1L));
 			}
-			if (objeto.getCodPedido() != null) {
+			if (objeto.getCodPedido() == null) {
 				if (em.createNativeQuery("SELECT * from PEDIDO where nrcomanda = '" + objeto.getNrComanda()
-						+ "' and situacao_codsituacao != 5").getResultList().size() == 0) {
-					em.getTransaction().begin();
-					em.merge(objeto);
-					em.getTransaction().commit();
-					em.close();
-					return "PedidoList?faces-redirect=true";
-				} else {
+						+ "' and situacao_codsituacao != 5").getResultList().size() > 0) {
 					FacesMessage mensagem = new FacesMessage();
 					mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 					mensagem.setSummary(
 							"O Numero da Comanda ja esta vinculado a outro pedido, e o mesmo ainda nao foi finalizado.");
 					FacesContext.getCurrentInstance().addMessage("", mensagem);
+				} else {					
 					em.getTransaction().begin();
 					em.merge(objeto);
 					em.getTransaction().commit();
 					em.close();
 					return "PedidoList?faces-redirect=true";
 				}
-			}
+			}else{
 			em.getTransaction().begin();
 			em.merge(objeto);
 			em.getTransaction().commit();
 			em.close();
 			return "PedidoList?faces-redirect=true";
-
+			}
 		} catch (
 
 		Exception e) {
