@@ -62,11 +62,11 @@
 							<p:menuitem value="Pedidos Em Fila"
 									url="/faces/Cadastros/ListaPedido/ListaPedidoList.xhtml"
 									target="centro" icon="fa fa-spinner fa-lg"
-									rendered="#{loginControle.usuarioLogado.grauAcesso == 1 || loginControle.usuarioLogado.grauAcesso == 4}" />
+									rendered="#{loginControle.usuarioLogado.grauAcesso == 1 || loginControle.usuarioLogado.grauAcesso == 5}" />
 							<p:menuitem value="Pedidos Aguardando Entrega"
-									url="/faces/Cadastros/ListaPedido/ListaPedidoEntregaList.xhtml"
+									url="/faces/Cadastros/ListaPedidoEntrega/ListaPedidoEntregaList.xhtml"
 									target="centro" icon="fa fa-spinner fa-lg"
-									rendered="#{loginControle.usuarioLogado.grauAcesso == 2 || loginControle.usuarioLogado.grauAcesso == 4}" />
+									rendered="#{loginControle.usuarioLogado.grauAcesso == 2 || loginControle.usuarioLogado.grauAcesso == 5}" />
 						</p:submenu>
 
 

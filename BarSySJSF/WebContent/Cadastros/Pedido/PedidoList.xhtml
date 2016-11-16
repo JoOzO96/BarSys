@@ -39,7 +39,7 @@
 			
 			<p:column headerText="Nome Cliente:" sortBy="#{obj.cliente}"
 				filterBy="#{obj.cliente}" filterMatchMode="contains">
-				<h:outputText value="#{obj.cliente}" converter="clienteConverterNome"/>
+				<h:outputText value="#{obj.cliente.nome}"/>
 			</p:column>
 			
 			<p:column headerText="Situção:" sortBy="#{obj.situacao}" filterBy="#{obj.situacao}"

@@ -33,9 +33,17 @@ public class PedidoProduto implements Serializable {
 	@ManyToOne(optional = false)
 	@NotNull(message = "O produto deve ser inicializado!")
 	private Produto produto;
+	private Boolean entregue;
 	private Boolean finalizado;
 
 	private static final long serialVersionUID = 1L;
+
+	@Override
+	public String toString() {
+		return "PedidoProduto [codPedidoProduto=" + codPedidoProduto + ", valorUn=" + valorUn + ", valorDesc="
+				+ valorDesc + ", quantidade=" + quantidade + ", pedido=" + pedido + ", produto=" + produto
+				+ ", entregue=" + entregue + ", finalizado=" + finalizado + "]";
+	}
 
 	public PedidoProduto() {
 		super();
@@ -103,6 +111,14 @@ public class PedidoProduto implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Boolean getEntregue() {
+		return entregue;
+	}
+
+	public void setEntregue(Boolean entregue) {
+		this.entregue = entregue;
 	}
 	
 }

@@ -39,7 +39,6 @@ public class MateriaPrima implements Serializable {
 	@Column(length = 10)
 	private String unidade;
 	@NotNull(message = "A quantidade nao pode ser nula.")
-	@Min(message = "O valor deve ser maior que zero", value = 0)
 	private Float quantidade;
 	private Float valorCustoMedio;
 	private Float valorUltimaCompra;

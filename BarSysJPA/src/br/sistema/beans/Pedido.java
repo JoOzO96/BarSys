@@ -35,7 +35,6 @@ public class Pedido implements Serializable {
 	@NotNull(message = "Deve informar a situacao do pedido!")
 	private Situacao situacao;
 	@ManyToOne
-	@NotNull(message = "Deve informaro cliente do pedido!")
 	private Cliente cliente;
 	@NotNull(message = "Os itens do pedido devem ser inicializados!")
 	@Size(min = 1, message = "Deve ter pelo menos um item no pedido!")
@@ -44,6 +43,7 @@ public class Pedido implements Serializable {
 	private List<PedidoProduto> itensPedido;
 	@NotNull(message = "O valor total nao pode ser nulo")
 	private Float valorTotal;
+	private Boolean entregue;
 	private String nrComanda;
 	static final long serialVersionUID = 1L;
 
@@ -80,6 +80,18 @@ public class Pedido implements Serializable {
 
 	public Cliente getCliente() {
 		return cliente;
+	}
+	
+	public Boolean getEntregue() {
+		return entregue;
+	}
+
+	public void setEntregue(Boolean entregue) {
+		this.entregue = entregue;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public void setCliente(Cliente cliente) {

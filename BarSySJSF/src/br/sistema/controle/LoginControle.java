@@ -62,7 +62,7 @@ public class LoginControle {
 		usuarioLogado = null;
 		FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário Desconectado!", "");
 		FacesContext.getCurrentInstance().addMessage(null, mensagem);
-		return "/Sistema/Login/LoginForm.xhtml";
+		return "/Login/LoginForm.xhtml?faces-redirect=true";
 	}
 
 	public String getUsuario() {
