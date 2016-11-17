@@ -79,13 +79,20 @@
 						<p:outputLabel value="Listagem de Itens"></p:outputLabel>
 					</div>
 				</f:facet>
-				
+				<p:column headerText="Cod Ped. Prod.:">
+					<h:outputText value="#{obj.codPedidoProduto}"></h:outputText>
+				</p:column>
 				<p:column headerText="Produto:">
 					<h:outputText value="#{obj.produto.nome}"></h:outputText>
 				</p:column>
 				<p:column headerText="Quantidade:">
 					<h:outputText value="#{obj.quantidade}"></h:outputText>
 				</p:column>
+				<p:column headerText="Entregue" width="90">
+				<p:commandButton id="botaoEntregaItem" ajax="true" update="formItensPedido"
+					icon="fa fa-check fa-lg" style="width:88px;height:20px"
+					actionListener="#{listaPedidoEntrega.entregaItem(obj.codPedidoProduto, listaPedidoEntrega.produtos.codPedido)}" />
+			</p:column>
 				
 			</p:dataTable>
 		</h:form>

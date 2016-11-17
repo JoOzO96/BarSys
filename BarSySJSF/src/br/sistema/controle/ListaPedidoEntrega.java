@@ -33,10 +33,13 @@ public class ListaPedidoEntrega {
 		em.close();
 		inicializarLista();
 	}
-	public void entregaItem(Long codpedidoproduto){
+	public void entregaItem(Long codpedidoproduto, Long codPedido){
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
-		em.createQuery("UPDATE PedidoProduto set entregue = true where pedido_codpedido = ?").setParameter(1, codpedidoproduto).executeUpdate();	
+		em.createQuery("UPDATE PedidoProduto set entregue = true where codPedidoProduto = ?").setParameter(1, codpedidoproduto).executeUpdate();
+		if (em.createNativeQuery("SELECT * FROM PedidoProduto where pedido_codPedido = " + codPedido + "and entregue = false").getResultList().size() == 0){
+			em.createNativeQuery("UPDATE Pedido set situacao_codSituacao = 4").executeUpdate();
+		}
 		em.getTransaction().commit();
 		em.close();
 		inicializarLista();
@@ -44,8 +47,8 @@ public class ListaPedidoEntrega {
 	
 	public String abrirItens(Long id) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		produtos = em.find(Pedido.class, id);
-		System.out.println(produtos.getItensPedido().toString());
+		em.getTransaction().begin();
+		produtos = (Pedido) em.createNativeQuery("SELECT p.*, pp.codPedidoProduto, pp.entregue as ppEntregue, pp.finalizado, pp.quantidade,pp.valorDesc,pp.valorUn,pp.pedido_codPedido,pp.produto_codproduto as ppEntregue FROM Pedido p inner join pedidoproduto pp on p.codPedido = pp.pedido_codPedido where p.codPedido = 7 and p.entregue = false and pp.entregue = false").getSingleResult();
 		em.close();
 		return "ListaPedidoEntregaForm?faces-redirect=true";
 	}
