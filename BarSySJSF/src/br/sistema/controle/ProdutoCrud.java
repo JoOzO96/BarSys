@@ -16,6 +16,7 @@ public class ProdutoCrud {
 
 	private List<Produto> lista;
 	private Produto objeto;
+	private Boolean desativa = true;
 
 	public void inicializarLista() {
 		EntityManager em = FabricaConexao.getEntityManager();
@@ -45,7 +46,16 @@ public class ProdutoCrud {
 	
 	public String incluir() {
 		objeto = new Produto();
+		desabilita();
 		return "ProdutoForm?faces-redirect=true";
+	}
+	
+	public void desabilita(){
+		if (objeto.getListacozinha() == true){
+			desativa=false;
+		}else{
+			desativa=true;
+		}
 	}
 
 	public String gravar() {
@@ -65,6 +75,7 @@ public class ProdutoCrud {
 		EntityManager em = FabricaConexao.getEntityManager();
 		objeto = em.find(Produto.class, id);
 		em.close();
+		desabilita();
 		return "ProdutoForm?faces-redirect=true";
 	}
 
@@ -156,5 +167,18 @@ public class ProdutoCrud {
 	public void seProdutoComposicao(ProdutoComposicao produtoComposicao) {
 		this.produtoComposicao = produtoComposicao;
 	}
+
+	public Boolean getDesativa() {
+		return desativa;
+	}
+
+	public void setDesativa(Boolean desativa) {
+		this.desativa = desativa;
+	}
+
+	public void setProdutoComposicao(ProdutoComposicao produtoComposicao) {
+		this.produtoComposicao = produtoComposicao;
+	}
+	
 
 }

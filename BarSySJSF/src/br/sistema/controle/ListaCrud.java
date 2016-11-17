@@ -18,7 +18,7 @@ public class ListaCrud {
 
 	public void inicializarLista() {
 		EntityManager em = FabricaConexao.getEntityManager();
-		lista = em.createNativeQuery("SELECT p.* FROM PedidoProduto p inner join pedido pe on pe.codPedido = p.pedido_codPedido inner join situacao s on pe.situacao_codsituacao = s.codsituacao where s.cozinha = true and p.finalizado = false", PedidoProduto.class).getResultList();
+		lista = em.createNativeQuery("SELECT p.* FROM PedidoProduto p inner join produto pr on p.produto_codproduto = pr.codproduto inner join pedido pe on pe.codPedido = p.pedido_codPedido inner join situacao s on pe.situacao_codsituacao = s.codsituacao where s.cozinha = true and p.finalizado = false and pr.listacozinha = true", PedidoProduto.class).getResultList();
 		em.close();
 	}
 

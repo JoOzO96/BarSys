@@ -35,11 +35,16 @@
 				value="#{produtoCrud.objeto.valorUn}">
 			</p:inputNumber>
 
+			<p:outputLabel value="Produto Preparado:" for="prodPreparado" />
+			<p:selectBooleanCheckbox id="prodPreparado" value="#{produtoCrud.objeto.listacozinha}">
+				<f:ajax event="change" listener="#{produtoCrud.desabilita}" render="valorCusto" immediate="true"></f:ajax>
+			</p:selectBooleanCheckbox>
+			
 			<p:outputLabel value="Valor Custo:" for="valorCusto" />
-			<p:inputText id="valorCusto" value="#{produtoCrud.objeto.valorCusto}"
-				 readonly="true" disabled="true">
-				<f:convertNumber pattern="R$#,##0.00" />
-			</p:inputText>
+			<p:inputNumber id="valorCusto" decimalSeparator=","
+				thousandSeparator="." symbol="R$ " type="text"
+				value="#{produtoCrud.objeto.valorCusto}" readonly="#{!produtoCrud.desativa}" disabled="#{!produtoCrud.desativa}">
+			</p:inputNumber>
 
 			<p:outputLabel value="Produto Composicao" />
 			<p:dataTable id="tabelaProdutoComposicao" rowIndexVar="rowIndex"

@@ -33,7 +33,7 @@ public class PedidoProduto implements Serializable {
 	@ManyToOne(optional = false)
 	@NotNull(message = "O produto deve ser inicializado!")
 	private Produto produto;
-	private Boolean entregue;
+	private Boolean itementregue;
 	private Boolean finalizado;
 
 	private static final long serialVersionUID = 1L;
@@ -42,7 +42,7 @@ public class PedidoProduto implements Serializable {
 	public String toString() {
 		return "PedidoProduto [codPedidoProduto=" + codPedidoProduto + ", valorUn=" + valorUn + ", valorDesc="
 				+ valorDesc + ", quantidade=" + quantidade + ", pedido=" + pedido + ", produto=" + produto
-				+ ", entregue=" + entregue + ", finalizado=" + finalizado + "]";
+				+ ", itementregue=" + itementregue + ", finalizado=" + finalizado + "]";
 	}
 
 	public PedidoProduto() {
@@ -50,6 +50,7 @@ public class PedidoProduto implements Serializable {
 		valorUn = 0F;
 		valorDesc = 0F;
 		quantidade = 1F;
+		itementregue = false;
 		finalizado = false;
 	}
 
@@ -113,12 +114,11 @@ public class PedidoProduto implements Serializable {
 		return serialVersionUID;
 	}
 
-	public Boolean getEntregue() {
-		return entregue;
+	public Boolean getItementregue() {
+		return itementregue;
 	}
 
-	public void setEntregue(Boolean entregue) {
-		this.entregue = entregue;
+	public void setItementregue(Boolean itementregue) {
+		this.itementregue = itementregue;
 	}
-	
 }

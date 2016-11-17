@@ -42,6 +42,7 @@ public class Produto implements Serializable {
 	@Valid
 	@OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "produto", fetch = FetchType.EAGER)
 	private List<ProdutoComposicao> produtoComposicao;
+	private Boolean listacozinha;
 	private Float valorCusto;
 	private static final long serialVersionUID = 1L;
 
@@ -49,6 +50,7 @@ public class Produto implements Serializable {
 		super();
 		unidade = "UN";
 		valorUn = 0F;
+		listacozinha = true;
 		produtoComposicao = new ArrayList();
 		valorCusto = 0F;
 	}
@@ -99,6 +101,18 @@ public class Produto implements Serializable {
 
 	public void setProdutoComposicao(List<ProdutoComposicao> produtoComposicao) {
 		this.produtoComposicao = produtoComposicao;
+	}
+
+	public Boolean getListacozinha() {
+		return listacozinha;
+	}
+
+	public void setListacozinha(Boolean listacozinha) {
+		this.listacozinha = listacozinha;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }
