@@ -47,13 +47,6 @@ public class Pedido implements Serializable {
 	private String nrComanda;
 	static final long serialVersionUID = 1L;
 
-	@Override
-	public String toString() {
-		return "Pedido [codPedido=" + codPedido + ", data=" + data + ", situacao=" + situacao + ", cliente=" + cliente
-				+ ", itensPedido=" + itensPedido + ", valorTotal=" + valorTotal + ", entregue=" + entregue
-				+ ", nrComanda=" + nrComanda + "]";
-	}
-
 	public Pedido() {
 		super();
 		data = new Date();

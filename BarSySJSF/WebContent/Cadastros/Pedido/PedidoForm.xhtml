@@ -45,6 +45,11 @@
 
 			<p:outputLabel value="Comanda Nr.: *" for="comandaNr" />
 			<p:inputText id="comandaNr" value="#{pedidoCrud.objeto.nrComanda}" size="60" />
+			
+			<p:outputLabel value="Valor Total: *" for="valorTotal" />
+			<p:inputText id="valorTotal" value="#{pedidoCrud.objeto.valorTotal}" readonly="true" disabled="true">
+				<f:convertNumber pattern="R$ #,##0.00"></f:convertNumber>
+			</p:inputText>
 
 			<p:outputLabel value="ItensPedido" />
 			<p:dataTable id="tabelaItensPedido" rowIndexVar="rowIndex" var="obj"
@@ -112,7 +117,7 @@
 	</h:form>
 
 
-	<p:dialog header="Editar Produto Composicao"
+	<p:dialog header="Editar Itens Pedido"
 		widgetVar="dialogoItensPedido" width="1000" resizable="false"
 		modal="true">
 		<h:form id="formItensPedido">
@@ -148,7 +153,7 @@
 				actionListener="#{pedidoCrud.gravarItensPedido}"
 				icon="fa fa-check fa-lg" style="width:88px;height:20px"
 				validateClient="true" value="Gravar"
-				update=":formItensPedido :formEditar:tabelaItensPedido"
+				update=":formItensPedido :formEditar:tabelaItensPedido :formEditar:valorTotal"
 				oncomplete="if (!args.validationFailed){ PF('dialogoItensPedido').hide();}"
 				ajax="true">
 			</p:commandButton>

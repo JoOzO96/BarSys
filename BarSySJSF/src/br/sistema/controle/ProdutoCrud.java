@@ -16,7 +16,7 @@ public class ProdutoCrud {
 
 	private List<Produto> lista;
 	private Produto objeto;
-	private Boolean desativa = true;
+	private Boolean desativa = false;
 
 	public void inicializarLista() {
 		EntityManager em = FabricaConexao.getEntityManager();
@@ -51,11 +51,14 @@ public class ProdutoCrud {
 	}
 	
 	public void desabilita(){
-		if (objeto.getListacozinha() == true){
+		if (desativa){
 			desativa=false;
+			objeto.setListacozinha(true);
 		}else{
 			desativa=true;
+			objeto.setListacozinha(false);
 		}
+		
 	}
 
 	public String gravar() {

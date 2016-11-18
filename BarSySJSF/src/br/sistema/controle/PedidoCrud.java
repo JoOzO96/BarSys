@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
 import br.sistema.beans.Cliente;
+import br.sistema.beans.ContasPagarParcela;
 import br.sistema.beans.Pedido;
 import br.sistema.beans.PedidoProduto;
 import br.sistema.beans.Produto;
@@ -22,6 +23,7 @@ public class PedidoCrud {
 
 	private List<Pedido> lista;
 	private Pedido objeto;
+	private Boolean liberaEdicao = false;
 
 	public void inicializarLista() {
 		EntityManager em = FabricaConexao.getEntityManager();
@@ -75,19 +77,19 @@ public class PedidoCrud {
 					mensagem.setSummary(
 							"O Numero da Comanda ja esta vinculado a outro pedido, e o mesmo ainda nao foi finalizado.");
 					FacesContext.getCurrentInstance().addMessage("", mensagem);
-				} else {					
+				} else {
 					em.getTransaction().begin();
 					em.merge(objeto);
 					em.getTransaction().commit();
 					em.close();
 					return "PedidoList?faces-redirect=true";
 				}
-			}else{
-			em.getTransaction().begin();
-			em.merge(objeto);
-			em.getTransaction().commit();
-			em.close();
-			return "PedidoList?faces-redirect=true";
+			} else {
+				em.getTransaction().begin();
+				em.merge(objeto);
+				em.getTransaction().commit();
+				em.close();
+				return "PedidoList?faces-redirect=true";
 			}
 		} catch (
 
@@ -160,28 +162,70 @@ public class PedidoCrud {
 		this.rowIndex = rowIndex;
 		itensPedido = objeto.getItensPedido().get(rowIndex); // pega item da
 																// coleção
+
 	}
 
 	public void excluirItensPedido(Integer rowIndex) {
-		objeto.getItensPedido().remove(rowIndex.intValue()); // exclui item
+		controlaEdicao(objeto.getCodPedido());
+		if (liberaEdicao) {
+			objeto.getItensPedido().remove(rowIndex.intValue()); // exclui item
+			calculaValorTotal();
+		} else {
+			FacesMessage mensagem = new FacesMessage();
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			mensagem.setSummary("O pedido nao pode ser modificado, pois o mesmo ja foi finalizado");
+			FacesContext.getCurrentInstance().addMessage("", mensagem);
+		}
 	}
 
 	public void gravarItensPedido() {
-		if (this.rowIndex == null) {
-			itensPedido.setPedido(objeto);
-			objeto.getItensPedido().add(itensPedido); // adiciona item na
-														// coleção
+		if (objeto.getCodPedido() == null) {
+			liberaEdicao = true;
 		} else {
-			objeto.getItensPedido().set(rowIndex, itensPedido); // altera na
-																// coleção
+			controlaEdicao(objeto.getCodPedido());
 		}
-		rowIndex = null;
-		itensPedido = null;
+		if (liberaEdicao) {
+			if (this.rowIndex == null) {
+				itensPedido.setPedido(objeto);
+				objeto.getItensPedido().add(itensPedido); // adiciona item na
+															// coleção
+			} else {
+				objeto.getItensPedido().set(rowIndex, itensPedido); // altera na
+																	// coleção
+			}
+			calculaValorTotal();
+			rowIndex = null;
+			itensPedido = null;
+		} else {
+			FacesMessage mensagem = new FacesMessage();
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			mensagem.setSummary("O pedido nao pode ser modificado, pois o mesmo ja foi finalizado");
+			FacesContext.getCurrentInstance().addMessage("", mensagem);
+		}
+	}
+
+	public void calculaValorTotal() {
+		Float valorPago = 0.0F;
+		for (PedidoProduto it : objeto.getItensPedido())
+			valorPago += it.getValorUn();
+		objeto.setValorTotal(valorPago);
 	}
 
 	public void cancelarItensPedido() {
 		rowIndex = null;
 		itensPedido = null;
+	}
+
+	public void controlaEdicao(Long codpedido) {
+		EntityManager em = FabricaConexao.getEntityManager();
+		Pedido controlaEd = (Pedido) em
+				.createNativeQuery("SELECT * FROM PEDIDO where codpedido = " + codpedido, Pedido.class)
+				.getSingleResult();
+		if (controlaEd.getSituacao().getCodSituacao() == 5) {
+			liberaEdicao = false;
+		} else {
+			liberaEdicao = true;
+		}
 	}
 
 	public PedidoProduto getItensPedido() {

@@ -3,15 +3,18 @@ package br.sistema.beans;
 import static javax.persistence.CascadeType.ALL;
 
 import java.io.Serializable;
-import java.lang.Long;
-import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -50,7 +53,7 @@ public class Produto implements Serializable {
 		super();
 		unidade = "UN";
 		valorUn = 0F;
-		listacozinha = true;
+		listacozinha = false;
 		produtoComposicao = new ArrayList();
 		valorCusto = 0F;
 	}

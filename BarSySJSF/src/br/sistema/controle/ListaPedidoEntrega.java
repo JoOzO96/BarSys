@@ -1,13 +1,11 @@
 package br.sistema.controle;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 
-import br.sistema.beans.Cliente;
 import br.sistema.beans.Pedido;
 import br.sistema.beans.PedidoProduto;
 import br.sistema.uteis.FabricaConexao;
@@ -42,7 +40,7 @@ public class ListaPedidoEntrega {
 		em.getTransaction().begin();
 		em.createQuery("UPDATE PedidoProduto set itementregue = true where codPedidoProduto = ?").setParameter(1, codpedidoproduto).executeUpdate();
 		if (em.createNativeQuery("SELECT * FROM PedidoProduto where pedido_codPedido = " + codPedido + "and itementregue = false").getResultList().size() == 0){
-			em.createNativeQuery("UPDATE Pedido set situacao_codSituacao = 4").executeUpdate();
+			em.createNativeQuery("UPDATE Pedido set situacao_codSituacao = 4, entregue = true").executeUpdate();
 		}
 		em.getTransaction().commit();
 		em.close();

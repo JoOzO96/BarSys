@@ -59,7 +59,7 @@
 									target="centro" />
 								
 							</p:submenu>
-							<p:menuitem value="Pedidos Em Fila"
+							<p:menuitem value="Pedidos Aguardando Preparo"
 									url="/faces/Cadastros/ListaPedido/ListaPedidoList.xhtml"
 									target="centro" icon="fa fa-spinner fa-lg"
 									rendered="#{loginControle.usuarioLogado.grauAcesso == 1 || loginControle.usuarioLogado.grauAcesso == 5}" />
@@ -67,6 +67,10 @@
 									url="/faces/Cadastros/ListaPedidoEntrega/ListaPedidoEntregaList.xhtml"
 									target="centro" icon="fa fa-spinner fa-lg"
 									rendered="#{loginControle.usuarioLogado.grauAcesso == 2 || loginControle.usuarioLogado.grauAcesso == 5}" />
+							<p:menuitem value="Pedidos Aguardando Finalizacao"
+									url="/faces/Cadastros/ListaPedidoFinalizar/ListaPedidoFinalizaList.xhtml"
+									target="centro" icon="fa fa-spinner fa-lg"
+									rendered="#{loginControle.usuarioLogado.grauAcesso == 3 || loginControle.usuarioLogado.grauAcesso == 5}" />
 						</p:submenu>
 
 

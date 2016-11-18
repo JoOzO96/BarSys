@@ -47,10 +47,17 @@
 				<h:outputText value="#{lis.nrComanda}"></h:outputText>
 			</p:column>
 
-			<p:column headerText="Entregue" width="90">
+			<p:column headerText="Valor Total:" sortBy="#{lis.valorTotal}"
+				filterBy="#{lis.valorTotal}" filterMatchMode="contains">
+				<h:outputText value="#{lis.valorTotal}">
+					<f:convertNumber pattern="R$ #,##0.00"></f:convertNumber>
+				</h:outputText>
+			</p:column>
+
+			<p:column headerText="Finaliza" width="90">
 				<p:commandButton id="botaoEntrega" ajax="true" update="formLista"
 					icon="fa fa-check fa-lg" style="width:88px;height:20px"
-					actionListener="#{listaPedidoFinaliza.entrega(lis.codPedido)}" />
+					actionListener="#{listaPedidoFinaliza.finaliza(lis.codPedido)}" />
 			</p:column>
 
 			<p:column headerText="Itens" width="90">
@@ -65,7 +72,31 @@
 
 		</p:dataTable>
 	</h:form>
-
+	<p:dialog header="Visualizar Itens do Pedido"
+		widgetVar="dialogoItensPedido" width="1000" resizable="false"
+		modal="true">
+		<h:form id="formItensPedido">
+			<p:dataTable id="tabelaItensPedido" rowIndexVar="rowIndex" var="obj"
+				value="#{listaPedidoFinaliza.produtos}" widgetVar="diag"
+				emptyMessage="Nenhum resultado encontrado">
+				<f:facet name="header">
+					<div align="left"
+						style="position: relative; height: 10px; top: 5px; width: 95%;">
+						<p:outputLabel value="Listagem de Itens"></p:outputLabel>
+					</div>
+				</f:facet>
+				<p:column headerText="Cod Ped. Prod.:">
+					<h:outputText value="#{obj.codPedidoProduto}"></h:outputText>
+				</p:column>
+				<p:column headerText="Produto:">
+					<h:outputText value="#{obj.produto.nome}"></h:outputText>
+				</p:column>
+				<p:column headerText="Quantidade:">
+					<h:outputText value="#{obj.quantidade}"></h:outputText>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:dialog>
 </h:body>
 
 </html>
