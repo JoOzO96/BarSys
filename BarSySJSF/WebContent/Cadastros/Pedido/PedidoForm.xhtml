@@ -35,7 +35,7 @@
 				onclick="PF('dialogoSit').show();" />
 			<p:autoComplete id="situacao" dropdown="true" size="60"
 				multiple="false" forceSelection="true" var="obj"
-				itemLabel="#{obj.descricao}" itemValue="#{obj}"
+				itemLabel="#{obj.descricao}" itemValue="#{obj}" disabled="true" readonly="true"
 				value="#{pedidoCrud.objeto.situacao}" converter="situacaoConverter"
 				completeMethod="#{pedidoCrud.completeSituacao}" />
 

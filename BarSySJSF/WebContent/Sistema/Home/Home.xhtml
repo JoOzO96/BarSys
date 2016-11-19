@@ -75,7 +75,11 @@
 
 
 						<p:submenu label="Administrativo" icon="fa fa-exclamation fa-lg"
-							rendered="#{loginControle.usuarioLogado.grauAcesso > 4}"></p:submenu>
+							rendered="#{loginControle.usuarioLogado.grauAcesso > 4}">
+								<p:menuitem value="Emitente"
+									url="/faces/Cadastros/ListaPedidoFinalizar/ListaPedidoFinalizaList.xhtml"
+									target="centro" icon="fa fa-check-square fa-lg" />
+							</p:submenu>
 						<p:submenu label="Relatorios" icon=" fa fa-print fa-lg"
 							rendered="#{loginControle.usuarioLogado.grauAcesso > 4}">
 

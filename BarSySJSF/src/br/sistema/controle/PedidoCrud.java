@@ -9,7 +9,6 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
 import br.sistema.beans.Cliente;
-import br.sistema.beans.ContasPagarParcela;
 import br.sistema.beans.Pedido;
 import br.sistema.beans.PedidoProduto;
 import br.sistema.beans.Produto;
@@ -59,7 +58,9 @@ public class PedidoCrud {
 	}
 
 	public String incluir() {
+		EntityManager em = FabricaConexao.getEntityManager();
 		objeto = new Pedido();
+		objeto.setSituacao(em.find(Situacao.class, 1L));
 		return "PedidoForm?faces-redirect=true";
 	}
 

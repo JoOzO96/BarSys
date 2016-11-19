@@ -34,7 +34,7 @@ public class ListaPedidoEntrega {
 	public void entrega(Long codpedido){
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
-		em.createQuery("UPDATE Pedido set entregue = true, situacao_cosituacao = 4 where codpedido = ?").setParameter(1, codpedido).executeUpdate();
+		em.createQuery("UPDATE Pedido set entregue = true, situacao_codsituacao = 4 where codpedido = ?").setParameter(1, codpedido).executeUpdate();
 		em.createQuery("UPDATE PedidoProduto set itementregue = true where pedido_codpedido = ?").setParameter(1, codpedido).executeUpdate();
 		em.getTransaction().commit(); 
 		em.close();
@@ -58,7 +58,7 @@ public class ListaPedidoEntrega {
 	public String abrirItens(Long id) {
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
-		produtos = (List<PedidoProduto>) em.createNativeQuery("SELECT * FROM PedidoProduto inner join pedido on pedido.codpedido = pedidoproduto.pedido_codpedido where pedido_codPedido = "+id+" and itementregue = false and pedido.situacao_codsituacao = 3",PedidoProduto.class).getResultList();
+		produtos = (List<PedidoProduto>) em.createNativeQuery("SELECT * FROM PedidoProduto inner join pedido on pedido.codpedido = pedidoproduto.pedido_codpedido where pedido_codPedido = "+id+" and itementregue = false and pedido.situacao_codsituacao > 1 and pedido.situacao_codsituacao < 4",PedidoProduto.class).getResultList();
 		produtos.addAll(em.createNativeQuery("SELECT pp.* From Pedidoproduto pp inner join produto p on p.codproduto = pp.produto_codproduto where p.listacozinha = false and pp.pedido_codPedido = " +id+ " and pp.itementregue = false", PedidoProduto.class).getResultList());
 		Set<PedidoProduto> setProdutos = new LinkedHashSet<PedidoProduto>(produtos);
 		produtos.clear();
