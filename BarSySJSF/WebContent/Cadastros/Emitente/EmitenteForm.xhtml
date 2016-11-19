@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<title></title>
+</h:head>
+<h:body onload="#{emitenteCrud.inicio()}">
+
+	<h:form id="formEditar" >	
+		<p:growl></p:growl>
+		<p:focus for="nome"></p:focus>
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+				<p:outputLabel value="Edição do Emitente" />
+			</f:facet>
+
+			<p:outputLabel value="Código:" for="id" />
+			<p:inputText id="id" disabled="true" size="5" readonly="true"
+				value="#{emitenteCrud.objeto.codEmitente}">
+			</p:inputText>
+
+			<p:outputLabel value="Nome: *" for="nome" />
+			<p:inputText id="nome" value="#{emitenteCrud.objeto.nome}">				
+			</p:inputText>
+
+			<p:commandLink value="Cidade: *" onclick="PF('dialogoCid').show();" />
+			<p:autoComplete id="cidade" size="60" dropdown="true"
+				multiple="false" forceSelection="true" var="obj"
+				itemLabel="#{obj.nome} - #{obj.estado}" itemValue="#{obj}"
+				value="#{emitenteCrud.objeto.cidade}" placeholder="Cidade - UF"
+				converter="cidadeConverter" maxResults="5"
+				completeMethod="#{emitenteCrud.completeCidade}" />
+
+			<p:outputLabel value="Rua : *" for="rua" />
+			<p:inputText id="rua" value="#{emitenteCrud.objeto.rua}">
+				<p:ajax event="valueChange" immediate="true" update="nome"></p:ajax>
+			</p:inputText>
+
+			<p:outputLabel value="Numero : *" for="numero" />
+			<p:inputText id="numero" value="#{emitenteCrud.objeto.numero}" />
+
+			<p:outputLabel value="Bairro : *" for="bairro" />
+			<p:inputText id="bairro" value="#{emitenteCrud.objeto.bairro}" />
+
+			<p:outputLabel value="Complemento : *" for="complemento" />
+			<p:inputText id="complemento"
+				value="#{emitenteCrud.objeto.complemento}" />
+
+			<p:outputLabel value="Telefone : *" for="telefone" />
+			<p:inputText id="telefone" value="#{emitenteCrud.objeto.telefone}" />
+			<f:facet name="footer">
+				<p:commandButton value="Gravar" action="#{emitenteCrud.gravar}"
+					icon="fa fa-check fa-lg" style="width:88px;height:20px" ajax="true">
+				</p:commandButton>
+				<p:commandButton value="Cancelar" icon="fa fa-close fa-lg"
+					style="width:88px;height:20px" action="#{emitenteCrud.cancelar}"
+					ajax="false" immediate="true" />
+			</f:facet>
+			
+		</p:panelGrid>
+		
+	</h:form>
+
+	<p:dialog header="Cidades" widgetVar="dialogoCid" width="800"
+		height="600" resizable="true" modal="true">
+
+		<iframe src="../Cidade/CidadeList.xhtml"
+			style="width: 100%; height: 100%;" frameborder="0"></iframe>
+
+	</p:dialog>
+	
+</h:body>
+</html>

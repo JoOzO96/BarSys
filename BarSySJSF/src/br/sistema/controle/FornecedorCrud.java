@@ -34,13 +34,12 @@ public class FornecedorCrud {
 	
 	public List<Cidade> completeCidade(String query) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		 List<Cidade> results = em.createQuery(
-		 "from Cidade where upper(nome) like "+
-		"'"+query.trim().toUpperCase()+"%' "+
-		 "order by nome").getResultList();
-		 em.close();
-		 return results;
-		}
+		List<Cidade> results = em.createQuery(
+				"from Cidade where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+				.getResultList();
+		em.close();
+		return results;
+	}
 	public List<Fornecedor> completeFornecedor(String query) {
 		EntityManager em = FabricaConexao.getEntityManager();
 		 List<Fornecedor> results = em.createQuery(

@@ -51,6 +51,7 @@ public class ListaPedidoEntrega {
 		em.getTransaction().commit();
 		em.close();
 		inicializarLista();
+		abrirItens(codPedido);
 		return "ListaPedidoEntregaForm?faces-redirect=true";
 	
 	}

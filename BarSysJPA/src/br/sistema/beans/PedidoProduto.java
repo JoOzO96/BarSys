@@ -35,6 +35,7 @@ public class PedidoProduto implements Serializable {
 	private Produto produto;
 	private Boolean itementregue;
 	private Boolean finalizado;
+	private Boolean baixa;
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,6 +53,7 @@ public class PedidoProduto implements Serializable {
 		quantidade = 1F;
 		itementregue = false;
 		finalizado = false;
+		baixa = false;
 	}
 
 	public Long getCodPedidoProduto() {
@@ -121,4 +123,13 @@ public class PedidoProduto implements Serializable {
 	public void setItementregue(Boolean itementregue) {
 		this.itementregue = itementregue;
 	}
+
+	public Boolean getBaixa() {
+		return baixa;
+	}
+
+	public void setBaixa(Boolean baixa) {
+		this.baixa = baixa;
+	}
+	
 }

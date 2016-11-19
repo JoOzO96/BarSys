@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import br.sistema.beans.Emitente;
 import br.sistema.beans.Usuario;
 import br.sistema.uteis.FabricaConexao;
 
@@ -23,6 +24,7 @@ public class LoginControle {
 	 * do sistema.
 	 */
 	private Usuario usuarioLogado = null;
+	private Emitente emitente = null;
 
 	public LoginControle() {
 	}
@@ -41,6 +43,7 @@ public class LoginControle {
 		qry.setParameter("usuario", usuario);
 		qry.setParameter("senha", senha);
 		List<Usuario> list = qry.getResultList();
+		emitente = (Emitente) em.createQuery("from Emitente where codemitente = 1").getResultList().get(0);
 		em.close();
 		if (list.size() <= 0) {
 			usuarioLogado = null;
@@ -83,6 +86,14 @@ public class LoginControle {
 
 	public Usuario getUsuarioLogado() {
 		return usuarioLogado;
+	}
+
+	public Emitente getEmitente() {
+		return emitente;
+	}
+
+	public void setEmitente(Emitente emitente) {
+		this.emitente = emitente;
 	}
 
 	public void setUsuarioLogado(Usuario usuarioLogado) {

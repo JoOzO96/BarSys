@@ -117,7 +117,7 @@
 					multiple="false" forceSelection="true" var="obj"
 					itemLabel="#{obj.nome} - #{obj.estado}" itemValue="#{obj}"
 					value="#{fornecedorCrud.enderecoFornecedor.cidade}"
-					converter="cidadeConverter" maxResults="5"
+					converter="cidadeConverter" maxResults="5" placeholder="Cidade - UF"
 					completeMethod="#{fornecedorCrud.completeCidade}" />
 
 				<p:outputLabel value="Endereco:  *" for="endereco" />

@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Entity implementation class for Entity: Emitente
@@ -21,12 +24,24 @@ public class Emitente implements Serializable {
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "seq_emitente")
 	@SequenceGenerator(name = "seq_emitente", sequenceName = "seq_emitente", allocationSize = 1)
-	private Long idEmitente;
+	private Long codEmitente;
+	@NotNull(message="O nome do emitente nao pode ser em nulo.")
+	@NotBlank(message="O nome do emitente nao pode ser em branco.")
 	private String nome;
+	@NotNull(message="A rua do emitente nao pode ser em nulo.")
+	@NotBlank(message="A rua do emitente nao pode ser em branco.")
 	private String rua;
+	@NotNull(message="O numero do emitente nao pode ser em nulo.")
+	@NotBlank(message="O numero do emitente nao pode ser em branco.")
 	private String numero;
+	@NotNull(message="O telefone do emitente nao pode ser em nulo.")
+	@NotBlank(message="O telefone do emitente nao pode ser em branco.")
 	private String telefone;
+	@ManyToOne(optional = false)
+	@NotNull(message="A cidade do emitente nao pode ser em nulo.")
 	private Cidade cidade;
+	@NotNull(message="O bairro do emitente nao pode ser em nulo.")
+	@NotBlank(message="O bairro do emitente nao pode ser em branco.")
 	private String bairro;
 	private String complemento;
 	private static final long serialVersionUID = 1L;
@@ -34,13 +49,15 @@ public class Emitente implements Serializable {
 	public Emitente() {
 		super();
 	}   
-	public Long getIdEmitente() {
-		return this.idEmitente;
+
+	public Long getCodEmitente() {
+		return codEmitente;
 	}
 
-	public void setIdEmitente(Long idEmitente) {
-		this.idEmitente = idEmitente;
-	}   
+	public void setCodEmitente(Long codEmitente) {
+		this.codEmitente = codEmitente;
+	}
+
 	public String getNome() {
 		return this.nome;
 	}

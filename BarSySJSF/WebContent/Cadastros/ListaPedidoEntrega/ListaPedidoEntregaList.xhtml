@@ -47,12 +47,6 @@
 				<h:outputText value="#{lis.nrComanda}"></h:outputText>
 			</p:column>
 
-			<p:column headerText="Entregue" width="90">
-				<p:commandButton id="botaoEntrega" ajax="true" update="formLista"
-					icon="fa fa-check fa-lg" style="width:88px;height:20px"
-					actionListener="#{listaPedidoEntrega.entrega(lis.codPedido)}" />
-			</p:column>
-
 			<p:column headerText="Itens" width="90">
 				<p:commandButton id="botaoItensPedido" ajax="true"
 					actionListener="#{listaPedidoEntrega.abrirItens(lis.codPedido)}"
@@ -92,7 +86,6 @@
 				<p:commandButton id="botaoEntregaItem" ajax="true" update="formItensPedido"
 					icon="fa fa-check fa-lg" style="width:88px;height:20px"
 					actionListener="#{listaPedidoEntrega.entregaItem(obj.codPedidoProduto, obj.pedido.codPedido)}" >
-						<f:ajax event="click" onevent="diag.hide()"></f:ajax>
 					</p:commandButton>
 			</p:column>
 				
