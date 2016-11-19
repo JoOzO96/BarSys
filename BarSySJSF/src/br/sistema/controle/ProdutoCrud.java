@@ -45,6 +45,7 @@ public class ProdutoCrud {
 		}
 	
 	public String incluir() {
+		desativa = true;
 		objeto = new Produto();
 		desabilita();
 		return "ProdutoForm?faces-redirect=true";
@@ -78,6 +79,7 @@ public class ProdutoCrud {
 		EntityManager em = FabricaConexao.getEntityManager();
 		objeto = em.find(Produto.class, id);
 		em.close();
+		desativa = objeto.getListacozinha();
 		desabilita();
 		return "ProdutoForm?faces-redirect=true";
 	}

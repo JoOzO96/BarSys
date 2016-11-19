@@ -185,6 +185,9 @@ public class PedidoCrud {
 			controlaEdicao(objeto.getCodPedido());
 		}
 		if (liberaEdicao) {
+			if (itensPedido.getProduto().getListacozinha() == false){
+				itensPedido.setFinalizado(true);
+			}
 			if (this.rowIndex == null) {
 				itensPedido.setPedido(objeto);
 				objeto.getItensPedido().add(itensPedido); // adiciona item na
@@ -241,7 +244,6 @@ public class PedidoCrud {
 	}
 
 	public void retornaValorUn() {
-		System.out.println(itensPedido.getValorUn());
 		itensPedido.setValorUn(itensPedido.getValorUn().floatValue());
 	}
 
