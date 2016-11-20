@@ -1,21 +1,18 @@
 package br.sistema.beans;
 
-import java.io.Serializable;
-import java.lang.Float;
-import java.lang.Long;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
-import br.sistema.beans.ContasPagar;
-
 import static javax.persistence.GenerationType.SEQUENCE;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 /**
  * Entity implementation class for Entity: ContasPagarParcela

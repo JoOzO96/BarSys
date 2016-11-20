@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Conpatible" content="IE=edge" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>Lista de Emitentes</title>
+	<h:outputScript library="primefaces" name="jquery/jquery.js"
+		target="head" />
+</h:head>
+<h:body onload="#{emitenteCrud.inicializarLista()}">
+
+	<h:form id="formLista">
+		<p:growl />
+		<p:dataTable var="emi" value="#{emitenteCrud.lista}" paginator="true"
+			rows="10" rowsPerPageTemplate="5,10,15"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
+{LastPageLink} {RowsPerPageDropdown}"
+			currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}."
+			emptyMessage="Nenhum resultado encontrado">
+			<f:facet name="header">
+				<p:spacer height="30"></p:spacer>
+				<div align="left" style="position: absolute; top: 20px; width: 95%;">
+					<p:outputLabel value="Listagem de Emitentes"></p:outputLabel>
+				</div>
+			</f:facet>
+			<p:column headerText="Código" sortBy="#{emi.codEmitente}"
+				filterBy="#{emi.codEmitente}" filterMatchMode="exact">
+				<h:outputText value="#{emi.codEmitente}" />
+			</p:column>
+			<p:column headerText="Nome" sortBy="#{emi.nome}"
+				filterBy="#{emi.nome}" filterMatchMode="contains">
+				<h:outputText value="#{emi.nome}" />
+			</p:column>
+			<p:column headerText="Telefone" sortBy="#{emi.telefone}"
+				filterBy="#{emi.telefone}" filterMatchMode="contains">
+				<h:outputText value="#{emi.telefone}" />
+			</p:column>
+			<p:column headerText="Alterar" width="90">
+				<p:commandButton action="#{emitenteCrud.alterar(emi.codEmitente)}"
+					icon="fa fa-pencil fa-lg" style="width:70px;height:20px"
+					ajax="false" />
+			</p:column>
+		</p:dataTable>
+
+	</h:form>
+</h:body>
+
+</html>

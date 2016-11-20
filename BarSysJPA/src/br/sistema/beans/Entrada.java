@@ -1,22 +1,24 @@
-package br.sistema.beans;
+	package br.sistema.beans;
+
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 import java.io.Serializable;
-import java.lang.Float;
-import java.lang.Long;
-import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.GenerationType.SEQUENCE;
 
 /**
  * Entity implementation class for Entity: Entrada

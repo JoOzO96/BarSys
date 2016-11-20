@@ -5,6 +5,8 @@ import java.lang.Long;
 import java.lang.String;
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.Length;
+
 /**
  * Entity implementation class for Entity: Usuario
  *
@@ -18,7 +20,9 @@ public class Usuario implements Serializable {
 	@GeneratedValue(generator = "seq_usuario")
 	@SequenceGenerator(name = "seq_usuario",sequenceName="seq_usuario", allocationSize = 1, initialValue = 1)
 	private Long codUsuario;
+	@Length(min=0, max=254, message="O usuario deve ter entre {min} e {max} caracteres!")
 	private String usuario;
+	@Length(min=0, max=254, message="A senha deve ter entre {min} e {max} caracteres!")
 	private String senha;
 	private Long grauAcesso;
 	private static final long serialVersionUID = 1L;

@@ -35,7 +35,9 @@ public class FornecedorEndereco implements Serializable {
 	@Length(min = 1, max = 50, message = "O numero da rua deve ter entre {min} e {max} caracteres!")
 	@Column(length = 50)
 	private String bairro;
+	@Length(min=0, max=254, message="O complemento deve ter entre {min} e {max} caracteres!")
 	private String complemento;
+	@Length(min=0, max=254, message="A referencia deve ter entre {min} e {max} caracteres!")
 	private String referencia;
 	@ManyToOne(optional = false)
 	private Cidade cidade;

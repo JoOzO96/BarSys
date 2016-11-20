@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CNPJ;
 
@@ -32,6 +33,7 @@ public class Fornecedor implements Serializable {
 	@NotEmpty(message = "Deve informar o CNPJ do fornecedor!")
 	private String cnpj;
 	@NotEmpty(message = "Deve informar o nome do fornecedor!")
+	@Length(min=0, max=254, message="O nome deve ter entre {min} e {max} caracteres!")
 	private String nome;
 	@NotNull(message = "Os enderecos do fornecedor devem ser inicializados!")
 	@Size(min = 1, message = "Deve ter pelo menos um endereco no fornecedor!")

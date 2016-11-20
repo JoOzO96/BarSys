@@ -1,20 +1,19 @@
 package br.sistema.beans;
 
 import java.io.Serializable;
-import java.lang.Float;
-import java.lang.Long;
-import java.lang.String;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import javax.persistence.*;
-import javax.validation.constraints.Min;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-
-import javassist.expr.NewArray;
 
 /**
  * Entity implementation class for Entity: MateriaPrima

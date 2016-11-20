@@ -6,6 +6,8 @@ import java.lang.String;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+
 import static javax.persistence.GenerationType.SEQUENCE;
 
 /**
@@ -21,6 +23,7 @@ public class Situacao implements Serializable {
 	@SequenceGenerator(name = "seq_situacao", sequenceName = "seq_situacao", allocationSize = 1, initialValue = 1)
 	private Long codSituacao;
 	@NotNull(message = "Uma descricao deve ser informada")
+	@Length(min=0, max=254, message="A descrição deve ter entre {min} e {max} caracteres!")
 	private String descricao;
 	private boolean finaliza;
 	private boolean cozinha;

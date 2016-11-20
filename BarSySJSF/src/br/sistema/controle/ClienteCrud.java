@@ -8,8 +8,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
-import org.postgresql.util.PSQLException;
-
 import br.sistema.beans.Cidade;
 import br.sistema.beans.Cliente;
 import br.sistema.beans.ClienteEndereco;
@@ -51,10 +49,23 @@ public class ClienteCrud {
 	public String gravar() {
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
+		if (objeto.getCodCliente() == null){		
 		em.merge(objeto);
 		em.getTransaction().commit();
 		em.close();
 		return "ClienteList?faces-redirect=true";
+		}else if (objeto.getCodCliente() > 1){
+			em.merge(objeto);
+			em.getTransaction().commit();
+			em.close();
+			return "ClienteList?faces-redirect=true";
+		}else{
+			FacesMessage mensagem = new FacesMessage();
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			mensagem.setSummary("Não é possivel editar esse cliente pois ela e padrao do sistema.");
+			FacesContext.getCurrentInstance().addMessage("", mensagem);
+			return "";
+		}
 	}
 
 	public String cancelar() {

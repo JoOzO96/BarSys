@@ -16,15 +16,12 @@ import br.sistema.uteis.FabricaConexao;
 @SessionScoped
 public class EmitenteCrud {
 
-	private List<Entrada> lista;
-	private Emitente objeto = new Emitente();
-	int var = 1;
+	private List<Emitente> lista;
+	private Emitente objeto;
 	
-	public void inicio(){
+	public void inicializarLista() {
 		EntityManager em = FabricaConexao.getEntityManager();
-		objeto = em.find(Emitente.class, 1L);
-		System.out.println(objeto);
-		var =2;
+		lista = em.createQuery("from Emitente").getResultList();
 		em.close();
 	}
 
@@ -35,9 +32,14 @@ public class EmitenteCrud {
 		em.merge(objeto);
 		em.getTransaction().commit();
 		em.close();
-		var =1;
-		return "Sistema/Home/Home.xhtml";
+		return "EmitenteList?faces-redirect=true";
 
+	}
+	public String alterar(Long id) {
+		EntityManager em = FabricaConexao.getEntityManager();
+		objeto = em.find(Emitente.class, id);
+		em.close();
+		return "EmitenteForm?faces-redirect=true";
 	}
 
 	public List<Cidade> completeCidade(String query) {
@@ -50,18 +52,18 @@ public class EmitenteCrud {
 	}
 
 	public String cancelar() {
-		return "/Sistema/Home/Home.xhtml";
+		return "EmitenteList?faces-redirect=true";
 	}
 
 	public EmitenteCrud() {
 		super();
 	}
 
-	public List<Entrada> getLista() {
+	public List<Emitente> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<Entrada> lista) {
+	public void setLista(List<Emitente> lista) {
 		this.lista = lista;
 	}
 
@@ -71,14 +73,6 @@ public class EmitenteCrud {
 
 	public void setObjeto(Emitente objeto) {
 		this.objeto = objeto;
-	}
-
-	public int getVar() {
-		return var;
-	}
-
-	public void setVar(int var) {
-		this.var = var;
 	}
 
 }

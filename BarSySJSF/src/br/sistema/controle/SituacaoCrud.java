@@ -8,6 +8,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
+import com.sun.webkit.ThemeClient;
+
 import br.sistema.beans.Situacao;
 import br.sistema.uteis.FabricaConexao;
 
@@ -17,6 +19,7 @@ public class SituacaoCrud {
 
 	private List<Situacao> lista;
 	private Situacao objeto;
+	private Boolean libera = false;
 
 	public void inicializarLista() {
 		EntityManager em = FabricaConexao.getEntityManager();
@@ -30,13 +33,28 @@ public class SituacaoCrud {
 		return "SituacaoForm?faces-redirect=true";
 	}
 
-	public String gravar() {
+	public String gravar() throws InterruptedException {
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
-		em.merge(objeto);
-		em.getTransaction().commit();
-		em.close();
-		return "SituacaoList?faces-redirect=true";
+		if (objeto != null) {
+			if (objeto.getCodSituacao() > 5) {
+				em.merge(objeto);
+				em.getTransaction().commit();
+				em.close();
+				return "SituacaoList?faces-redirect=true";
+			} else {
+				FacesMessage mensagem = new FacesMessage();
+				mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+				mensagem.setSummary("Não é possivel editar essa situacao pois ela e padrao do sistema.");
+				FacesContext.getCurrentInstance().addMessage("", mensagem);
+				return "";
+			}
+		}else{
+			em.merge(objeto);
+			em.getTransaction().commit();
+			em.close();
+			return "SituacaoList?faces-redirect=true";
+		}
 	}
 
 	public String cancelar() {

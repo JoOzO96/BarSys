@@ -24,7 +24,7 @@ public class LoginControle {
 	 * do sistema.
 	 */
 	private Usuario usuarioLogado = null;
-	private Emitente emitente = null;
+	public Emitente emitente = null;
 
 	public LoginControle() {
 	}

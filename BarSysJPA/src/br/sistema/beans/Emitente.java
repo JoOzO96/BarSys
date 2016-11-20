@@ -10,6 +10,7 @@ import java.lang.String;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -27,22 +28,28 @@ public class Emitente implements Serializable {
 	private Long codEmitente;
 	@NotNull(message="O nome do emitente nao pode ser em nulo.")
 	@NotBlank(message="O nome do emitente nao pode ser em branco.")
+	@Length(min=0, max=254, message="O nome deve ter entre {min} e {max} caracteres!")
 	private String nome;
 	@NotNull(message="A rua do emitente nao pode ser em nulo.")
 	@NotBlank(message="A rua do emitente nao pode ser em branco.")
+	@Length(min=0, max=254, message="A rua deve ter entre {min} e {max} caracteres!")
 	private String rua;
 	@NotNull(message="O numero do emitente nao pode ser em nulo.")
 	@NotBlank(message="O numero do emitente nao pode ser em branco.")
+	@Length(min=0, max=254, message="O numero deve ter entre {min} e {max} caracteres!")
 	private String numero;
 	@NotNull(message="O telefone do emitente nao pode ser em nulo.")
 	@NotBlank(message="O telefone do emitente nao pode ser em branco.")
+	@Length(min=0, max=50, message="O telefone deve ter entre {min} e {max} caracteres!")
 	private String telefone;
 	@ManyToOne(optional = false)
 	@NotNull(message="A cidade do emitente nao pode ser em nulo.")
 	private Cidade cidade;
 	@NotNull(message="O bairro do emitente nao pode ser em nulo.")
 	@NotBlank(message="O bairro do emitente nao pode ser em branco.")
+	@Length(min=0, max=254, message="O bairro deve ter entre {min} e {max} caracteres!")
 	private String bairro;
+	@Length(min=0, max=254, message="O complemento deve ter entre {min} e {max} caracteres!")
 	private String complemento;
 	private static final long serialVersionUID = 1L;
 

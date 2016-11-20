@@ -20,6 +20,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -42,6 +43,7 @@ public class ContasPagar implements Serializable {
 	@Min(message = "O valor total deve ser maior que zero.", value = 0)
 	private Float valorTotal;
 	@NotEmpty(message = "Deve informar a descricao da conta!")
+	@Length(max=254, message="A descricao nao pode ter mais que {max} caracteres" )
 	private String descricao;
 	@NotNull(message = "Deve informar o valor pago da conta!")
 	private Float valorPago;
