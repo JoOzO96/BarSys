@@ -211,7 +211,7 @@ public class PedidoCrud {
 	public void calculaValorTotal() {
 		Float valorPago = 0.0F;
 		for (PedidoProduto it : objeto.getItensPedido())
-			valorPago += it.getValorUn();
+			valorPago += it.getValorUn() * it.getQuantidade();
 		objeto.setValorTotal(valorPago);
 	}
 

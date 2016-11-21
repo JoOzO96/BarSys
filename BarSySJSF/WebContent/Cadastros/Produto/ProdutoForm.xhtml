@@ -88,7 +88,7 @@
 					<p:commandButton
 						actionListener="#{produtoCrud.excluirProdutoComposicao(rowIndex)}"
 						ajax="true" icon="fa fa-close fa-lg"
-						style="width:88px;height:20px"
+						style="width:88px;height:20px" update="tabelaProdutoComposicao, formEditar:valorCusto"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
 					</p:commandButton>
 				</p:column>
@@ -125,9 +125,8 @@
 				</p:autoComplete>
 
 				<p:outputLabel value="Quantidade: *" for="quantidade" />
-				<p:inputNumber id="quantidade" 
+				<p:inputNumber id="quantidade" decimalPlaces="2" decimalSeparator="," thousandSeparator="."
 					value="#{produtoCrud.produtoComposicao.quantidade}">
-					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 				</p:inputNumber>
 
 			</h:panelGrid>

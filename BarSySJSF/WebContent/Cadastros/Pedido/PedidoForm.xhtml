@@ -81,8 +81,8 @@
 				</p:column>
 
 				<p:column headerText="Quantidade:">
-					<h:outputText value="#{obj.quantidade}" >
-						<f:convertNumber pattern="#,##0.00"></f:convertNumber>	
+					<h:outputText value="#{obj.quantidade}" >	
+					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 					</h:outputText>
 				</p:column>
 
@@ -141,10 +141,9 @@
 				value="#{pedidoCrud.itensPedido.valorUn}"/>
 
 				<p:outputLabel value="Quantidade: *" for="quantidade" />
-				<p:inputText id="quantidade" 
+				<p:inputNumber id="quantidade" decimalSeparator="," decimalPlaces="2" thousandSeparator="."  
 					value="#{pedidoCrud.itensPedido.quantidade}">
-					<f:convertNumber pattern="#,##0.00"></f:convertNumber>
-				</p:inputText>
+				</p:inputNumber>
 
 			</h:panelGrid>
 
