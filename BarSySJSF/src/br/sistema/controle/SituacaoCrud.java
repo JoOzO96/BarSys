@@ -8,8 +8,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
-import com.sun.webkit.ThemeClient;
-
 import br.sistema.beans.Situacao;
 import br.sistema.uteis.FabricaConexao;
 
@@ -36,7 +34,7 @@ public class SituacaoCrud {
 	public String gravar() throws InterruptedException {
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
-		if (objeto != null) {
+		if (objeto.getCodSituacao() != null) {
 			if (objeto.getCodSituacao() > 5) {
 				em.merge(objeto);
 				em.getTransaction().commit();
@@ -49,7 +47,7 @@ public class SituacaoCrud {
 				FacesContext.getCurrentInstance().addMessage("", mensagem);
 				return "";
 			}
-		}else{
+		} else {
 			em.merge(objeto);
 			em.getTransaction().commit();
 			em.close();

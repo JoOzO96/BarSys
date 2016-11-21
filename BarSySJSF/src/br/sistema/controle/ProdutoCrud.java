@@ -1,9 +1,14 @@
 package br.sistema.controle;
 
 import java.util.List;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+
+import org.postgresql.util.PSQLException;
 
 import br.sistema.beans.MateriaPrima;
 import br.sistema.beans.Produto;
@@ -26,40 +31,37 @@ public class ProdutoCrud {
 
 	public List<Produto> completeProduto(String query) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		 List<Produto> results = em.createQuery(
-		 "from Produto where upper(nome) like "+
-		"'"+query.trim().toUpperCase()+"%' "+
-		 "order by nome").getResultList();
-		 em.close();
-		 return results;
-		}
-	
+		List<Produto> results = em.createQuery(
+				"from Produto where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+				.getResultList();
+		em.close();
+		return results;
+	}
+
 	public List<MateriaPrima> completeMateriaPrima(String query) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		 List<MateriaPrima> results = em.createQuery(
-		 "from MateriaPrima where upper(nome) like "+
-		"'"+query.trim().toUpperCase()+"%' "+
-		 "order by nome").getResultList();
-		 em.close();
-		 return results;
-		}
-	
+		List<MateriaPrima> results = em.createQuery("from MateriaPrima where upper(nome) like " + "'"
+				+ query.trim().toUpperCase() + "%' " + "order by nome").getResultList();
+		em.close();
+		return results;
+	}
+
 	public String incluir() {
 		desativa = true;
 		objeto = new Produto();
 		desabilita();
 		return "ProdutoForm?faces-redirect=true";
 	}
-	
-	public void desabilita(){
-		if (desativa){
-			desativa=false;
+
+	public void desabilita() {
+		if (desativa) {
+			desativa = false;
 			objeto.setListacozinha(true);
-		}else{
-			desativa=true;
+		} else {
+			desativa = true;
 			objeto.setListacozinha(false);
 		}
-		
+
 	}
 
 	public String gravar() {
@@ -85,15 +87,34 @@ public class ProdutoCrud {
 	}
 
 	public String excluir(Long id) {
-		EntityManager em = FabricaConexao.getEntityManager();
-		objeto = em.find(Produto.class, id);
-		 em.getTransaction().begin();
-		 em.remove(objeto);
-		 em.getTransaction().commit();
-		em.close();
-		 return "ProdutoList?faces-redirect=true";
+		try {
+			EntityManager em = FabricaConexao.getEntityManager();
+			objeto = em.find(Produto.class, id);
+			em.getTransaction().begin();
+			em.remove(objeto);
+			em.getTransaction().commit();
+			em.close();
+			return "ProdutoList?faces-redirect=true";
+		} catch (Exception e) {
+			FacesMessage mensagem = new FacesMessage();
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			Throwable err = e.getCause();
+
+			while (err != null) {
+				if (err instanceof PSQLException) {
+					PSQLException pe = (PSQLException) err;
+					String erro = pe.toString();
+					if (erro.contains("pedidoproduto")) {
+						mensagem.setSummary("Nao é possivel excluir o produto, pois ela esta vinculada a um Pedido");
+					}
+				}
+				err = err.getCause();
+			}
+			FacesContext.getCurrentInstance().addMessage("", mensagem);
+			return "";
 		}
-	
+	}
+
 	public ProdutoCrud() {
 		super();
 	}
@@ -113,10 +134,9 @@ public class ProdutoCrud {
 	public void setObjeto(Produto objeto) {
 		this.objeto = objeto;
 	}
-	
-	
-	
-	private ProdutoComposicao produtoComposicao; // item em edição, vinculado ao formulário
+
+	private ProdutoComposicao produtoComposicao; // item em edição, vinculado ao
+													// formulário
 
 	private Integer rowIndex = null; // índice do item selecionado - alterar e
 										// excluir
@@ -129,32 +149,38 @@ public class ProdutoCrud {
 
 	public void alterarProdutoComposicao(Integer rowIndex) {
 		this.rowIndex = rowIndex;
-		produtoComposicao = objeto.getProdutoComposicao().get(rowIndex); // pega item da
-															// coleção
+		produtoComposicao = objeto.getProdutoComposicao().get(rowIndex); // pega
+																			// item
+																			// da
+		// coleção
 		calculaCusto();
 	}
 
 	public void excluirProdutoComposicao(Integer rowIndex) {
-		objeto.getProdutoComposicao().remove(rowIndex.intValue()); // exclui item
+		objeto.getProdutoComposicao().remove(rowIndex.intValue()); // exclui
+																	// item
 		calculaCusto();
 	}
 
 	public void gravarProdutoComposicao() {
 		if (this.rowIndex == null) {
 			produtoComposicao.setProduto(objeto);
-			objeto.getProdutoComposicao().add(produtoComposicao); // adiciona item na coleção
+			objeto.getProdutoComposicao().add(produtoComposicao); // adiciona
+																	// item na
+																	// coleção
 		} else {
-			objeto.getProdutoComposicao().set(rowIndex, produtoComposicao); // altera na
-																// coleção
+			objeto.getProdutoComposicao().set(rowIndex, produtoComposicao); // altera
+																			// na
+			// coleção
 		}
 		rowIndex = null;
 		produtoComposicao = null;
 		calculaCusto();
 	}
-	
-	public void calculaCusto(){
+
+	public void calculaCusto() {
 		Float valorCusto = 0F;
-		for (ProdutoComposicao it : objeto.getProdutoComposicao()){
+		for (ProdutoComposicao it : objeto.getProdutoComposicao()) {
 			valorCusto += it.getMateriaPrima().getValorUltimaCompra() * it.getQuantidade();
 		}
 		objeto.setValorCusto(valorCusto);
@@ -184,6 +210,5 @@ public class ProdutoCrud {
 	public void setProdutoComposicao(ProdutoComposicao produtoComposicao) {
 		this.produtoComposicao = produtoComposicao;
 	}
-	
 
 }

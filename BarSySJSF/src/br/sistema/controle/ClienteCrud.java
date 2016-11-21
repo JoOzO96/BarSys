@@ -8,6 +8,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
+import org.postgresql.util.PSQLException;
+
 import br.sistema.beans.Cidade;
 import br.sistema.beans.Cliente;
 import br.sistema.beans.ClienteEndereco;
@@ -80,45 +82,45 @@ public class ClienteCrud {
 	}
 
 	public String excluir(Long id) {
-//		try {
+		try {
 			EntityManager em = FabricaConexao.getEntityManager();
-			if (id > 1) {
+			if (id > 1L) {
 				objeto = em.find(Cliente.class, id);
 				em.getTransaction().begin();
 				em.remove(objeto);
 				em.getTransaction().commit();
 				em.close();
 				return "ClienteList?faces-redirect=true";
-			}else{
+			}else {
 				FacesMessage mensagem = new FacesMessage();
 				mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
-				mensagem.setSummary("Nao é possivel excluir a Situacao, pois ela é padrao do sistema");
+				mensagem.setSummary("Não é possivel deletar esse cliente pois ele e padrao do sistema.");
 				FacesContext.getCurrentInstance().addMessage("", mensagem);
 				return "";
 			}
-//		} catch (Exception e) {
-//			FacesMessage mensagem = new FacesMessage();
-//			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
-//			Throwable err = e.getCause();
-//
-//			while (err != null) {
-//				if (err instanceof PSQLException) {
-//					PSQLException pe = (PSQLException) err;
-//					String erro = pe.toString();
-//					if (erro.contains("pedido")) {
-//						mensagem.setSummary("Nao é possivel excluir o cliente, pois ele esta vinculado a um Pedido");
-//					} else if (erro.contains("clienteendereco")) {
-//						mensagem.setSummary("Nao é possivel excluir o cliente, pois ela esta vinculada a um Cliente");
-//					}else{
-//						mensagem.setSummary("Nao é possivel excluir a Situacao, pois ela é padrao do sistema");
-//					}
-//					FacesContext.getCurrentInstance().addMessage("", mensagem);
-//				}
-//				err = err.getCause();
-//			}
-//			FacesContext.getCurrentInstance().addMessage("", mensagem);
-//			return "";
-//		}
+		} catch (Exception e) {
+			FacesMessage retorna = new FacesMessage();
+			retorna.setSeverity(FacesMessage.SEVERITY_ERROR);
+			Throwable err = e.getCause();
+
+			while (err != null) {
+				if (err instanceof PSQLException) {
+					PSQLException pe = (PSQLException) err;
+					String erro = pe.toString();
+					if (erro.contains("pedido")) {
+						retorna.setSummary("Nao é possivel excluir o cliente, pois ele esta vinculado a um Pedido");
+					} else if (erro.contains("clienteendereco")) {
+						retorna.setSummary("Nao é possivel excluir o cliente, pois ela esta vinculada a um Cliente");
+					}else{
+						retorna.setSummary("Nao é possivel excluir a Situacao, pois ela é padrao do sistema");
+					}
+				}
+				err = err.getCause();
+			}
+			FacesContext.getCurrentInstance().addMessage(null, retorna);
+			System.out.println(retorna.toString());
+			return "";
+		}
 	}
 
 	public ClienteCrud() {

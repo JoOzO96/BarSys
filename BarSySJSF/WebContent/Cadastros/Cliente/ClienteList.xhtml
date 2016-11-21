@@ -10,7 +10,7 @@
 </h:head>
 <h:body onload="#{clienteCrud.inicializarLista()}">
 	<h:form id="formLista">
-	<p:growl></p:growl>
+		<p:growl autoUpdate="true" />
 		<p:dataTable var="cli" value="#{clienteCrud.lista}" paginator="true"
 			rows="10" rowsPerPageTemplate="5,10,15"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
@@ -113,7 +113,9 @@
 					<h:outputText value="#{obj.referencia}" />
 				</p:column>
 			</p:dataTable>
+			
 		</h:form>
+		
 	</p:dialog>
 </h:body>
 
