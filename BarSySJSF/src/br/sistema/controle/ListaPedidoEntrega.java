@@ -44,9 +44,8 @@ public class ListaPedidoEntrega {
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
 		em.createQuery("UPDATE PedidoProduto set itementregue = true where codPedidoProduto = ?").setParameter(1, codpedidoproduto).executeUpdate();
-		System.out.println(em.createNativeQuery("SELECT * FROM PedidoProduto where pedido_codPedido = " + codPedido + " and itementregue = false").getResultList().size());
 		if (em.createNativeQuery("SELECT * FROM PedidoProduto where pedido_codPedido = " + codPedido + " and itementregue = false").getResultList().size() == 0){
-			em.createNativeQuery("UPDATE Pedido set situacao_codSituacao = 4, entregue = true").executeUpdate();
+			em.createNativeQuery("UPDATE Pedido set situacao_codSituacao = 4, entregue = true where codpedido = " + codPedido).executeUpdate();
 		}
 		em.getTransaction().commit();
 		em.close();

@@ -91,10 +91,8 @@
 								icon="fa fa-user fa-lg">
 							</p:menuitem>
 						</p:submenu>
-						<p:submenu label="Relatorios" icon=" fa fa-print fa-lg"
-							rendered="#{loginControle.usuarioLogado.grauAcesso > 4}">
-
-						</p:submenu>
+						<p:menuitem value="Relatorios" icon=" fa fa-print fa-lg"
+							rendered="#{loginControle.usuarioLogado.grauAcesso > 4}" target="centro" url="/faces/Cadastros/Relatorios/RelatorioForm.xhtml"/>
 						<p:menuitem value="Sair" action="#{loginControle.sair()}"
 							icon="fa fa-arrow-down fa-lg" />
 

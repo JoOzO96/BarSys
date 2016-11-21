@@ -5604,6 +5604,7 @@ public class CriarEstruturasBD {
 		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (4, false, 'Entregue', true);").executeUpdate();		
 		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (5, false, 'Finalizado', true);").executeUpdate();
 		em.createNativeQuery("INSERT INTO usuario (codusuario, grauacesso, senha, usuario) VALUES (1, 5, 'admin', 'admin');").executeUpdate();
+		em.createNativeQuery("INSERT INTO emitente (codemitente, bairro, complemento, nome, numero, rua, telefone, cidade_codcidade) VALUES (1, 'Bairro Padrao', NULL, 'Empresa Padrao', '1', 'Rua Padrao', '5496178803', 1);").executeUpdate();
 		
 		em.getTransaction().commit();
 		em.close();
@@ -5616,6 +5617,7 @@ public class CriarEstruturasBD {
 		BigInteger result1 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_cliente', 2, true)").getSingleResult();
 		BigInteger result2 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_situacao', 5, true)").getSingleResult();
 		BigInteger result3 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_usuario', 2, true)").getSingleResult();
+		BigInteger result4 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_emitente', 2, true)").getSingleResult();
 		em.getTransaction().commit();
 		em.close();
 	}

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PedidosCliente" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c95efe0c-04ff-475d-a350-8a393552de52">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Jose\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="codcli" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     pedido."codpedido" AS pedido_codpedido,
+     pedido."data" AS pedido_data,
+     pedido."entregue" AS pedido_entregue,
+     pedido."nrcomanda" AS pedido_nrcomanda,
+     pedido."valortotal" AS pedido_valortotal,
+     pedido."cliente_codcliente" AS pedido_cliente_codcliente,
+     pedido."situacao_codsituacao" AS pedido_situacao_codsituacao,
+     cliente."codcliente" AS cliente_codcliente,
+     cliente."cpf" AS cliente_cpf,
+     cliente."datacadastro" AS cliente_datacadastro,
+     cliente."nome" AS cliente_nome,
+     cliente."rg" AS cliente_rg,
+     situacao."codsituacao" AS situacao_codsituacao,
+     situacao."cozinha" AS situacao_cozinha,
+     situacao."descricao" AS situacao_descricao,
+     situacao."finaliza" AS situacao_finaliza,
+     pedidoproduto."codpedidoproduto" AS pedidoproduto_codpedidoproduto,
+     pedidoproduto."baixa" AS pedidoproduto_baixa,
+     pedidoproduto."finalizado" AS pedidoproduto_finalizado,
+     pedidoproduto."itementregue" AS pedidoproduto_itementregue,
+     pedidoproduto."quantidade" AS pedidoproduto_quantidade,
+     pedidoproduto."valordesc" AS pedidoproduto_valordesc,
+     pedidoproduto."valorun" AS pedidoproduto_valorun,
+     pedidoproduto."pedido_codpedido" AS pedidoproduto_pedido_codpedido,
+     pedidoproduto."produto_codproduto" AS pedidoproduto_produto_codproduto,
+     produto."codproduto" AS produto_codproduto,
+     produto."listacozinha" AS produto_listacozinha,
+     produto."nome" AS produto_nome,
+     produto."unidade" AS produto_unidade,
+     produto."valorcusto" AS produto_valorcusto,
+     produto."valorun" AS produto_valorun
+FROM
+     "public"."cliente" cliente INNER JOIN "public"."pedido" pedido ON cliente."codcliente" = pedido."cliente_codcliente"
+     INNER JOIN "public"."situacao" situacao ON pedido."situacao_codsituacao" = situacao."codsituacao"
+     INNER JOIN "public"."pedidoproduto" pedidoproduto ON pedido."codpedido" = pedidoproduto."pedido_codpedido"
+     INNER JOIN "public"."produto" produto ON pedidoproduto."produto_codproduto" = produto."codproduto"
+WHERE
+     cliente."codcliente" = $P{codcli}]]>
+	</queryString>
+	<field name="pedido_codpedido" class="java.lang.Long"/>
+	<field name="pedido_data" class="java.sql.Timestamp"/>
+	<field name="pedido_entregue" class="java.lang.Boolean"/>
+	<field name="pedido_nrcomanda" class="java.lang.String"/>
+	<field name="pedido_valortotal" class="java.lang.Float"/>
+	<field name="pedido_cliente_codcliente" class="java.lang.Long"/>
+	<field name="pedido_situacao_codsituacao" class="java.lang.Long"/>
+	<field name="cliente_codcliente" class="java.lang.Long"/>
+	<field name="cliente_cpf" class="java.lang.String"/>
+	<field name="cliente_datacadastro" class="java.sql.Timestamp"/>
+	<field name="cliente_nome" class="java.lang.String"/>
+	<field name="cliente_rg" class="java.lang.String"/>
+	<field name="situacao_codsituacao" class="java.lang.Long"/>
+	<field name="situacao_cozinha" class="java.lang.Boolean"/>
+	<field name="situacao_descricao" class="java.lang.String"/>
+	<field name="situacao_finaliza" class="java.lang.Boolean"/>
+	<field name="pedidoproduto_codpedidoproduto" class="java.lang.Long"/>
+	<field name="pedidoproduto_baixa" class="java.lang.Boolean"/>
+	<field name="pedidoproduto_finalizado" class="java.lang.Boolean"/>
+	<field name="pedidoproduto_itementregue" class="java.lang.Boolean"/>
+	<field name="pedidoproduto_quantidade" class="java.lang.Float"/>
+	<field name="pedidoproduto_valordesc" class="java.lang.Float"/>
+	<field name="pedidoproduto_valorun" class="java.lang.Float"/>
+	<field name="pedidoproduto_pedido_codpedido" class="java.lang.Long"/>
+	<field name="pedidoproduto_produto_codproduto" class="java.lang.Long"/>
+	<field name="produto_codproduto" class="java.lang.Long"/>
+	<field name="produto_listacozinha" class="java.lang.Boolean"/>
+	<field name="produto_nome" class="java.lang.String"/>
+	<field name="produto_unidade" class="java.lang.String"/>
+	<field name="produto_valorcusto" class="java.lang.Float"/>
+	<field name="produto_valorun" class="java.lang.Float"/>
+	<variable name="somatotal" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{pedidoproduto_valorun}]]></variableExpression>
+	</variable>
+	<group name="pedido_codpedido">
+		<groupExpression><![CDATA[$F{pedido_codpedido}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="79" uuid="5a4b4e05-a1a1-4bef-baa2-173a794d8baa"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Emitente.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="3" width="555" height="23" uuid="0dfa02d7-789d-402e-9ad1-91c7f546c208"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pedidos Para um Cliente]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="26" width="552" height="1" uuid="09b73aee-c7ab-4a34-943f-3e2318b4bab4"/>
+			</line>
+			<line>
+				<reportElement x="0" y="3" width="555" height="1" uuid="962ce87e-fe58-45b7-aba4-a08f5b4449dd"/>
+			</line>
+			<staticText>
+				<reportElement x="23" y="27" width="47" height="20" uuid="630f2cba-fdf3-4e7e-8145-711e239799cd"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="27" width="485" height="20" uuid="810a2614-f225-4fad-8054-a410b44cf954"/>
+				<textFieldExpression><![CDATA[$F{cliente_nome}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="60" width="552" height="1" uuid="b36d843d-f9fd-488a-b8b7-5fa920c93ef1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="91" height="20" uuid="0fd54786-70e0-4385-9512-4857ce4fa5b2"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Cod Pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="0" width="115" height="20" uuid="0521f14a-d34c-442b-bdab-430dd2f8b1a2"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Valor Unitario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="328" y="0" width="112" height="20" uuid="708e7e26-6a24-47b5-baef-441f0e289cd1"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="20" width="552" height="1" uuid="6532b778-f353-411b-9c3f-4c7efe691f89"/>
+			</line>
+			<staticText>
+				<reportElement x="91" y="2" width="177" height="20" uuid="fee9d46e-32a0-41fc-8988-644032bb2eeb"/>
+				<text><![CDATA[Nome Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="268" y="2" width="60" height="20" uuid="eee7c2ea-30c7-4e74-a9b3-09c36a0b3abf"/>
+				<text><![CDATA[Quant]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="91" height="20" uuid="8cad4aff-4db2-4380-87f2-de66a42a18c2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{pedido_codpedido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="328" y="0" width="112" height="20" uuid="83ad6590-bdc8-45b3-9875-6aa2739637d1"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{pedido_data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="91" y="0" width="177" height="20" uuid="d9fa3838-d96d-421b-b87e-fd9b4c358658"/>
+				<textFieldExpression><![CDATA[$F{produto_nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="268" y="0" width="60" height="20" uuid="255cf7b5-3d5b-4644-a093-686296284b59"/>
+				<textFieldExpression><![CDATA[$F{pedidoproduto_quantidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="R$#,##0.00" isBlankWhenNull="true">
+				<reportElement x="440" y="0" width="115" height="20" uuid="ddb23a77-3c29-47b7-9b0d-6631d0a6345c"/>
+				<textFieldExpression><![CDATA[$F{pedidoproduto_valorun}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="401" y="2" width="39" height="20" uuid="d5427400-2c5c-41b1-ac49-c9aba571b5ce"/>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField pattern="R$#,##0.00" isBlankWhenNull="true">
+				<reportElement x="440" y="2" width="112" height="20" uuid="ab006893-8652-458f-b3f9-844bb0bc20cc"/>
+				<textFieldExpression><![CDATA[$V{somatotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

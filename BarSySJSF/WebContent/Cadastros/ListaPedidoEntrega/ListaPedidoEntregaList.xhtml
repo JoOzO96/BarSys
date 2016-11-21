@@ -61,7 +61,7 @@
 	</h:form>
 
 	<p:dialog header="Visualizar Itens do Pedido"
-		widgetVar="dialogoItensPedido" width="1000" resizable="false"
+		widgetVar="dialogoItensPedido" width="800" resizable="false"
 		modal="true">
 		<h:form id="formItensPedido">
 			<p:dataTable id="tabelaItensPedido" rowIndexVar="rowIndex"
@@ -80,7 +80,9 @@
 					<h:outputText value="#{obj.produto.nome}"></h:outputText>
 				</p:column>
 				<p:column headerText="Quantidade:">
-					<h:outputText value="#{obj.quantidade}"></h:outputText>
+					<h:outputText value="#{obj.quantidade}">
+						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+					</h:outputText>
 				</p:column>
 				<p:column headerText="Entregue" width="90">
 				<p:commandButton id="botaoEntregaItem" ajax="true" update="formItensPedido"

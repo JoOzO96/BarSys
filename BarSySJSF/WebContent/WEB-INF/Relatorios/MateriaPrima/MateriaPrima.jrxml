@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MateriaPrima" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="92018ac1-7e6b-4837-a9c8-bc1f8fc67a9f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="30"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Jose\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     materiaprima."codmateriaprima" AS materiaprima_codmateriaprima,
+     materiaprima."datacadastro" AS materiaprima_datacadastro,
+     materiaprima."nome" AS materiaprima_nome,
+     materiaprima."quantidade" AS materiaprima_quantidade,
+     materiaprima."unidade" AS materiaprima_unidade,
+     materiaprima."valorcustomedio" AS materiaprima_valorcustomedio,
+     materiaprima."valorultimacompra" AS materiaprima_valorultimacompra
+FROM
+     "public"."materiaprima" materiaprima]]>
+	</queryString>
+	<field name="materiaprima_codmateriaprima" class="java.lang.Long"/>
+	<field name="materiaprima_datacadastro" class="java.sql.Timestamp"/>
+	<field name="materiaprima_nome" class="java.lang.String"/>
+	<field name="materiaprima_quantidade" class="java.lang.Float"/>
+	<field name="materiaprima_unidade" class="java.lang.String"/>
+	<field name="materiaprima_valorcustomedio" class="java.lang.Float"/>
+	<field name="materiaprima_valorultimacompra" class="java.lang.Float"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="79" uuid="08a3543f-eb30-4cb0-ae34-29e16bd0caee"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Emitente.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="2639f4a3-bbe3-47ed-9fe8-9c6ea0112101"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Materias Primas]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="34" width="550" height="1" uuid="3847b635-091a-4dd7-b458-e46a5341e9e6"/>
+			</line>
+			<line>
+				<reportElement x="5" y="0" width="550" height="1" uuid="416b03ae-3713-448c-ab5a-36f0cc24c775"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="79" height="35" uuid="85a4da39-49ef-448d-897e-681185b69e8e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Cod Materia Prima]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="0" width="79" height="21" uuid="7408d777-d4c1-4a94-9aa4-f839dacbe569"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Data Cadastro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="0" width="395" height="21" uuid="c6b1ca1b-d44a-4f1e-81cd-99a305f8ff9d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="35" width="79" height="24" uuid="0e01bf8e-1cfc-49d9-bbd9-2a2b1f21d7b5"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="35" width="79" height="24" uuid="0522aa8b-60a3-4446-a92b-2920eb61b0ac"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Unidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="35" width="79" height="24" uuid="5187d96d-d142-4737-b32d-787aeaea8c30"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Valor Custo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="35" width="102" height="24" uuid="93a6deea-b5f4-428b-94e3-2d2924d8aa04"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Valor Ultima Compra]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="58" width="550" height="1" uuid="a213a788-7961-4e7b-af5f-c0aeca01d6c1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="43" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="79" y="0" width="79" height="20" uuid="f7ee8e09-2fce-4985-a69b-f490230881de"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{materiaprima_datacadastro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="0" width="395" height="20" uuid="c0b89e27-8c3d-4a2e-8366-ca19271b2e35"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{materiaprima_nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="79" y="20" width="79" height="20" uuid="16e75d06-628a-4995-b7b8-a62ab105eb88"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{materiaprima_quantidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="20" width="79" height="20" uuid="10e92196-9c4b-440c-aeaf-8acdc46d9e75"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{materiaprima_unidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="R$#,##0.00">
+				<reportElement x="237" y="20" width="79" height="20" uuid="1bc76bb8-01e2-43ee-8527-4791c865e73e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{materiaprima_valorcustomedio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="R$#,##0.00">
+				<reportElement x="316" y="20" width="79" height="20" uuid="c72f07b9-d384-41fc-928f-be04600f34cc"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{materiaprima_valorultimacompra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="79" height="20" uuid="a966f7ae-4198-492a-ba80-b1a10d4c9170"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{materiaprima_codmateriaprima}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="5" y="42" width="550" height="1" uuid="463db44c-30a3-43ff-9263-f7ea0bf72e26"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

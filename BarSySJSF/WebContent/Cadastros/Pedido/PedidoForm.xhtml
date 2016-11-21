@@ -44,7 +44,7 @@
 				pattern="dd/MM/yyyy" mask="true" showOn="button" />
 
 			<p:outputLabel value="Comanda Nr.: *" for="comandaNr" />
-			<p:inputNumber id="comandaNr" value="#{pedidoCrud.objeto.nrComanda}" size="60" />
+			<p:inputNumber id="comandaNr" decimalPlaces="0" decimalSeparator="" placeholder="" value="#{pedidoCrud.objeto.nrComanda}" size="60" />
 			
 			<p:outputLabel value="Valor Total: *" for="valorTotal" />
 			<p:inputText id="valorTotal" value="#{pedidoCrud.objeto.valorTotal}" readonly="true" disabled="true">
@@ -118,7 +118,7 @@
 
 
 	<p:dialog header="Editar Itens Pedido"
-		widgetVar="dialogoItensPedido" width="1000" resizable="false"
+		widgetVar="dialogoItensPedido" width="800" resizable="false"
 		modal="true">
 		<h:form id="formItensPedido">
 			<p:growl />
